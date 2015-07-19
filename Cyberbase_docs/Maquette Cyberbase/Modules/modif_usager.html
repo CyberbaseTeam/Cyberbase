@@ -1,0 +1,75 @@
+<div id="usager">
+			<form method="GET" action="">
+				<h1>Modifier l'usager</h1>
+				<input type="radio" id="civilite" name="choix" value="Mr">Mr
+				<input type="radio" id="civilite" name="choix" value="Mme">Mme
+				<input type="radio" class="formulaire" id="civilite" name="choix" value="Mlle">Mlle<br>
+		
+				<label for="nom">Nom :</label>
+				<input type="text" class="formulaire" name="nom" placeholder="Nom" required><br>
+
+				<label for="prenom">Prénom</label>
+				<input type="text" class="formulaire" name="prenom" placeholder="Prénom" required><br>
+
+				<label for="naissance">Date de naissance :</label>
+				<input type="text" size="4" name="day" placeholder="jj" required>
+				<input type="text" size="4" name="month" placeholder="mm" required>
+				<input type="text" size="4" class="formulaire" name="year" placeholder="aaaa" required><br>
+
+				<label for="site">Site d'inscription :</label>
+				<select name="site" class="formulaire">
+					<option value="reze">Rezé</option>
+					<option value="iledenantes">Ile de Nantes</option>
+				</select><br>
+
+				<label for="formation">Niveau de formation :</label>
+				<select name="formation" class="formulaire">
+					<option value="">CEP</option>
+					<option value="">BEP</option>
+					<option value="">BAC pro</option>
+					<option value="">BAC+2</option>
+					<option value="">Master</option>
+				</select><br>
+
+				<label for="csp">CSP</label>
+				<select name="csp" class="formulaire">
+					<option value="salarie">Salarié</option>
+					<option value="emploi">Demandeur d'emploi</option>
+				</select><br>
+
+				<label for="quartier">Quartier :</label>
+				<select name="quartier" class="formulaire">
+					<option value="">Beaulieu</option>
+					<option value="">Beaujoire</option>
+				</select><br>
+
+				<label for="codepostal">Code postal :</label>
+				<input type="text" class="formulaire" name="codepostal" placeholder="Code postal" required><br>
+
+				<label for="email">Adresse mail :</label>
+				<input type="text" class="formulaire" name="email" placeholder="Adresse mail" required><br>
+
+				<label for="accompagne">Personne accompagnée par la mission locale</label>
+				<input type="radio" id="accompagne" name="choix" value="O">Oui
+				<input type="radio" class="formulaire" id="accompagne" name="choix" value="N">Non<br>
+
+				<label for="exclue1" class="exclusion1">Personne exclue de nos services</label>
+				<input type="radio" id="exclue1" name="choix" value="O">Oui
+				<input type="radio" class="formulaire" id="exclue1" name="choix" value="N">Non
+
+				<div class="exclusion2">
+					<label for="exclue2">Exclue de façon :</label>
+					<input type="radio" id="exclue2" name="choix" value="O">Temporaire
+					<input type="radio" id="exclue2" name="choix" value="N">Définitive<br>
+					<label for="exclue2">Jusqu'au :</label>
+					<input type="text" size="4" name="day1" placeholder="jj" required>
+					<input type="text" size="4" name="month1" placeholder="mm" required>
+					<input type="text" size="4" name="year1" placeholder="aaaa" required>
+				</div>
+				<div class="right">
+					<input type="button" value="Retour" class="">
+					<input type="button" value="Enregistrer" class="">
+				</div>
+			</form>
+		</div>
+	</div>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />	
+	<title>Cyberbase</title>
+	<meta name='description' content="" />
+	<meta name='keywords' content='' />
+	
+	<link href='style.css' rel='stylesheet' type='text/css' media='screen' />
+		
+</head>
+<body>
+	<header>
+		<div id='header-top'>
+			<div id='header-logo'>
+				<a href='index.php'><img src='images/logo.jpg' alt='logo' /></a>
+			</div>
+		</div>
+		
+		<div id="info_session">
+			<p>Nom: </p>
+			<p>Prénom: </p>
+			<p>Identifiant: </p>		
+		</div>
+				
+		
+		<nav id="menu-principal">
+			
+				<ul id="menu-horizontal">
+					<li><a href="">Accueil</a></li>
+					<li><a href="">Usagers</a></li>
+					<li><a href="">Salles et postes</a></li>
+					<li><a href="">Statistiques</a></li>
+					<li><a href="">Administration</a></li>
+					<li class="deconnexion"><a href="" >Déconnexion</a></li>
+				</ul>
+		</nav>
+		
+	</header>
+	<div id='content'>	
+		<div id="side-menu">
+			<nav id="menu-stat">
+				<p>Statistiques temps réel</p>
+				<ul>
+					<lh></lh>
+					<li><a href="">Mon site (Site n°3)</a></li>
+					<li><a href="">Site n°1</a></li>
+					<li><a href="">Site n°2</a></li>
+					<li><a href="">Site n°4</a></li>
+					<li><a href="">Site n°5</a></li>
+					<li><a href="">Site n°6</a></li>
+					<li><a href="">Site n°7</a></li>
+					<li><a href="">Site n°8</a></li>
+				</ul>
+
+				<p>Liste des usagers de mon site</p>
+				<ul>
+					<li><a href="">Mon site(site n°3)</a></li>
+				</ul><br />
+					<p>Mes requètes</p>
+				<ul>
+
+					<lh></lh>
+					<li><a href="">Visites du jour</a></li>
+					<li><a href="">Jeunes de moins de 25 ans</a></li>
+				</ul>
+
+			</nav>
+		</div>
+
+		<div id="statistics">
+
+			<div id="query_results">
+				<div id="tab_results">
+					<h3 id="query_name">Nom de la requète </h3>
+					<div id="result">
+						<table>
+							<tr>
+								<th><strong></strong></th>
+								<th>Visites</th>
+								<th>Nouveaux inscrits</th>
+								<th>Usagers</th>
+								<th>Usagers</th>
+								<th>Usagers</th>
+								<th>Usagers</th>
+								<th>Usagers</th>
+								<th>Usagers</th>
+								<th>Usagers</th>
+								<th>Usagers</th>
+								<th>Usagers</th>
+
+							</tr>
+							<tr>
+								<th>Ce jour(date)</th>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+
+								
+							</tr>
+							<tr>
+								<th>Ce mois(date)</th>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								
+							</tr>
+							<tr>
+								<th>Cette année(date)</th>
+								<td>755</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								
+							</tr>
+							<tr>
+								<th>Cette année(date)</th>
+								<td>755</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+								<td>8</td>
+							
+							</tr>
+						</table>
+		
+					</div>
+
+				</div>
+
+				<div id="schematics"
+
+				</div>
+			</div>
+		</div><br />
+			<div id="query">
+
+				<form action="" method="post">
+
+					<div>
+						<label for="panel_recherche" class="label">Chercher parmi:</label>
+							<input type="radio" name="panel_recherche" value="tous" checked>Tous les usagers
+							<input type="radio" name="panel_recherche" value="nouveaux"> Les nouveaux usagers
+					</div><br />	
+				
+					<fieldset>
+						<legend>Critères de recherche</legend>
+
+						<div id="sexe"><label for="sexe" class="label">Sexe: </label>
+							<input type="checkbox" name="sexe" value="M"> Masculin
+							<input type="checkbox" name="sexe" value="F"> Féminin</br />
+						</div>
+
+						<label for="Ville" class="label">Ville:  </label><input type="text" name="ville"/><br />
+						<label for="quartier" class="label">Quartier: </label>
+							<select name="quartier"><br />
+									<option value="">Saint Herblain</option>
+									<option value="">Orvault</option>
+									<option value="">Bellevue</option>
+								</select><br />
+
+						<label for="formation" class="label">Niveau de formation: </label>
+							<select name="formation"><br />
+								<option value="">CEP</option>
+								<option value="">BEP</option>
+								<option value="">BAC pro</option>
+								<option value="">BAC+2</option>
+								<option value="">Master</option>
+							</select>
+						<br />
+
+						<label for="objet_visite" class="label">Objet de la visite: </label>
+							<select name="objet_visite"><br />
+								<option value="">CV</option>
+								<option value="">Lettre de motivation</option>
+								<option value="">recherche de contacts</option>
+								<option value="">Annonces</option>
+							</select>
+						<br />
+						
+						<label for="visit_min" class="label">Nombre de venues entre </label>
+							<input type="text" name="visit_min" >
+						<label class="label_centre" for="visit_max"> et </label>
+							<input type="text" name="visit_max" ><br />
+						
+						<label for="date_debut" class="label">Venues entre </label>
+							<input type="date"	name="date_debut">
+						<label for="date_fin" class="label_centre"> et </label>
+							<input type="date" name="date_fin"><br />
+
+						
+
+						<label>Afficher le nombre de visite des usagers recherchés: </label><input type="checkbox" name="affichage_visites"/>
+					</fieldset>
+					<br />
+
+					<div class="boutons">
+
+						<input class="enregistrer_btn" type="button" value="enregistrer la requète"/>
+						<input class="valider_btn" type="submit" value="lancer la requète"/>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+		
+
+
+	</body>
+</html>
