@@ -1,0 +1,1000 @@
+@CHARSET "UTF-8";
+
+/*******************************************GENERAL******************************************/
+
+html, body {
+	width: 100%;
+	height:100%;
+}
+
+html {
+	width : 1100px;
+	margin: auto;
+	min-height: 350px;
+	padding-top: 10px;
+}
+
+a {
+	text-decoration: none;
+	color:white;
+}
+
+
+/*******************************************BOUTONS******************************************/
+
+
+/****************************************BOUTONS STATS***************************************/
+.enregistrer_btn, .valider_btn{
+	display:inline-block;
+	margin-left: 15px;
+}
+
+/***************************************BOUTON USAGER****************************************/
+.right{
+	margin-left:68%;
+}
+
+/*************************************BOUTON SALLE POSTE*************************************/
+
+/*Modifier usager*/
+.retour_poste {
+	margin-left: 80%;
+}
+
+.valider_poste {
+	margin-left: 15px;
+}
+
+/*Visualiser salle poste*/
+.liberer-postes-button{
+	width: 100%;
+	height: 30px;
+	margin-top: 15px;
+	background-color: #FF0000;
+	border-radius: 0.6em;
+}
+
+	.liberer-postes-button :hover{
+		opacity: 0.4;
+	    filter: alpha(opacity=40);
+	}
+
+	.liberer-postes-button p {
+		text-align: center;
+		color: white;
+		font-weight: bold;
+		padding-top:5px;
+	}
+
+.buttons-bas{
+	width: 100%; 
+	margin-top: 15px;
+}
+
+.modifier-button{
+	display: inline-block;
+	width: 48%; 
+	background-color: grey;
+	border-radius: 0.6em;
+	height: 35px;
+	margin-right: 5px;
+}
+
+	.modifier-button :hover{
+		 opacity: 0.4;
+	    filter: alpha(opacity=40);
+	}
+
+	.modifier-button p {
+		font-size: 0.8em;
+		text-align: center;
+		color: white;
+		font-weight: bold;
+	}
+
+.supprimer-button{
+	display: inline-block;
+	width: 48%; 
+	background-color: grey;
+	border-radius: 0.6em;
+	height: 35px;
+}
+
+	.supprimer-button :hover{
+		 opacity: 0.4;
+	    filter: alpha(opacity=40);
+	}
+
+	.supprimer-button p {
+		font-size: 0.8em;
+		text-align: center;
+		color: white;
+		font-weight: bold;
+	}
+
+#liberer-postes-salle-button{
+	width: 50%;
+	height: 40px;
+	margin: 0px auto;
+	background-color: #1C1C1C;
+	border-radius: 0.6em;
+}
+
+	#liberer-postes-salle-button p{
+		font-size: 1.1em;
+		text-align: center;
+		color: white;
+		font-weight: bold;
+		padding-top: 8px;
+	}
+
+	#liberer-postes-salle-button :hover{
+		 opacity: 0.4;
+	    filter: alpha(opacity=40);
+	}
+
+/*Affecter poste*/
+.valider-button{
+	display: inline-block;
+	border-radius: 0.6em;
+	height: 30px;
+	width: 10%;
+	text-align: center;
+	
+}
+
+	.valider-button p {
+		font-size: 1em;
+		text-align: center;
+		color: white;
+		font-weight: bold;
+		padding-bottom: 10px;
+		display: inline-block;
+	}
+
+.retour-button{
+	display: inline-block;
+	border-radius: 0.6em;
+	height: 27px;
+	width: 10%;
+	text-align: center;
+	margin-left: 15px;
+}
+
+	.retour-button p {
+		font-size: 1em;
+		text-align: center;
+		color: white;
+		font-weight: bold;
+	}
+
+/*Gestion salle poste*/
+.buttons-retour-creation{
+	width: 50%;
+	margin-top: 2%;
+	margin-left: 70%;
+}
+
+.creation-button{
+	display: inline-block;
+	width: 30%;
+	height: 40%;
+	background-color: #1C1C1C;
+	border-radius: 0.6em;
+	line-height: 1.5em;
+	text-align: center;
+}
+
+	.creation-button span{
+		color: white;	
+	}
+
+
+/*************************************BOUTON ADMIN*************************************/
+.retour_admin {
+	margin-left: 80%;
+}
+
+.valider_admin {
+	margin-left: 15px;
+}
+
+
+
+/*******************************************HEADER*******************************************/
+
+header {
+	width: 100%;
+	margin: auto;
+	}
+
+	header img{
+		height: 100px;
+	}
+	
+#header-top{
+	float: left;
+}
+
+#info_session{
+	float: left;
+	margin-left :550px;
+}
+
+	#info_session p{
+		background-color: rgba(147, 182, 244, 0.9);
+		border-radius: 15%;
+		text-align: center;
+	}
+
+
+
+/******************************************MENU PRINCIPAL*****************************************/
+
+#menu-principal{
+	clear: both;
+	float: left;
+	width: 100%;
+}
+
+#menu-horizontal{
+	width: 100%;
+	background-color: orange;
+	text-align: left;
+	padding: 5px;
+	list-style-type: none;
+}
+
+	#menu-horizontal li{
+		display: inline-block;
+		width: 179px;
+		height: 40px;
+		border-right: 1px solid white;
+		padding : 0px ;
+		margin: 0px;
+		text-align: center;
+		line-height: 40px;
+	}
+
+		#menu-horizontal li > a{
+			display: block;
+			text-transform: uppercase;
+			padding:auto;
+		}
+
+		#menu-horizontal li > a:hover { 
+			background-color: rgba(147, 182, 244, 0.9);
+			color: white;
+		}
+
+.deconnexion{
+	background-color: white;
+	border-radius: 10px;
+	padding-left: 10px;
+	border-right: 0px;
+}
+
+	.deconnexion a{
+		color: orange;		
+	}
+
+	.deconnexion a:hover{
+		color: white;
+		background-color: rgba(147, 182, 244, 0.9);
+		border-radius: 10px;
+		padding-left: 10px;
+	}
+
+
+/****************************************FIL ARIANNE*****************************************/
+
+#conteneur-arianne{
+	width: 100%;
+	height: 5%;
+	clear: both;
+	border: 1px solid black;
+	margin-top: 3px;
+	margin-bottom: 10px;
+}
+
+#conteneur-arianne h1{
+	font-size: 1.3em;
+	text-align: center;
+}
+
+
+
+/*****************************************MENU STATS*****************************************/
+
+#side-menu{
+	display: inline-block;
+	float:left;
+	width:18%;
+	height:95%;
+	background-color: #E6E6E6;
+	text-align: left;
+	padding: 5px;
+	margin: auto;
+	margin-right: 15px;
+}
+
+	#side-menu p{
+		text-align: center;
+	}
+
+	#side-menu li{	
+			width: 100%;
+			height: 40px;
+			padding: auto;
+			text-align: center;
+			line-height: 40px;
+			list-style-type: none;
+			margin-left: -20px;
+	}
+
+		#side-menu li > a{
+			display: block;
+			text-transform: uppercase;
+			padding:auto;
+		}
+
+		#side-menu li > a:hover { 
+			background-color: rgba(147, 182, 244, 0.9);
+			color: white;
+		}
+
+
+
+/**************************************STATS TEMPS REEL**************************************/
+#content{
+	clear:both;
+	height: 100%;
+	width: 100%;
+	padding: auto;
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+
+
+#statistics{
+	display: inline-block;
+	height:100%;
+	width:100%
+	border:black 1px solid;
+}
+
+#current-stats{
+	width:100%;
+	margin-left: 25%;
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+
+	#current-stats table{
+		border-spacing: 10px;
+	}
+
+		#current-stats table strong{
+			border-spacing: 5px;
+			font-size: 1.6em;
+			text-transform: uppercase;
+		}
+
+	#current-stats p{
+		font-size: 1.5em;
+	}
+
+	#current-stats th, td{
+		text-align:center;
+		margin-left: 10px;
+		
+	}
+
+	#current-stats td{
+		width:100px;
+	    background:rgba(147, 182, 244, 0.9);
+	    height:100px;
+		margin:10px;
+	    text-align:center;
+	    border-radius:100px;
+	    border: orange 1px solid;
+	    line-height: 90px;
+	    font-size: 1.5em;
+	    font-weight:bold;
+	}
+
+
+/**********************************FORMULAIRE REQUETE STATS**********************************/
+#query{
+	width: 92%;
+	padding: 2%;	
+	
+}
+
+	#query fieldset .label{
+		display: inline-block;
+		width: 25%;
+		margin-bottom: 10px;
+		margin-right: 8px;
+	}
+
+	#query fieldset input{
+		display: inline-block;
+		width: 18%;
+		margin-bottom: 10px;
+		margin-right: 8px;
+	}
+
+.label_centre{
+	width: 14%;
+	margin-bottom: 10px;
+	margin-right: 8px;
+}
+
+
+/***********************************RESULTAT REQUETE STATS***********************************/
+#query_results{
+	width:90%;
+	margin:2%;
+	padding:2%;
+}
+
+	#query_results h3{
+		text-align: center;
+	}
+
+	#query_results table{
+		width:80%;
+			text-align: center;
+			border-spacing: 0px;
+			border: solid 1px black;
+			margin: auto;
+	}
+
+	#query_results table strong{
+		border-spacing: 5px;
+		text-transform: uppercase;
+	}
+
+	#query_results th, td{
+		text-align:center;
+		border: solid 1px black;   
+	}
+
+
+/********************************************************************************************/
+/**************************************SECTION USAGERS***************************************/
+/********************************************************************************************/
+#usager{
+		display: inline-block;
+		height: 94%;
+		width: 72%;
+		margin-left: 2%;
+		border: 2px solid black;
+		border-radius: 5px;
+		padding: 2%;
+		clear: both;
+}
+
+/*
+#menu-stat li a {
+	color: black;
+}
+
+#usager caption{
+
+	padding-bottom: 10px;
+
+}
+
+# usager table  {
+	width: 80%;
+	margin: auto;
+}
+
+#usager table td {
+	width: 20%
+}
+*/
+
+/**************************************EXCLUSION USAGER***************************************/
+.exclusion1{
+	display: inline-block;
+	float: left;
+}
+
+.exclusion2{
+	border: 2px solid black;
+	border-radius: 5px;
+	width: 40%;
+	padding: 1%;
+	margin-left:55%;
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+/**************************************MODIFIER USAGER***************************************/
+.formulaire{
+	margin-bottom: 15px;	
+}
+
+
+/********************************************************************************************/
+/************************************SECTION SALLE POSTE*************************************/
+/********************************************************************************************/
+
+/***********************************VISUALISER SALLE POSTE************************************/
+#content-salles{
+	float: left;
+	width: 76%;
+	display: inline-block;
+	margin-left: 15px;
+	border: 1px solid grey;
+	padding: 8px;
+}
+
+#conteneur-colonnes{
+	width: 100%;
+	height: 100%;
+}
+
+.colonne{
+	width: 29%;
+	display: inline-block;
+	margin-right: 30px;
+}
+
+.title-colonne{
+	text-align: center;
+}
+
+.conteneur-list{
+	border: 1px solid;
+	line-height: 1.5em;
+	border-radius: 1em;
+}
+
+.list-postes{
+	list-style-type: none;
+}
+
+#liberer-postes-salle{
+	width: 100%;
+	margin-top: 20px;
+}
+
+hr {
+	margin-top: 20px;
+}
+
+
+/***********************************AFFECTER POSTE************************************/
+.colonne-affecter{
+	width: 31%;
+	display: inline-block;
+	margin-left: 16px;
+	vertical-align: top;
+}
+
+.legende-form h2{
+	font-size: 1.1em;
+}
+
+.conteneur-form{
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+.label-form{
+	width: 30%;
+	display: inline-block;
+}
+
+.champs-form{
+	width: 60%;
+	display: inline-block;
+}
+
+.conteneur-buttons{
+	width: 100%;
+	display: inline-block;
+	margin-top: 20px;
+	text-align: right;
+}
+
+
+/***********************************GESTION SALLE POSTE************************************/
+.conteneur-list-salles{
+	width: 100%;
+	height: 600px;
+	border: 1px solid;
+	overflow: scroll;
+}
+
+.list-salles{
+	display: inline-block;
+	height: 80%;
+	width: 49%;
+	border: 1px solid;
+	padding-top: 1%;
+}
+
+.list-salle-postes{
+	list-style-type: none;
+	line-height: 1.5em;
+}
+
+	.list-salle-postes li{
+		height: 50px;
+	}
+
+.modifier-poste{
+	display: inline-block;
+	text-align: center;
+	width: 30%; 
+	background-color: grey;
+	border-radius: 0.6em;
+	height: 50%;
+	margin-left: 5%;
+}
+
+.supprimer-poste{
+	display: inline-block;
+	text-align: center;
+	width: 30%; 
+	background-color: grey;
+	border-radius: 0.6em;
+	height: 50%;
+	margin-left: 5%;
+}
+
+.titre-salle{
+	margin-left: 5%;
+}
+
+/***********************************MODIFIER CREER SALLE************************************/
+#conteneur-formulaires{
+	margin: 0 auto;
+	width: 60%;
+}
+
+.ligne-formulaire{
+	width: 100%;
+	line-height: 1.8em;
+}
+
+.ligne-formulaire .label-form{
+	width: 40%;
+	display: inline-block;
+}
+
+.ligne-formulaire .champs-form{
+	width: 40%;
+	display: inline-block;
+}
+
+.list-salles-modifier{
+	margin: 0 auto;
+	height: 80%;
+	width: 59%;
+	border: 1px solid;
+	padding-top: 1%;
+}
+
+/***********************************MODIFIER POSTE************************************/
+#titre_poste h3 {
+	text-align: left;
+	margin-left: 20px;
+}
+
+#poste{
+	display: inline-block;
+	height:100%;
+	width:79%;
+	border:black 1px solid;
+	 
+}
+
+#info_poste{	
+	margin-left: 33%;
+}
+
+#query_poste{
+	width: 80%;
+	margin-left: 10%;
+}
+
+	#query_poste fieldset .label_poste{
+		display: inline-block;
+		width: 25%;
+		margin-bottom: 20px;
+	}
+
+
+/********************************************************************************************/
+/****************************************ADMIN ACCUEIL***************************************/
+/********************************************************************************************/
+		
+/****************************************MENU ACCUEIL***************************************/
+#content-accueil{	
+	
+ 	height:100%;
+	width: 100%;
+ 	border:2px solid; 
+ 	text-align: center;
+ 	padding-top: 5%;
+ 	display: inline-block;
+}
+
+.menu1{
+	display: inline-block;
+	height: 18%;
+	width: 35%;
+	margin-right: 2%;
+}
+
+.menu2{
+	border:2px solid black; 
+	border-radius: 5px;
+	height: 15%;
+	width: 30%; 
+	display: inline-block;
+	margin: 0;
+}
+		
+#img1{
+	float: left;
+	margin-right: 1%;
+	margin-left: 10%;
+}
+		
+#text1{
+	color: black;
+}
+
+.lien{
+	height: 100%;
+	width: 100%; 
+	border:2px solid; 
+	border-radius: 5px;
+	display:inline-block;
+}
+
+/****************************************CONNEXION***************************************/
+#content-outil{	
+	width: 100%;
+ 	text-align: center;
+ 	padding-bottom: 10px;
+}
+		
+#connexion{
+	display: inline-block;
+	height: 50%;
+	width: 40%;
+	margin-top: 15%;
+}
+
+.labelconnexion{
+	float: left;
+}
+
+.inputconnexion{
+	margin-left: 8%;
+}
+
+.ligne{
+	display: block;
+	padding : 0% 0% 5% 5%;
+}
+
+#fieldset1{
+	padding: 10% 0 8% 0;
+}
+
+#envoyer{
+	margin-left: 22%;
+	margin-top: 3%;
+}
+
+/****************************************ADMIN LISTE USAGER ACCUEIL***************************************/
+#containt1{	
+	
+ 	height:100%;
+	width: 100%;
+ 	border:2px solid; 
+ 	display: inline-block;
+ }
+ 
+/*#side-menu1{
+
+	display: inline-block;
+	width:20%;
+	height:96%;
+	background-color: #E6E6E6;
+	text-align: left;
+	padding: 5px;
+	margin:1% 1% 0% 1%;
+	float: left;
+}
+
+
+#side-menu1 li{
+		
+		width: 100%;
+		height: 40px;
+		padding: auto;
+		text-align: center;
+		line-height: 40px;
+		list-style-type: none;
+		margin-left: -20px;
+
+	}
+
+#side-menu1 li > a{
+			display: block;
+			text-transform: uppercase;
+			padding:auto;
+		}
+
+		#side-menu1 li > a:hover { 
+			background-color: rgba(147, 182, 244, 0.9);
+			color: white;
+		}
+
+		#side-menu1 p{
+			text-align: center;}*/
+
+#menu-admin {
+	height:86%;
+	width: 78%;
+ 	border:2px solid; 
+	display: inline-block;
+	border-radius: 5px;
+	overflow: scroll;	
+}
+
+#pro1{
+	height:20%;
+	width: 45%;
+	display: inline-block;
+	float: left;
+	text-align: left;
+	margin-left: 5%;
+	margin-bottom: 3%;
+}
+
+#pro2{
+	height:20%;
+	width: 45%;
+	display: inline-block;
+	text-align: left;
+	margin-bottom: 3%;
+}
+
+#modifier{
+	margin-left: 10%;
+}
+
+#retour{
+	display: inline-block;
+	float: left;
+	text-align: left;
+	margin-left:20%;
+	margin-top: 3%;
+}
+
+#exporter{
+	display: inline-block;
+	margin-top: 3%;
+}
+
+/****************************************ADMIN MODIF CREA***************************************/
+#admin-modif-crea {
+	height:92%;
+	width: 75%;
+ 	border:2px solid; 
+	display: inline-block;
+	border-radius: 5px;
+	padding-left : 3%;
+	padding-bottom: 10px;
+}
+
+#titre-modif_admin{
+	height:20%;
+	width: 40%;
+	border:2px solid; 
+	border-radius: 5px;
+	text-align: center;
+	margin: 3% 0% 0% 5%;
+}
+
+#formulaire{
+	width: 80%; 
+	margin: 13% 0% 8% 10%;
+	text-align: left;
+}
+
+#idform{
+	height:20%;
+	width: 32%; 
+	text-align: left;
+	margin-top: 4%;
+	display: inline-block;
+}
+
+#valeurform{
+	height:20%;
+	width: 50%;
+	text-align: left;
+	margin:4% 0% 0% 4%;
+	display: inline-block;	
+}
+
+#civilite{
+	height: 100%;
+	width: 32%;
+	display:inline-block;
+}
+#valider{
+	display: inline-block;
+	margin-top: 3%;
+}
+
+#admin-modif-crea h1{
+	text-align: left;
+}
+
+
+
+/*******************************************FOOTER*******************************************/
+
+footer{
+	height: 15%;
+	width: 100%;
+	background-color: #9C9C9C;
+	border-radius: 5px;
+	text-align: center;
+	margin-top: 10px;
+	padding-top:7px;
+}
+
+footer h3{
+	margin-top: 5px;
+}
+
+#menu-footer{
+	clear: both;
+	width: 100%;
+}
+
+
+#menu-horizontal-footer{
+	width: 100%;
+	text-align: center;
+	padding: 5px;
+	list-style-type: none;
+	}
+
+	#menu-horizontal-footer li{
+		display: inline-block;
+		width: 179px;		
+		border-right: 1px solid white;
+		padding : 0px ;
+		margin: 0px;
+		text-align: center;
+		line-height: 40px;
+	}
+
+		#menu-horizontal-footer li.li_left{
+			border-left: 1px solid white;
+		}
+
+		#menu-horizontal-footer li > a{
+			display: block;
+			padding:auto;
+		}
+
+		#menu-horizontal-footer li > a:hover { 
+			background-color: rgba(147, 182, 244, 0.9);
+			color: white;
+		}
