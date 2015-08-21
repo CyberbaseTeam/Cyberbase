@@ -13,7 +13,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="poste")
-
+@NamedQueries({
+	@NamedQuery(name = "PosteEntity.findAll", query = "SELECT p FROM PosteEntity p ORDER BY p.nom_poste"),
+	 })
 public class PosteEntity implements Serializable {
 
 	@Id
@@ -22,6 +24,10 @@ public class PosteEntity implements Serializable {
 	private String nom_poste;
 	private Boolean disponibilite;
 	private Integer id_salle;
+	@ManyToOne
+	@JoinColumn(name = "id_site")
+	private SalleEntity salleEntity;
+
 	private static final long serialVersionUID = 1L;
 
 	public PosteEntity() {
@@ -55,5 +61,14 @@ public class PosteEntity implements Serializable {
 	public void setId_salle(Integer id_salle) {
 		this.id_salle = id_salle;
 	}
+	
+	public SalleEntity getSalleEntity() {
+		  return salleEntity;
+	}
+
+	public void setSalleEntity(SalleEntity salleEntity) {
+		  this.salleEntity = salleEntity;
+	}
+
    
 }

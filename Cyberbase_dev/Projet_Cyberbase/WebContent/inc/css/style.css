@@ -336,12 +336,15 @@ header {
 			display: block;
 			text-transform: uppercase;
 			padding:auto;
-		}
+			line-height: 40px
+		} 
 
 		#side-menu li > a:hover { 
 			background-color: rgba(147, 182, 244, 0.9);
 			color: white;
 		}
+		
+		
 
 
 

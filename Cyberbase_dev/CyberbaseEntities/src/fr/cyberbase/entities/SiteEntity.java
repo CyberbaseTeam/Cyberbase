@@ -12,7 +12,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="site")
-
+@NamedQueries({
+	@NamedQuery(name = "SiteEntity.findAll", query = "SELECT u FROM SiteEntity u ORDER BY u.nom_site"),
+	 })
 public class SiteEntity implements Serializable {
 
 	@Id

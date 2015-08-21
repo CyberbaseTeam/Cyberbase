@@ -5,6 +5,8 @@
 		<class>fr.cyberbase.entities.UsagerEntity</class>
 		<class>fr.cyberbase.entities.ProfessionnelEntity</class>
 		<class>fr.cyberbase.entities.SiteEntity</class>
+		<class>fr.cyberbase.entities.PosteEntity</class>
+		<class>fr.cyberbase.entities.SalleEntity</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 	</persistence-unit>
 </persistence>
