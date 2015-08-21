@@ -31,7 +31,7 @@
 		
       <div id="content">
       	<div id="conteneur-arianne">
-			<h1>Affecter un poste à un usager</h1>
+			<h1>"Nom de la section"</h1>
 	  	</div>
 		<jsp:doBody/>
 	  </div>

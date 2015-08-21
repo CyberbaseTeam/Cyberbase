@@ -14,7 +14,9 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name="usager")
-
+@NamedQueries({
+	@NamedQuery(name="usagerEntity.findAll", query="SELECT e FROM UsagerEntity e ORDER BY e.nom_usager")
+})
 public class UsagerEntity implements Serializable {
 
 	@Id
