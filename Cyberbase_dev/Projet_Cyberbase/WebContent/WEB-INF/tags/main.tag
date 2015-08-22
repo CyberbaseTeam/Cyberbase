@@ -36,5 +36,7 @@
 		<jsp:doBody/>
 	  </div>
 	  	<c:import url="/inc/modules/footer.jsp" />
+	  	
+	  	<script src="lib/jquery-2.1.4.min.js"></script>
 </body>
 </html>
