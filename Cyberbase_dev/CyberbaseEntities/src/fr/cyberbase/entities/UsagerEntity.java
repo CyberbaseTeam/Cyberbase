@@ -27,6 +27,8 @@ public class UsagerEntity implements Serializable {
 	private String nom_usager;
 	private String prenom_usager;
 	private Date date_naissance_usager;
+	private String ville_usager;
+	private String adresse_usager;
 	private Integer code_postal_usager;
 	private String email_usager;
 	private Boolean accompagnement;
@@ -130,5 +132,18 @@ public class UsagerEntity implements Serializable {
 	public void setId_formation(Integer id_formation) {
 		this.id_formation = id_formation;
 	}
+	public String getVille_usager() {
+		return ville_usager;
+	}
+	public void setVille_usager(String ville_usager) {
+		this.ville_usager = ville_usager;
+	}
+	public String getAdresse_usager() {
+		return adresse_usager;
+	}
+	public void setAdresse_usager(String adresse_usager) {
+		this.adresse_usager = adresse_usager;
+	}
    
+	
 }

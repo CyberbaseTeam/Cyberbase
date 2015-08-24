@@ -18,7 +18,6 @@ public class UsagerService {
 
 		@SuppressWarnings("unchecked")
 		List<UsagerEntity> listing = entityManager.createNamedQuery("usagerEntity.findAll", UsagerEntity.class).getResultList();
-
 		return listing;
 	}
 
@@ -32,8 +31,7 @@ public class UsagerService {
 	
 	public void delete(UsagerEntity usagerEntity) {
 		usagerEntity = entityManager.merge(usagerEntity);
-		entityManager.remove(usagerEntity);
-		
+		entityManager.remove(usagerEntity);		
 	}
 
 }

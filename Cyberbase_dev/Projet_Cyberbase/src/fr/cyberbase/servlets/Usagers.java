@@ -54,7 +54,7 @@ public class Usagers extends HttpServlet {
 			usagerEntity.setId_usager(id);
 			usagerService.delete(usagerEntity);
 			request.setAttribute("usagers", usagerService.findAll());
-			request.getRequestDispatcher("/WEB-INF/usagers.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/usager.jsp").forward(request, response);
 		}
 	}
 
