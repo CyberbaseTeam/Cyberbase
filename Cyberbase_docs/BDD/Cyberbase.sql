@@ -15,9 +15,12 @@ CREATE TABLE public.usager(
 	prenom_usager         VARCHAR (40) NOT NULL CHECK (prenom_usager <> ' ')  ,
 	date_naissance_usager DATE   ,
 	code_postal_usager    INT   ,
+	ville_usager 		VARCHAR(50) ,
+	adresse_usager		VARCHAR(75) ,
 	email_usager          VARCHAR (50)  ,
 	accompagnement        BOOL   ,
 	site_inscription_id   INT   ,
+	date_inscription	DATE ,
 	id_quartier           INT   ,
 	id_csp                INT   ,
 	id_formation          INT   ,
@@ -196,4 +199,4 @@ ALTER TABLE public.travailler ADD CONSTRAINT FK_travailler_id_professionnel FORE
 CREATE SEQUENCE professional_id;
 CREATE SEQUENCE user_id;
 alter table professionnel alter column tech_id set default 'PRO'||trim(to_char(nextval('professional_id'::regclass),'000000'));
-alter table usager alter column tech_id set default 'USR'||trim(to_char(nextval('professional_id'::regclass),'000000'));
+alter table usager alter column tech_id set default 'USR'||trim(to_char(nextval('user_id'::regclass),'000000'));

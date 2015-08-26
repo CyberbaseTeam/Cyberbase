@@ -21,12 +21,12 @@ public class UsagerService {
 		return listing;
 	}
 
-	public void add(UsagerEntity employe) {
-		entityManager.persist(employe);
+	public void add(UsagerEntity usager) {
+		entityManager.persist(usager);
 	}
 
-	public void update(UsagerEntity employe) {
-		entityManager.merge(employe);
+	public void update(UsagerEntity usager) {
+		entityManager.merge(usager);
 	}
 	
 	public void delete(UsagerEntity usagerEntity) {

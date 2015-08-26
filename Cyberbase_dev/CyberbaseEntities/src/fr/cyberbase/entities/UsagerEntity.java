@@ -33,9 +33,11 @@ public class UsagerEntity implements Serializable {
 	private String email_usager;
 	private Boolean accompagnement;
 	private Integer site_inscription_id;
-	private Integer id_quartier;
-	private Integer id_csp;
-	private Integer id_formation;
+	
+	// à gérer en JPA avec @onetoOne
+//	private Integer id_quartier;
+//	private Integer id_csp;
+//	private Integer id_formation;
 	private static final long serialVersionUID = 1L;
 
 	public UsagerEntity() {
@@ -111,27 +113,27 @@ public class UsagerEntity implements Serializable {
 	public void setSite_inscription_id(Integer site_inscription_id) {
 		this.site_inscription_id = site_inscription_id;
 	}   
-	public Integer getId_quartier() {
-		return this.id_quartier;
-	}
-
-	public void setId_quartier(Integer id_quartier) {
-		this.id_quartier = id_quartier;
-	}   
-	public Integer getId_csp() {
-		return this.id_csp;
-	}
-
-	public void setId_csp(Integer id_csp) {
-		this.id_csp = id_csp;
-	}   
-	public Integer getId_formation() {
-		return this.id_formation;
-	}
-
-	public void setId_formation(Integer id_formation) {
-		this.id_formation = id_formation;
-	}
+//	public Integer getId_quartier() {
+//		return this.id_quartier;
+//	}
+//
+//	public void setId_quartier(Integer id_quartier) {
+//		this.id_quartier = id_quartier;
+//	}   
+//	public Integer getId_csp() {
+//		return this.id_csp;
+//	}
+//
+//	public void setId_csp(Integer id_csp) {
+//		this.id_csp = id_csp;
+//	}   
+//	public Integer getId_formation() {
+//		return this.id_formation;
+//	}
+//
+//	public void setId_formation(Integer id_formation) {
+//		this.id_formation = id_formation;
+//	}
 	public String getVille_usager() {
 		return ville_usager;
 	}
