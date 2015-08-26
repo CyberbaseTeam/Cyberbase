@@ -127,7 +127,7 @@ CREATE TABLE public.csp(
 ------------------------------------------------------------
 CREATE TABLE public.niveau_formation(
 	id_formation     SERIAL NOT NULL ,
-	niveau_formation VARCHAR (25)  ,
+	nom_formation VARCHAR (25)  ,
 	CONSTRAINT prk_constraint_niveau_formation PRIMARY KEY (id_formation)
 )WITHOUT OIDS;
 
