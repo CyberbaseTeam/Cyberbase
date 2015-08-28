@@ -36,12 +36,21 @@ public class ProfessionnelService {
 		}
 		
 	public ProfessionnelEntity findByTechId(String tech_id) {
-		Query query = entityManager.createNamedQuery(
-				"professionnelEntity.findByTechId");
-		query.setParameter("tech_id", "%"+tech_id+"%");
+		Query query = entityManager.createNamedQuery("professionnelEntity.findByTechId");
+		query.setParameter("tech_id",tech_id);
 		@SuppressWarnings("unchecked")
 		ProfessionnelEntity professionnel =  (ProfessionnelEntity) query.getSingleResult();
 		return professionnel;
+	}
+	
+	public ProfessionnelEntity checkLogin(ProfessionnelEntity professionnelEntity){
+		ProfessionnelEntity existingPro = findByTechId(professionnelEntity.getTech_id());
+		if(existingPro.getPassword().equals(professionnelEntity.getPassword()))
+		{
+			return existingPro;
+		}
+		else 
+			return null;
 	}
 	
 	

@@ -46,12 +46,16 @@ public class Connexion extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String tech_id = request.getParameter(PARAM_TECH_ID);
+		String techId = request.getParameter(PARAM_TECH_ID);
 		String password = request.getParameter(PARAM_PASSWORD);
 		
 		try
 		{
+			ProfessionnelEntity pro = new ProfessionnelEntity();
+			pro.setTech_id(techId);
+			pro.setPassword(password);
 			
+			ProfessionnelEntity loggedProfessionnal = professionnelService.checkLogin(pro);
 			
 			request.getRequestDispatcher("/WEB-INF/accueil.jsp").forward(request, response);
 		

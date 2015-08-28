@@ -16,7 +16,8 @@ import javax.persistence.*;
 @Table(name="professionnel")
 @NamedQueries({
 	@NamedQuery(name="professionnelEntity.findAll", query="SELECT p FROM ProfessionnelEntity p ORDER BY p.nom_professionnel"),
-	@NamedQuery(name = "professionnelEntity.findByTechId", query = "SELECT p FROM ProfessionnelEntity p WHERE p.tech_id like :tech_id")
+	@NamedQuery(name = "professionnelEntity.findByTechId", query = "SELECT p FROM ProfessionnelEntity p WHERE p.tech_id = :tech_id"),
+	
 })
 public class ProfessionnelEntity implements Serializable {
 
