@@ -59,7 +59,7 @@ CREATE TABLE public.professionnel(
 	tech_id              VARCHAR (25) NOT NULL UNIQUE,
 	nom_professionnel    VARCHAR (50) NOT NULL CHECK (nom_professionnel <> ' ') ,
 	prenom_professionnel VARCHAR (25) NOT NULL CHECK (prenom_professionnel <> ' ') ,
-	site_reference       VARCHAR (25)  ,
+	site_reference       INTEGER  ,
 	password             VARCHAR (255)  ,
 	admin                BOOL   ,
 	id_structure         INT   ,
@@ -170,14 +170,7 @@ CREATE TABLE public.structure_appartenance(
 )WITHOUT OIDS;
 
 
-------------------------------------------------------------
--- Table: travailler
-------------------------------------------------------------
-CREATE TABLE public.travailler(
-	id_site          INT  NOT NULL ,
-	id_professionnel INT  NOT NULL ,
-	CONSTRAINT prk_constraint_travailler PRIMARY KEY (id_site,id_professionnel)
-)WITHOUT OIDS;
+
 
 
 
@@ -186,6 +179,7 @@ ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_csp FOREIGN KEY (id_csp) R
 ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_site FOREIGN KEY (id_site_inscription) REFERENCES public.site(id_site);
 ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_formation FOREIGN KEY (id_formation) REFERENCES public.niveau_formation(id_formation);
 ALTER TABLE public.professionnel ADD CONSTRAINT FK_professionnel_id_structure FOREIGN KEY (id_structure) REFERENCES public.structure_appartenance(id_structure);
+ALTER TABLE public.professionnel ADD CONSTRAINT FK_professionnel_id_site FOREIGN KEY (id_site) REFERENCES public.site(id_site);
 ALTER TABLE public.salle ADD CONSTRAINT FK_salle_id_site FOREIGN KEY (id_site) REFERENCES public.site(id_site);
 ALTER TABLE public.poste ADD CONSTRAINT FK_poste_id_salle FOREIGN KEY (id_salle) REFERENCES public.salle(id_salle);
 ALTER TABLE public.requete_favorite ADD CONSTRAINT FK_requete_favorite_id_professionnel FOREIGN KEY (id_professionnel) REFERENCES public.professionnel(id_professionnel);
@@ -194,8 +188,7 @@ ALTER TABLE public.affectation ADD CONSTRAINT FK_affectation_id_usager FOREIGN K
 ALTER TABLE public.affectation ADD CONSTRAINT FK_affectation_id_poste FOREIGN KEY (id_poste) REFERENCES public.poste(id_poste);
 ALTER TABLE public.affectation ADD CONSTRAINT FK_affectation_id_demarche FOREIGN KEY (id_demarche) REFERENCES public.demarche(id_demarche);
 ALTER TABLE public.exclusion ADD CONSTRAINT FK_exclusion_id_usager FOREIGN KEY (id_usager) REFERENCES public.usager(id_usager);
-ALTER TABLE public.travailler ADD CONSTRAINT FK_travailler_id_site FOREIGN KEY (id_site) REFERENCES public.site(id_site);
-ALTER TABLE public.travailler ADD CONSTRAINT FK_travailler_id_professionnel FOREIGN KEY (id_professionnel) REFERENCES public.professionnel(id_professionnel);
+
 
 
 CREATE SEQUENCE professional_id MINVALUE 3 MAXVALUE 999999 INCREMENT 4 CYCLE;
