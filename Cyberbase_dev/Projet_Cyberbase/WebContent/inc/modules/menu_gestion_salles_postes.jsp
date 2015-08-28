@@ -4,21 +4,18 @@
 			<nav id="menu-stat">
 				<ul>
 					<lh>Gérer les postes</lh>
-					<li><a href="">Visualiser les postes disponibles de mon site</a></li>
-					<li><a href="">Visualiser les postes disponibles d'un autre site</a></li>
+					<li><a href="<c:url value="/poste_list"/>" style="text-transform:none;line-height:120%">Visualiser les postes disponibles de mon site : ${sitePro.nom_site}</a></li>
+					<li><a href="" style="text-transform:none;line-height:120%">Visualiser les postes disponibles d'un autre site</a></li>
 						<ul>
-							<li><a href="">Salle 1</a></li>
-							<li><a href="">Salle 2</a></li>
-							<li><a href="">Salle 3</a></li>
+							
 						</ul>
-					<li><a href="">Affecter un poste à un usager</a></li>
-					<li><a href="">Modifier un poste</a></li>
+					<li><a href="" style="text-transform:none;">Affecter un poste à un usager</a></li>
+					<li><a href="" style="text-transform:none;">Modifier un poste</a></li>
 				</ul>
 				<ul>
 					<lh>Gérer les salles</lh>
-					<li><a href="">Créer une salle</a></li>
-					<li><a href="">Modifier une salle</a></li>
+					<li><a href="" style="text-transform:none;">Créer une salle</a></li>
+					<li><a href="" style="text-transform:none;">Modifier une salle</a></li>
 				</ul>
-
 			</nav>
 		</div>

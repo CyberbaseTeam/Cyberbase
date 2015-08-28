@@ -23,10 +23,10 @@ public class PosteEntity implements Serializable {
 	private Integer id_poste;
 	private String nom_poste;
 	private Boolean disponibilite;
-	private Integer id_salle;
+	
 	@ManyToOne
-	@JoinColumn(name = "id_site")
-	private SalleEntity salleEntity;
+	@JoinColumn(name = "id_salle")
+	private SalleEntity salle;
 
 	private static final long serialVersionUID = 1L;
 
@@ -54,21 +54,5 @@ public class PosteEntity implements Serializable {
 	public void setDisponibilite(Boolean disponibilite) {
 		this.disponibilite = disponibilite;
 	}   
-	public Integer getId_salle() {
-		return this.id_salle;
-	}
 
-	public void setId_salle(Integer id_salle) {
-		this.id_salle = id_salle;
-	}
-	
-	public SalleEntity getSalleEntity() {
-		  return salleEntity;
-	}
-
-	public void setSalleEntity(SalleEntity salleEntity) {
-		  this.salleEntity = salleEntity;
-	}
-
-   
 }

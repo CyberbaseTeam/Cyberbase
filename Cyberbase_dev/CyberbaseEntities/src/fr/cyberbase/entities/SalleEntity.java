@@ -14,8 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="salle")
 @NamedQueries({
-	@NamedQuery(name = "SalleEntity.findAll", query = "SELECT s FROM SalleEntity s"),
-	@NamedQuery(name = "SalleEntity.findSallesBySite", query = "SELECT s FROM SalleEntity s WHERE s.id_site like :id_site")
+	@NamedQuery(name = "SalleEntity.findAll", query = "SELECT s FROM SalleEntity s")
 	 })
 public class SalleEntity implements Serializable {
 
@@ -23,10 +22,14 @@ public class SalleEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_salle;
 	private String nom_salle;
-	private Integer id_site;
-	@OneToMany
-	@JoinColumn(name="id_site")
+	
+	@OneToMany(mappedBy="salle", fetch=FetchType.EAGER)
 	private List<PosteEntity> postes;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_site")
+	private SiteEntity site;
+
 
 	private static final long serialVersionUID = 1L;
 
@@ -46,18 +49,14 @@ public class SalleEntity implements Serializable {
 
 	public void setNom_salle(String nom_salle) {
 		this.nom_salle = nom_salle;
-	}   
-	public Integer getId_site() {
-		return this.id_site;
 	}
-
-	public void setId_site(Integer id_site) {
-		this.id_site = id_site;
-	}
-	
 	public List<PosteEntity> getPostes() {
-		        return postes;
-		    }
+		return postes;
+	}
+	public void setPostes(List<PosteEntity> postes) {
+		this.postes = postes;
+	}  
+	
+	
 
-   
 }

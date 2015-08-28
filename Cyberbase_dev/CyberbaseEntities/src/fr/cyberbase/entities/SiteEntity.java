@@ -3,6 +3,7 @@ package fr.cyberbase.entities;
 import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="site")
 @NamedQueries({
-	@NamedQuery(name = "SiteEntity.findAll", query = "SELECT u FROM SiteEntity u ORDER BY u.nom_site"),
+	@NamedQuery(name = "SiteEntity.findAll", query = "SELECT u FROM SiteEntity u"),
 	 })
 public class SiteEntity implements Serializable {
 
@@ -24,6 +25,11 @@ public class SiteEntity implements Serializable {
 	private String adresse_site;
 	private String ville_site;
 	private Integer code_postal_site;
+	
+	@OneToMany(mappedBy="site", fetch=FetchType.EAGER)
+	private List<SalleEntity> salles;
+	
+
 	private static final long serialVersionUID = 1L;
 
 	public SiteEntity() {
@@ -63,6 +69,13 @@ public class SiteEntity implements Serializable {
 
 	public void setCode_postal_site(Integer code_postal_site) {
 		this.code_postal_site = code_postal_site;
+	}
+	
+	public List<SalleEntity> getSalles() {
+		return salles;
+	}
+	public void setSalles(List<SalleEntity> salles) {
+		this.salles = salles;
 	}
    
 }

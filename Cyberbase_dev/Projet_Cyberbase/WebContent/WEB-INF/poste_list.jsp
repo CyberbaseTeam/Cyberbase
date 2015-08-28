@@ -7,14 +7,6 @@
 <t:main>
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
 	<div>
-		<div>${sitePro.nom_site}</div>
-		<c:forEach items="${sites}" var="site">
-				<div>
-					<div>${site.nom_site}</div>
-						<c:forEach items="${site.salles}" var="salle">
-									<span><c:out value="${salle.nom_salle }"></c:out></span>
-						</c:forEach>
-				</div>
-			</c:forEach>
+					<c:out value="${SitePro.salles}"></c:out>
 	</div>
 </t:main>

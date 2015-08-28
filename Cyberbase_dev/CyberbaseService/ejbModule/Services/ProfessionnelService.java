@@ -5,8 +5,11 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import fr.cyberbase.entities.ProfessionnelEntity;
+import fr.cyberbase.entities.SalleEntity;
+import fr.cyberbase.entities.SiteEntity;
 import fr.cyberbase.entities.UsagerEntity;
 
 @Stateless
@@ -18,7 +21,7 @@ public class ProfessionnelService {
 	public List<ProfessionnelEntity> findAll(){
 	
 		@SuppressWarnings("unchecked")
-		List<ProfessionnelEntity> listing = entityManager.createNamedQuery("ProfessionnelEntity.findAll", ProfessionnelEntity.class).getResultList();
+		List<ProfessionnelEntity> listing = entityManager.createNamedQuery("professionnelEntity.findAll", ProfessionnelEntity.class).getResultList();
 		
 		return listing;
 	}	
@@ -32,9 +35,14 @@ public class ProfessionnelService {
 			entityManager.merge(employe);
 		}
 		
-	
-	
-	
+	public ProfessionnelEntity findByTechId(String tech_id) {
+		Query query = entityManager.createNamedQuery(
+				"professionnelEntity.findByTechId");
+		query.setParameter("tech_id", "%"+tech_id+"%");
+		@SuppressWarnings("unchecked")
+		ProfessionnelEntity professionnel =  (ProfessionnelEntity) query.getSingleResult();
+		return professionnel;
+	}
 	
 	
 }

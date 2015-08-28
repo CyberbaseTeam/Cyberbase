@@ -19,6 +19,11 @@ public class SiteService {
 		List<SiteEntity> sitesEntities = entityManager.createNamedQuery(
 				"SiteEntity.findAll").getResultList();
 		return sitesEntities;
+	}
+
+	public SiteEntity findById(Integer id) {
+		SiteEntity site = entityManager.find(SiteEntity.class, id);
+		return site;
 	}	
 	
 
