@@ -1,5 +1,5 @@
 ------------------------------------------------------------
---        Script Postgre 
+--        Script Postgres 
 ------------------------------------------------------------
 
 
@@ -19,7 +19,7 @@ CREATE TABLE public.usager(
 	adresse_usager		VARCHAR(75) ,
 	email_usager          VARCHAR (50)  ,
 	accompagnement        BOOL   ,
-	site_inscription_id   INT   ,
+	id_site_inscription   INT   ,
 	date_inscription	DATE ,
 	id_quartier           INT   ,
 	id_csp                INT   ,
@@ -137,8 +137,8 @@ CREATE TABLE public.niveau_formation(
 ------------------------------------------------------------
 CREATE TABLE public.affectation(
 	id_affectation         SERIAL NOT NULL ,
-	date_debut_affectation DATE   ,
-	date_fin_affectation   DATE   ,
+	date_debut_affectation TIMESTAMP WITH TIME ZONE   ,
+	date_fin_affectation   TIMESTAMP WITH TIME ZONE   ,
 	id_professionnel       INT   ,
 	id_usager              INT   ,
 	id_poste               INT   ,
@@ -163,10 +163,10 @@ CREATE TABLE public.exclusion(
 ------------------------------------------------------------
 -- Table: structure_appartenance
 ------------------------------------------------------------
-CREATE TABLE public.structure_appartence(
+CREATE TABLE public.structure_appartenance(
 	id_structure  SERIAL NOT NULL ,
 	nom_structure VARCHAR (25)  ,
-	CONSTRAINT prk_constraint_structure_appartence PRIMARY KEY (id_structure)
+	CONSTRAINT prk_constraint_structure_appartenance PRIMARY KEY (id_structure)
 )WITHOUT OIDS;
 
 
@@ -183,8 +183,9 @@ CREATE TABLE public.travailler(
 
 ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_quartier FOREIGN KEY (id_quartier) REFERENCES public.quartier(id_quartier);
 ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_csp FOREIGN KEY (id_csp) REFERENCES public.csp(id_csp);
+ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_site FOREIGN KEY (id_site_inscription) REFERENCES public.site(id_site);
 ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_formation FOREIGN KEY (id_formation) REFERENCES public.niveau_formation(id_formation);
-ALTER TABLE public.professionnel ADD CONSTRAINT FK_professionnel_id_structure FOREIGN KEY (id_structure) REFERENCES public.structure_appartence(id_structure);
+ALTER TABLE public.professionnel ADD CONSTRAINT FK_professionnel_id_structure FOREIGN KEY (id_structure) REFERENCES public.structure_appartenance(id_structure);
 ALTER TABLE public.salle ADD CONSTRAINT FK_salle_id_site FOREIGN KEY (id_site) REFERENCES public.site(id_site);
 ALTER TABLE public.poste ADD CONSTRAINT FK_poste_id_salle FOREIGN KEY (id_salle) REFERENCES public.salle(id_salle);
 ALTER TABLE public.requete_favorite ADD CONSTRAINT FK_requete_favorite_id_professionnel FOREIGN KEY (id_professionnel) REFERENCES public.professionnel(id_professionnel);
