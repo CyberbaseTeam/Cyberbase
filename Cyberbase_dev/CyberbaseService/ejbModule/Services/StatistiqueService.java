@@ -28,8 +28,6 @@ public class StatistiqueService {
 		return personnalQuery;	
 	}
 	
-
-	
 	public List<UsagerEntity> executePersonnalQuery(String personnalQuery){
 		List<UsagerEntity> personnalQueryresult = new ArrayList<UsagerEntity>();
 		return personnalQueryresult;

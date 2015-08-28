@@ -25,10 +25,10 @@ public class ProfessionnelEntity implements Serializable {
 	private String tech_id;
 	private String nom_professionnel;
 	private String prenom_professionnel;
-	private String site_reference;
+	private Integer site_reference;
 	private String password;
 	private Boolean admin;
-	//private List<Integer> id_structure;
+	private Integer id_structure;
 	private static final long serialVersionUID = 1L;
 
 	public ProfessionnelEntity() {
@@ -62,11 +62,11 @@ public class ProfessionnelEntity implements Serializable {
 	public void setPrenom_professionnel(String prenom_professionnel) {
 		this.prenom_professionnel = prenom_professionnel;
 	}   
-	public String getSite_reference() {
+	public Integer getSite_reference() {
 		return this.site_reference;
 	}
 
-	public void setSite_reference(String site_reference) {
+	public void setSite_reference(Integer site_reference) {
 		this.site_reference = site_reference;
 	}   
 	public String getPassword() {
@@ -83,12 +83,12 @@ public class ProfessionnelEntity implements Serializable {
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}   
-//	public List<Integer>  getId_structure() {
-//		return this.id_structure;
-//	}
-//
-//	public void setId_structure(List<Integer>  id_structure) {
-//		this.id_structure = id_structure;
-//	}
-//   
+	public Integer getId_structure() {
+		return this.id_structure;
+	}
+
+	public void setId_structure(Integer  id_structure) {
+		this.id_structure = id_structure;
+	}
+   
 }
