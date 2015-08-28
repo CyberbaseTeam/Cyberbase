@@ -52,23 +52,26 @@ INSERT INTO "site" (nom_site,adresse_site,ville_site,code_postal_site) VALUES
 -- Table: usager (30 entrées)
 ------------------------------------------------------------
 
+
+
 INSERT INTO "usager" (nom_usager,prenom_usager,date_naissance_usager,code_postal_usager,email_usager,accompagnement, id_site_inscription, date_inscription, id_quartier,id_csp,id_formation,ville_usager,adresse_usager) VALUES 
 ('Neal','Gavin','18/07/2016',44879,'nonummy.ultricies.ornare@laciniavitaesodales.org','true', 4,'19/09/2014', 2,1,7,'Huntingdon','CP 810, 5718 Mauris. Ave'),('Nixon','Sierra','22/03/2015',44395,'et.lacinia.vitae@amet.com','true',14,'19/09/2014',5,3,1,'Le Cannet','Appartement 383-1740 Odio. Ave'),
 ('Carlson','Grady','09/06/2015',44871,'dapibus@mi.net','true',14,'19/09/2015',4,1,3,'Worcester','9587 Nulla Av.'),
 ('Marsh','Audra','22/08/2014',44601,'Sed.id.risus@Sed.org','true',6,'19/08/2016',4,4,4,'Peterhead','1903 Mus. Avenue'),
 ('Cooper','Orla','19/05/2015',44493,'sed.pede.Cum@amifringilla.org','true',14,'02/09/2015',3,2,1,'Montignoso','233-8495 Mus. Chemin'),('Anderson','Whitney','03/09/2015',44066,'pretium@ipsumdolorsit.org','true',7,'20/09/2015',4,1,3,'Weesp','Appartement 232-8493 Molestie Impasse'),('Williamson','Ross','20/07/2016',44124,'at.iaculis.quis@etnetus.edu','true',13,'19/09/2015',2,1,5,'Bolton','859-5129 Erat Impasse'),('Pena','Devin','24/03/2015',44377,'ipsum.dolor@tristiquealiquet.net','true',19,'17/09/2015',2,4,7,'Louisville','CP 422, 2824 Nunc Chemin'),('Hines','Hiram','27/07/2016',44337,'luctus@liberoMorbi.co.uk','true',9,'19/05/2015',4,4,2,'Cartago','544-3283 Orci Chemin'),
 ('Booker','Idona','26/04/2015',44077,'semper.Nam@Namligulaelit.co.uk','true',12,'19/04/2015',1,4,2,'Genk','Appartement 785-4109 Mauris Rd.');
-INSERT INTO "usager" (nom_usager,prenom_usager,date_naissance_usager,code_postal_usager,email_usager,site_inscription_id,id_quartier,id_csp,id_formation,ville_usager,adresse_usager) VALUES ('Kline','Marsden','13/01/2015',44673,'ad.litora@velit.net','false',18,'19/10/2013',5,2,4,'Racine','CP 318, 3236 Ut Avenue'),
+INSERT INTO "usager" (nom_usager,prenom_usager,date_naissance_usager,code_postal_usager,email_usager,accompagnement, id_site_inscription, date_inscription, id_quartier,id_csp,id_formation,ville_usager,adresse_usager)  VALUES ('Kline','Marsden','13/01/2015',44673,'ad.litora@velit.net','false',18,'19/10/2013',5,2,4,'Racine','CP 318, 3236 Ut Avenue'),
 ('Spears','Hilary','01/11/2015',44190,'Praesent@euarcu.com','false',3,'19/12/2013',4,4,7,'Temploux','875-6558 Sed Av.'),
 ('Fulton','Tate','24/11/2015',44639,'posuere@sitametconsectetuer.co.uk','false',10,'19/11/2013',1,2,1,'Cerignola','CP 641, 5008 Duis Rd.'),('Pittman','Jaime','24/10/2014',44005,'eu@tincidunttempus.edu','false',15,'19/02/2013',5,1,2,'Springfield','2879 Vehicula. Avenue'),
 ('Hunter','Xenos','23/03/2016',44608,'In@gravida.edu','false',18,'19/05/2014',1,2,3,'Palma de Mallorca','808-7071 Duis Ave'),
 ('Maddox','Melvin','25/03/2016',44623,'vitae@dignissimlacusAliquam.ca','false',17,'30/09/2013',5,2,7,'San Luca','5717 Pharetra Ave'),
 ('Ashley','Richard','09/05/2016',44675,'luctus.sit@faucibusorci.co.uk','false',6,'10/10/2013',3,4,3,'Lowell','CP 639, 6588 Sed, Rd.'),('Burt','Quincy','11/04/2015',44788,'fringilla.euismod.enim@egetvarius.net','false',2,'11/09/2013',3,4,6,'Villers-la-Loue','158-3835 Laoreet Ave'),('Hopper','Suki','26/07/2015',44870,'dui.Cras@enimdiamvel.com','false',5,'19/11/2013',4,1,4,'Bayeux','5739 Aliquet Av.'),
 ('Hunt','Kennedy','14/02/2016',44790,'lacinia.orci@aliquetPhasellus.net','false',9,'19/01/2013',4,3,3,'Francavilla in Sinni','CP 269, 1917 Felis Chemin');
-INSERT INTO "usager" (nom_usager,prenom_usager,date_naissance_usager,code_postal_usager,email_usager,site_inscription_id,id_quartier,id_csp,id_formation,ville_usager,adresse_usager) VALUES ('Chan','Basil','01/06/2016',44447,'Donec.est@Quisqueimperdieterat.edu','false',3,'19/01/2014',3,1,1,'North Las Vegas','Appartement 423-9424 Id, Route'),('Rosales','Portia','24/04/2015',44488,'Proin@maurissapien.net','false',10,'19/12/2014',4,3,4,'Okene','2446 Enim Chemin'),
+INSERT INTO "usager" (nom_usager,prenom_usager,date_naissance_usager,code_postal_usager,email_usager,accompagnement, id_site_inscription, date_inscription, id_quartier,id_csp,id_formation,ville_usager,adresse_usager) VALUES ('Chan','Basil','01/06/2016',44447,'Donec.est@Quisqueimperdieterat.edu','false',3,'19/01/2014',3,1,1,'North Las Vegas','Appartement 423-9424 Id, Route'),('Rosales','Portia','24/04/2015',44488,'Proin@maurissapien.net','false',10,'19/12/2014',4,3,4,'Okene','2446 Enim Chemin'),
 ('Hardin','Ingrid','29/08/2015',44663,'ante@et.ca','false',10,'19/09/2013',3,1,3,'Norwich','9912 Quisque Chemin'),
 ('Mcleod','Wilma','11/04/2015',44243,'Phasellus.elit@Proin.ca','false',13,'23/12/2015',4,1,2,'Lompret','Appartement 826-4527 Mi. Chemin'),
 ('Becker','Christopher','28/05/2015',44752,'orci@eleifend.org','false',2,'10/11/2013',3,4,5,'Edremit','6412 Odio. Ave'),('Banks','Adrienne','09/03/2015',44824,'dictum.Proin.eget@accumsaninterdumlibero.com','false',4,'05/05/2013',5,1,5,'Kilwinning','Appartement 386-3892 Sed Avenue'),('Atkinson','Arsenio','26/05/2015',44702,'Nam@euenim.edu','false',14,'08/03/2013',1,3,5,'San Sebastiano al Vesuvio','Appartement 987-8172 Enim. Chemin'),('Johns','Aurora','05/02/2016',44535,'Aliquam@lacusvestibulumlorem.org','false',19,'19/08/2015',5,3,7,'Hondelange','362-5289 Porttitor Impasse'),('Stephens','Barclay','15/09/2014',44593,'sit.amet@ornareFusce.edu','false',10,'19/12/2014',1,2,5,'Marbais','6276 Parturient Avenue'),('Rollins','Valentine','23/07/2016',44103,'magna.Suspendisse.tristique@orci.co.uk','false',4,'06/10/2015',5,2,2,'Oordegem','CP 998, 9548 Et Impasse');
+
 
 
 ------------------------------------------------------------
@@ -86,18 +89,18 @@ INSERT INTO demarche (nom_demarche) VALUES ('cv'), ('lettre de motivation'), ('t
 INSERT INTO "exclusion" (statut_exclusion, date_debut,date_fin,id_usager) VALUES 
 ('temporaire','23/03/2016','31/10/2015',4),
 ('temporaire','25/08/2016','10/02/2015',11),
-('définitive','04/07/2015','', 12),
+('définitive','04/07/2015',NULL, 12),
 ('temporaire','27/03/2015','03/01/2015',13),
 ('temporaire','05/08/2016','27/06/2016',10),
 ('temporaire','06/05/2015','13/11/2015',17),
 ('temporaire','25/04/2015','18/05/2016',5),
-('définitive','24/01/2015','',20),
+('définitive','24/01/2015',NULL,20),
 ('temporaire','15/07/2016','16/06/2016',19),
 ('temporaire','16/12/2015','06/05/2015',13),
 ('temporaire','08/05/2015','17/04/2015',25),
 ('temporaire','30/04/2016','11/01/2016',30),
 ('temporaire','09/09/2015','07/10/2015',4),
-('définitive','16/04/2016','',7),
+('définitive','16/04/2016',NULL,7),
 ('temporaire','27/08/2015','28/06/2015',11);
 
 
@@ -161,7 +164,7 @@ INSERT INTO poste (nom_poste, disponibilite, id_salle) VALUES
 ('poste 2', true, 5),
 ('poste 1', true, 6),
 ('poste 2', true, 6),
-('poste 3', false, 6),
+('poste 3', false, 6);
 
 
 
