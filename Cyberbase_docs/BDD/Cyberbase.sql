@@ -179,7 +179,8 @@ ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_csp FOREIGN KEY (id_csp) R
 ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_site FOREIGN KEY (id_site_inscription) REFERENCES public.site(id_site);
 ALTER TABLE public.usager ADD CONSTRAINT FK_usager_id_formation FOREIGN KEY (id_formation) REFERENCES public.niveau_formation(id_formation);
 ALTER TABLE public.professionnel ADD CONSTRAINT FK_professionnel_id_structure FOREIGN KEY (id_structure) REFERENCES public.structure_appartenance(id_structure);
-ALTER TABLE public.professionnel ADD CONSTRAINT FK_professionnel_id_site FOREIGN KEY (id_site) REFERENCES public.site(id_site);
+ALTER TABLE public.professionnel ADD CONSTRAINT FK_professionnel_id_site FOREIGN KEY (site_reference) REFERENCES public.site(id_site);
+
 ALTER TABLE public.salle ADD CONSTRAINT FK_salle_id_site FOREIGN KEY (id_site) REFERENCES public.site(id_site);
 ALTER TABLE public.poste ADD CONSTRAINT FK_poste_id_salle FOREIGN KEY (id_salle) REFERENCES public.salle(id_salle);
 ALTER TABLE public.requete_favorite ADD CONSTRAINT FK_requete_favorite_id_professionnel FOREIGN KEY (id_professionnel) REFERENCES public.professionnel(id_professionnel);
