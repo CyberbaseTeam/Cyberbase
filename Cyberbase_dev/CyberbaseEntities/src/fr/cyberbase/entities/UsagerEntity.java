@@ -6,6 +6,7 @@ import java.lang.Boolean;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.Date;
+
 import javax.persistence.*;
 
 /**
@@ -32,13 +33,24 @@ public class UsagerEntity implements Serializable {
 	private Integer code_postal_usager;
 	private String email_usager;
 	private Boolean accompagnement;
-	private Integer id_site_inscription;
+	
+	@OneToOne
+	@JoinColumn(name="id_site_inscription")
+	private SiteEntity site_inscription;
+	
 	private Date date_inscription;
 	
-	// à gérer en JPA avec @onetoOne
-	private Integer id_quartier;
-	private Integer id_csp;
-	private Integer id_formation;
+	@OneToOne
+	@JoinColumn(name="id_quartier")
+	private QuartierEntity quartier;
+	
+	@OneToOne
+	@JoinColumn(name="id_csp")
+	private CspEntity csp;
+	
+	@OneToOne
+	@JoinColumn(name="id_formation")
+	private FormationEntity niveau_formation;
 	private static final long serialVersionUID = 1L;
 
 	public UsagerEntity() {
@@ -133,12 +145,12 @@ public class UsagerEntity implements Serializable {
 		this.accompagnement = accompagnement;
 	}
 
-	public Integer getId_site_inscription() {
-		return id_site_inscription;
+	public SiteEntity getSite_inscription() {
+		return site_inscription;
 	}
 
-	public void setId_site_inscription(Integer id_site_inscription) {
-		this.id_site_inscription = id_site_inscription;
+	public void setSite_inscription(SiteEntity site_inscription) {
+		this.site_inscription = site_inscription;
 	}
 
 	public Date getDate_inscription() {
@@ -149,29 +161,31 @@ public class UsagerEntity implements Serializable {
 		this.date_inscription = date_inscription;
 	}
 
-	public Integer getId_quartier() {
-		return id_quartier;
+	public QuartierEntity getQuartier() {
+		return quartier;
 	}
 
-	public void setId_quartier(Integer id_quartier) {
-		this.id_quartier = id_quartier;
+	public void setQuartier(QuartierEntity quartier) {
+		this.quartier = quartier;
 	}
 
-	public Integer getId_csp() {
-		return id_csp;
+	public CspEntity getCsp() {
+		return csp;
 	}
 
-	public void setId_csp(Integer id_csp) {
-		this.id_csp = id_csp;
+	public void setCsp(CspEntity csp) {
+		this.csp = csp;
 	}
 
-	public Integer getId_formation() {
-		return id_formation;
+	public FormationEntity getNiveau_formation() {
+		return niveau_formation;
 	}
 
-	public void setId_formation(Integer id_formation) {
-		this.id_formation = id_formation;
-	}   
+	public void setNiveau_formation(FormationEntity niveau_formation) {
+		this.niveau_formation = niveau_formation;
+	}
+
+	 
 	
 	
    

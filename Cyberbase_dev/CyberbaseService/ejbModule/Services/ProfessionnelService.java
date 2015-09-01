@@ -4,8 +4,15 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.LockTimeoutException;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
+import javax.persistence.PessimisticLockException;
 import javax.persistence.Query;
+import javax.persistence.QueryTimeoutException;
+import javax.persistence.TransactionRequiredException;
 
 import fr.cyberbase.entities.ProfessionnelEntity;
 import fr.cyberbase.entities.SalleEntity;
@@ -22,7 +29,6 @@ public class ProfessionnelService {
 	
 		@SuppressWarnings("unchecked")
 		List<ProfessionnelEntity> listing = entityManager.createNamedQuery("professionnelEntity.findAll", ProfessionnelEntity.class).getResultList();
-		
 		return listing;
 	}	
 	
@@ -35,16 +41,22 @@ public class ProfessionnelService {
 			entityManager.merge(employe);
 		}
 		
-	public ProfessionnelEntity findByTechId(String tech_id) {
+	public ProfessionnelEntity findByTechId(String tech_id) throws NoResultException, NonUniqueResultException, IllegalStateException,
+	QueryTimeoutException, PersistenceException 
+	{
 		Query query = entityManager.createNamedQuery("professionnelEntity.findByTechId");
 		query.setParameter("tech_id",tech_id);
+		
 		@SuppressWarnings("unchecked")
 		ProfessionnelEntity professionnel =  (ProfessionnelEntity) query.getSingleResult();
+	
 		return professionnel;
 	}
 	
-	public ProfessionnelEntity checkLogin(ProfessionnelEntity professionnelEntity){
+	public ProfessionnelEntity checkLogin(ProfessionnelEntity professionnelEntity)
+	{
 		ProfessionnelEntity existingPro = findByTechId(professionnelEntity.getTech_id());
+		
 		if(existingPro.getPassword().equals(professionnelEntity.getPassword()))
 		{
 			return existingPro;

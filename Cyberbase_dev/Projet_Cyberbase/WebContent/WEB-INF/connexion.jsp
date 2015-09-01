@@ -17,8 +17,8 @@
 			<label class="labelconnexion" for="techId">ID utilisateur :</label>
 			<input  type="text" name="techId"/><span class="error_msg"></span>
 			
-			<label class="labelconnexion" for="psw">Mot de passe :</label>
-			<input class="inputconnexion" type="password" name="psw"/>	<span class="error_msg"></span>
+			<label class="labelconnexion" for="pwd">Mot de passe :</label>
+			<input class="inputconnexion" type="password" name="pwd"/>	<span class="error_msg"></span>
 		
 			<input id="envoyer"type="submit" value="Se connecter">
 		

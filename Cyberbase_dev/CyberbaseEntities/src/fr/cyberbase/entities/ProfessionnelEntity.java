@@ -27,70 +27,88 @@ public class ProfessionnelEntity implements Serializable {
 	private String tech_id;
 	private String nom_professionnel;
 	private String prenom_professionnel;
-	private Integer site_reference;
+	
+	@OneToOne(fetch= FetchType.EAGER)
+	@JoinColumn(name="site_reference")
+	private SiteEntity site_reference;
+	
 	private String password;
 	private Boolean admin;
-	private Integer id_structure;
+	
+	@OneToOne
+	@JoinColumn(name="id_structure")
+	private StructureEntity structure;
+	
 	private static final long serialVersionUID = 1L;
 
 	public ProfessionnelEntity() {
 		super();
-	}   
+	}
+
 	public Integer getId_professionnel() {
-		return this.id_professionnel;
+		return id_professionnel;
 	}
 
 	public void setId_professionnel(Integer id_professionnel) {
 		this.id_professionnel = id_professionnel;
-	}   
+	}
+
 	public String getTech_id() {
-		return this.tech_id;
+		return tech_id;
 	}
 
 	public void setTech_id(String tech_id) {
 		this.tech_id = tech_id;
-	}   
+	}
+
 	public String getNom_professionnel() {
-		return this.nom_professionnel;
+		return nom_professionnel;
 	}
 
 	public void setNom_professionnel(String nom_professionnel) {
 		this.nom_professionnel = nom_professionnel;
-	}   
+	}
+
 	public String getPrenom_professionnel() {
-		return this.prenom_professionnel;
+		return prenom_professionnel;
 	}
 
 	public void setPrenom_professionnel(String prenom_professionnel) {
 		this.prenom_professionnel = prenom_professionnel;
-	}   
-	public Integer getSite_reference() {
-		return this.site_reference;
 	}
 
-	public void setSite_reference(Integer site_reference) {
+	public SiteEntity getSite_reference() {
+		return site_reference;
+	}
+
+	public void setSite_reference(SiteEntity site_reference) {
 		this.site_reference = site_reference;
-	}   
+	}
+
 	public String getPassword() {
-		return this.password;
+		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}   
+	}
+
 	public Boolean getAdmin() {
-		return this.admin;
+		return admin;
 	}
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
-	}   
-	public Integer getId_structure() {
-		return this.id_structure;
 	}
 
-	public void setId_structure(Integer  id_structure) {
-		this.id_structure = id_structure;
+	public StructureEntity getStructure() {
+		return structure;
 	}
+
+	public void setStructure(StructureEntity structure) {
+		this.structure = structure;
+	}   
+	
+	
    
 }

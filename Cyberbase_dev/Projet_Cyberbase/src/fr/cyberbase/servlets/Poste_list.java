@@ -46,7 +46,7 @@ public class Poste_list extends HttpServlet {
 		ProfessionnelEntity professionnel = proService.findByTechId(idTechProfessionnel);
 				
 		//Récupération de l'id du site du professionnel connecté
-		Integer idSiteProfessionnel = professionnel.getSite_reference();
+		Integer idSiteProfessionnel = professionnel.getSite_reference().getId_site();
 				
 		//Récupération du site du professionnel connecté
 		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
