@@ -625,7 +625,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion Cyberbase",
+											"text": "Système de gestion cyber-base",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -16090,7 +16090,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFM3EOZzaTKhCY="
 					},
-					"name": "Système de gestion Cyberbase",
+					"name": "Système de gestion cyber-base",
 					"visibility": "public"
 				},
 				{
@@ -18258,7 +18258,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion Cyberbase",
+											"text": "Système de gestion cyber-base",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -29881,7 +29881,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFNBF/X51kRF6Q="
 					},
-					"name": "Système de gestion Cyberbase",
+					"name": "Système de gestion cyber-base",
 					"visibility": "public"
 				},
 				{
@@ -31256,7 +31256,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion  Cyberbase",
+											"text": "Système de gestion  cyber-base",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -38421,7 +38421,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFNBMEkTr4fLEM="
 					},
-					"name": "Système de gestion  Cyberbase",
+					"name": "Système de gestion  cyber-base",
 					"visibility": "public"
 				},
 				{
@@ -39118,7 +39118,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion Cyberbase",
+											"text": "Système de gestion cyber-base",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -43111,7 +43111,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFNBRX6go1Qrx8="
 					},
-					"name": "Système de gestion Cyberbase",
+					"name": "Système de gestion cyber-base",
 					"visibility": "public"
 				},
 				{
@@ -43663,7 +43663,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion Cyberbase",
+											"text": "Système de gestion cyber-base",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -45577,7 +45577,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": -228,
-											"top": -816,
+											"top": -828,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -45601,7 +45601,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": 444.5,
-											"top": 183.5,
+											"top": 179.5,
 											"width": 139,
 											"height": 13,
 											"autoResize": false,
@@ -45626,7 +45626,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": -228,
-											"top": -816,
+											"top": -828,
 											"width": 79,
 											"height": 13,
 											"autoResize": false,
@@ -45651,7 +45651,7 @@
 											"containerChangeable": false,
 											"containerExtending": false,
 											"left": -228,
-											"top": -816,
+											"top": -828,
 											"width": 0,
 											"height": 13,
 											"autoResize": false,
@@ -45670,7 +45670,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 439.5,
-									"top": 176.5,
+									"top": 172.5,
 									"width": 149,
 									"height": 25,
 									"autoResize": false,
@@ -45706,7 +45706,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -152,
-									"top": -544,
+									"top": -552,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -45730,7 +45730,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -152,
-									"top": -544,
+									"top": -552,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -45754,7 +45754,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -152,
-									"top": -544,
+									"top": -552,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -45778,7 +45778,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": -152,
-									"top": -544,
+									"top": -552,
 									"width": 10,
 									"height": 10,
 									"autoResize": false
@@ -45794,7 +45794,7 @@
 							"containerChangeable": true,
 							"containerExtending": false,
 							"left": 408,
-							"top": 172,
+							"top": 168,
 							"width": 212,
 							"height": 35,
 							"autoResize": false,
@@ -46267,8 +46267,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 379,
-									"top": 214,
+									"left": 380,
+									"top": 213,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -46300,8 +46300,8 @@
 									"showShadow": true,
 									"containerChangeable": false,
 									"containerExtending": false,
-									"left": 385,
-									"top": 173,
+									"left": 384,
+									"top": 172,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -46479,7 +46479,7 @@
 								"$ref": "AAAAAAFNBSs4O1xU9l8="
 							},
 							"lineStyle": 1,
-							"points": "407:191;372:192;281:222",
+							"points": "407:190;372:192;281:222",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -47780,7 +47780,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 511,
-									"top": 146,
+									"top": 144,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -47813,7 +47813,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 469,
-									"top": 146,
+									"top": 144,
 									"width": 55,
 									"height": 13,
 									"autoResize": false,
@@ -47847,7 +47847,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 540,
-									"top": 147,
+									"top": 145,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -47878,7 +47878,7 @@
 								"$ref": "AAAAAAFNBSs4O1xU9l8="
 							},
 							"lineStyle": 0,
-							"points": "526:172;526:134",
+							"points": "526:168;526:134",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -47921,7 +47921,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 497,
-									"top": 224,
+									"top": 222,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -47954,7 +47954,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 456,
-									"top": 224,
+									"top": 222,
 									"width": 53,
 									"height": 13,
 									"autoResize": false,
@@ -47988,7 +47988,7 @@
 									"containerChangeable": false,
 									"containerExtending": false,
 									"left": 526,
-									"top": 225,
+									"top": 223,
 									"width": 0,
 									"height": 13,
 									"autoResize": false,
@@ -48019,7 +48019,7 @@
 								"$ref": "AAAAAAFNBSsv0VwWnEc="
 							},
 							"lineStyle": 0,
-							"points": "512:256;512:206",
+							"points": "512:256;512:202",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -48301,7 +48301,7 @@
 								"$ref": "AAAAAAFNBStItFySKpA="
 							},
 							"lineStyle": 0,
-							"points": "564:376;680:376;680:152;588:152;588:172",
+							"points": "564:376;680:376;680:152;588:152;588:168",
 							"stereotypeDisplay": "label",
 							"showVisibility": true,
 							"showProperty": true,
@@ -51111,7 +51111,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFNBSMPNVPNUFQ="
 					},
-					"name": "Système de gestion Cyberbase",
+					"name": "Système de gestion cyber-base",
 					"visibility": "public"
 				},
 				{

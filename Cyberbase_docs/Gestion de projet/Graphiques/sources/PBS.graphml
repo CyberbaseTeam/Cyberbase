@@ -20,7 +20,7 @@
           <y:Geometry height="103.75" width="355.0" x="-3132.111083984374" y="-6586.605061848957"/>
           <y:Fill color="#808080" color2="#808080" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="18" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="26.0517578125" modelName="custom" textColor="#000000" visible="true" width="301.1494140625" x="26.92529296875" y="38.84912109375">Système de Gestion des Cyberbases<y:LabelModel>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="18" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="26.0517578125" modelName="custom" textColor="#000000" visible="true" width="303.14453125" x="25.927734375" y="38.84912109375">Système de Gestion des cyber-bases<y:LabelModel>
               <y:SmartNodeLabelModel distance="4.0"/>
             </y:LabelModel>
             <y:ModelParameter>
