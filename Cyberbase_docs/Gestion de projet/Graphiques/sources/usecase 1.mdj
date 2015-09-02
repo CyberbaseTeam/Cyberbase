@@ -625,7 +625,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion Cyber-Bases",
+											"text": "Système de gestion Cyberbase",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -1144,7 +1144,7 @@
 									"containerExtending": false,
 									"left": 439.5,
 									"top": 280.5,
-									"width": 94,
+									"width": 93,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -6130,7 +6130,7 @@
 									"containerExtending": false,
 									"left": 444.5,
 									"top": 848.5,
-									"width": 118,
+									"width": 117,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -7402,7 +7402,7 @@
 									"containerExtending": false,
 									"left": 731,
 									"top": 328.5,
-									"width": 90,
+									"width": 89,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -10445,7 +10445,7 @@
 									"containerExtending": false,
 									"left": 509.5,
 									"top": 416.5,
-									"width": 83,
+									"width": 82,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -13232,7 +13232,7 @@
 									"containerExtending": false,
 									"left": 461,
 									"top": 972.5,
-									"width": 119,
+									"width": 118,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -16090,7 +16090,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFM3EOZzaTKhCY="
 					},
-					"name": "Système de gestion Cyber-Bases",
+					"name": "Système de gestion Cyberbase",
 					"visibility": "public"
 				},
 				{
@@ -18258,7 +18258,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion Cyber-Bases",
+											"text": "Système de gestion Cyberbase",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -29881,7 +29881,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFNBF/X51kRF6Q="
 					},
-					"name": "Système de gestion Cyber-Bases",
+					"name": "Système de gestion Cyberbase",
 					"visibility": "public"
 				},
 				{
@@ -31256,7 +31256,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion  Cyber-Bases",
+											"text": "Système de gestion  Cyberbase",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -32415,7 +32415,7 @@
 									"containerExtending": false,
 									"left": 454.5,
 									"top": 336.5,
-									"width": 145,
+									"width": 144,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -32698,7 +32698,7 @@
 									"containerExtending": false,
 									"left": 428.5,
 									"top": 248.5,
-									"width": 214,
+									"width": 213,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -33533,7 +33533,7 @@
 									"containerExtending": false,
 									"left": 474.5,
 									"top": 448.5,
-									"width": 126,
+									"width": 125,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -33816,7 +33816,7 @@
 									"containerExtending": false,
 									"left": 462,
 									"top": 396.5,
-									"width": 143,
+									"width": 142,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -34099,7 +34099,7 @@
 									"containerExtending": false,
 									"left": 441,
 									"top": 500.5,
-									"width": 158,
+									"width": 157,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -34382,7 +34382,7 @@
 									"containerExtending": false,
 									"left": 349.5,
 									"top": 548.5,
-									"width": 237,
+									"width": 236,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -34948,7 +34948,7 @@
 									"containerExtending": false,
 									"left": 325.5,
 									"top": 196.5,
-									"width": 122,
+									"width": 121,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -38421,7 +38421,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFNBMEkTr4fLEM="
 					},
-					"name": "Système de gestion  Cyber-Bases",
+					"name": "Système de gestion  Cyberbase",
 					"visibility": "public"
 				},
 				{
@@ -39118,7 +39118,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion Cyber-Bases",
+											"text": "Système de gestion Cyberbase",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -39610,7 +39610,7 @@
 									"containerExtending": false,
 									"left": 451.5,
 									"top": 156.5,
-									"width": 209,
+									"width": 208,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -39893,7 +39893,7 @@
 									"containerExtending": false,
 									"left": 480,
 									"top": 292.5,
-									"width": 135,
+									"width": 134,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -40742,7 +40742,7 @@
 									"containerExtending": false,
 									"left": 412,
 									"top": 408.5,
-									"width": 134,
+									"width": 133,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -43111,7 +43111,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFNBRX6go1Qrx8="
 					},
-					"name": "Système de gestion Cyber-Bases",
+					"name": "Système de gestion Cyberbase",
 					"visibility": "public"
 				},
 				{
@@ -43663,7 +43663,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "Système de gestion Cyber-Bases",
+											"text": "Système de gestion Cyberbase",
 											"horizontalAlignment": 2,
 											"verticalAlignment": 5
 										},
@@ -44822,7 +44822,7 @@
 									"containerExtending": false,
 									"left": 458.5,
 									"top": 104.5,
-									"width": 145,
+									"width": 144,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -45105,7 +45105,7 @@
 									"containerExtending": false,
 									"left": 431,
 									"top": 312.5,
-									"width": 130,
+									"width": 129,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -45671,7 +45671,7 @@
 									"containerExtending": false,
 									"left": 439.5,
 									"top": 176.5,
-									"width": 150,
+									"width": 149,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -45954,7 +45954,7 @@
 									"containerExtending": false,
 									"left": 441.5,
 									"top": 360.5,
-									"width": 103,
+									"width": 102,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -48445,7 +48445,7 @@
 									"containerExtending": false,
 									"left": 407.5,
 									"top": 412.5,
-									"width": 209,
+									"width": 208,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -49294,7 +49294,7 @@
 									"containerExtending": false,
 									"left": 421.5,
 									"top": 556.5,
-									"width": 161,
+									"width": 160,
 									"height": 25,
 									"autoResize": false,
 									"stereotypeLabel": {
@@ -51111,7 +51111,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFNBSMPNVPNUFQ="
 					},
-					"name": "Système de gestion Cyber-Bases",
+					"name": "Système de gestion Cyberbase",
 					"visibility": "public"
 				},
 				{
