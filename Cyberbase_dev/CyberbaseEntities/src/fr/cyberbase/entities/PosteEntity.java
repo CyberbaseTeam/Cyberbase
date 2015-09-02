@@ -53,6 +53,12 @@ public class PosteEntity implements Serializable {
 
 	public void setDisponibilite(Boolean disponibilite) {
 		this.disponibilite = disponibilite;
+	}
+	public SalleEntity getSalle() {
+		return salle;
+	}
+	public void setSalle(SalleEntity salle) {
+		this.salle = salle;
 	}   
 
 }

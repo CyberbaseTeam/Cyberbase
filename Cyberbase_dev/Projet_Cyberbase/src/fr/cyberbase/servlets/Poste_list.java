@@ -1,6 +1,8 @@
 package fr.cyberbase.servlets;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -9,9 +11,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Services.PosteService;
 import Services.ProfessionnelService;
+import Services.SalleService;
 import Services.SiteService;
+import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
+import fr.cyberbase.entities.SalleEntity;
 import fr.cyberbase.entities.SiteEntity;
 
 /**
@@ -25,6 +31,10 @@ public class Poste_list extends HttpServlet {
 	SiteService siteService;
 	@EJB
 	ProfessionnelService proService;
+	@EJB
+	PosteService posteService;
+	@EJB
+	SalleService salleService;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -50,7 +60,8 @@ public class Poste_list extends HttpServlet {
 				
 		//Récupération du site du professionnel connecté
 		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
-		
+				
+		List<SiteEntity> siteEntities = siteService.findAll();
 		request.setAttribute("sitePro", siteProfessionnel);
 		
 		request.getRequestDispatcher("/WEB-INF/poste_list.jsp").forward(request, response);
@@ -60,7 +71,38 @@ public class Poste_list extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (request.getParameter("libererPoste") != null) {
+			String idParameterPoste = request.getParameter("inputIdPoste");
+			Integer idPoste = Integer.valueOf(idParameterPoste);
+			PosteEntity poste = posteService.findById(idPoste);
+			posteService.changeDisponibility(poste);
+			response.sendRedirect("poste_list");
+		} else if (request.getParameter("libererPostesSalle") != null) {
+			String idParameterSalle = request.getParameter("inputIdSalle");
+			Integer idSalle = Integer.valueOf(idParameterSalle);
+			SalleEntity salle = salleService.findById(idSalle);
+			List<PosteEntity> postes = salle.getPostes();
+			for (PosteEntity poste : postes) {
+				if (poste.getDisponibilite() == false){
+					posteService.changeDisponibility(poste);
+				}
+	        }
+			response.sendRedirect("poste_list");
+		} else if (request.getParameter("libererPostesSite") != null) {
+			String idParameterSite = request.getParameter("inputIdSite");
+			Integer idSite = Integer.valueOf(idParameterSite);
+			SiteEntity site = siteService.findById(idSite);
+			Set<SalleEntity> salles = site.getSalles();
+			for (SalleEntity salle : salles) {
+				List<PosteEntity> postes = salle.getPostes();
+				for (PosteEntity poste : postes) {
+					if (poste.getDisponibilite() == false){
+						posteService.changeDisponibility(poste);
+					}
+		        }
+	        }
+			response.sendRedirect("poste_list");
+		}
 	}
 
 }

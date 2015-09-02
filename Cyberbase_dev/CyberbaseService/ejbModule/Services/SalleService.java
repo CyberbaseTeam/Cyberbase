@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.SalleEntity;
 import fr.cyberbase.entities.SiteEntity;
 
@@ -16,6 +17,10 @@ public class SalleService {
 	
 	@PersistenceContext
 	EntityManager entityManager;
+	
+	public SalleEntity findById(Integer id) {
+		return entityManager.find(SalleEntity.class, id);
+	}
 	
 	public List<SalleEntity> findAll(){
 		@SuppressWarnings("unchecked")

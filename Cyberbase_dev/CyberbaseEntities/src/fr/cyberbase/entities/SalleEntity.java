@@ -24,6 +24,7 @@ public class SalleEntity implements Serializable {
 	private String nom_salle;
 	
 	@OneToMany(mappedBy="salle", fetch=FetchType.EAGER)
+	@OrderBy("nom_poste ASC")
 	private List<PosteEntity> postes;
 	
 	@ManyToOne

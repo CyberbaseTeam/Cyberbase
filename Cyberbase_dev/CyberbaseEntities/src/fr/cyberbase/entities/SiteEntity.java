@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
@@ -27,7 +28,8 @@ public class SiteEntity implements Serializable {
 	private Integer code_postal_site;
 	
 	@OneToMany(mappedBy="site", fetch=FetchType.EAGER)
-	private List<SalleEntity> salles;
+	@OrderBy("nom_salle ASC")
+	private Set<SalleEntity> salles;
 	
 
 	private static final long serialVersionUID = 1L;
@@ -71,10 +73,10 @@ public class SiteEntity implements Serializable {
 		this.code_postal_site = code_postal_site;
 	}
 	
-	public List<SalleEntity> getSalles() {
+	public Set<SalleEntity> getSalles() {
 		return salles;
 	}
-	public void setSalles(List<SalleEntity> salles) {
+	public void setSalles(Set<SalleEntity> salles) {
 		this.salles = salles;
 	}
    

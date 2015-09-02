@@ -22,8 +22,21 @@ public class PosteService {
 		return postesEntities;
 	}	
 	
-	public PosteEntity findById(PosteEntity poste) {
-		return entityManager.find(PosteEntity.class, poste.getId_poste());
+	public PosteEntity findById(Integer id) {
+		return entityManager.find(PosteEntity.class, id);
+	}
+	
+	public void changeDisponibility (PosteEntity poste){
+		Boolean disponibility = poste.getDisponibilite();
+		if (disponibility){
+			PosteEntity poste2 = entityManager.find(PosteEntity.class, poste.getId_poste());
+			poste2.setDisponibilite(false);
+			entityManager.merge(poste2);
+		} else {
+			PosteEntity poste2 = entityManager.find(PosteEntity.class, poste.getId_poste());
+			poste2.setDisponibilite(true);
+			entityManager.merge(poste2);
+		}
 	}
 	
 }

@@ -1,7 +1,6 @@
 package fr.cyberbase.servlets;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,26 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.cyberbase.entities.PosteEntity;
-import fr.cyberbase.entities.SalleEntity;
 import Services.PosteService;
-import Services.SalleService;
 
 /**
- * Servlet implementation class Poste_form
+ * Servlet implementation class Affecter_poste
  */
-@WebServlet("/poste_form")
-public class Poste_form extends HttpServlet {
+@WebServlet("/affecter_poste")
+public class Affecter_poste extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+    
 	@EJB
 	PosteService posteService;
-	SalleService salleService;
-       
+	
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Poste_form() {
+    public Affecter_poste() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,13 +33,12 @@ public class Poste_form extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String poste_id = request.getParameter("id");
-		if (poste_id != null) {
-			
+		String idPoste = request.getParameter("id");
+		if (idPoste != null) {
+			Integer id = Integer.valueOf(idPoste);
+			request.setAttribute("poste", posteService.findById(id));
 		}
-		List<SalleEntity> salles = salleService.findAll();
-		request.setAttribute("salles", salles);
-		request.getRequestDispatcher("/WEB-INF/poste_form.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/affecter_poste.jsp").forward(request, response);
 	}
 
 	/**
