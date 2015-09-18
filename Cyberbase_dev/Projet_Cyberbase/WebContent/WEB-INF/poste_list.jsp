@@ -8,6 +8,7 @@
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
 	<div>
 		<div>${sitePro.nom_site}</div>
+		<div>${login}</div>
 		<form method="post">
 		<section id="conteneur-colonnes">
 			<c:forEach items="${sitePro.salles}" var="salle">

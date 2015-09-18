@@ -14,7 +14,7 @@
 				</ul>
 				<ul>
 					<lh>Gérer les salles</lh>
-					<li><a href="" style="text-transform:none;">Créer une salle</a></li>
+					<li><a href="<c:url value="/salle_form"/>" style="text-transform:none;">Créer une salle</a></li>
 					<li><a href="" style="text-transform:none;">Modifier une salle</a></li>
 				</ul>
 			</nav>
