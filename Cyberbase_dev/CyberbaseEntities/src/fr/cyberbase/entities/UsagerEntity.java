@@ -23,7 +23,11 @@ public class UsagerEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_usager;
+	
+	//pas sur que ca suffise. meme chose sur professionnels
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String tech_id;
+	
 	private String civilite_usager;
 	private String nom_usager;
 	private String prenom_usager;
@@ -40,15 +44,15 @@ public class UsagerEntity implements Serializable {
 	
 	private Date date_inscription;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="id_quartier")
 	private QuartierEntity quartier;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="id_csp")
 	private CspEntity csp;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="id_formation")
 	private FormationEntity niveau_formation;
 	private static final long serialVersionUID = 1L;

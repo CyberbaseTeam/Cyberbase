@@ -8,5 +8,13 @@
 </head>
 <body>
 	<h1>ACCUEIL</h1>
+	<a href="http://localhost:8080/Projet_Cyberbase/statistiques">Statistiques</a><br>
+	<a href="http://localhost:8080/Projet_Cyberbase/usagers">Usagers</a><br>
+	<a href="http://localhost:8080/Projet_Cyberbase/gestion_salles_postes">gestion salles et postes</a><br>
+	<a href="http://localhost:8080/Projet_Cyberbase/affecter_poste">affectation</a><br>
+	<a href="http://localhost:8080/Projet_Cyberbase/poste_list">liste des postes</a><br>
+	<a href="http://localhost:8080/Projet_Cyberbase/salle_list">liste des salles</a><br>
+	
+	
 </body>
 </html>

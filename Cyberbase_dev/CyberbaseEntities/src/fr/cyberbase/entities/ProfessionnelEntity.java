@@ -24,7 +24,12 @@ public class ProfessionnelEntity implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_professionnel;
+	
+	//pas sur que ca suffise. meme chose sur usagers
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private String tech_id;
+	
+	
 	private String nom_professionnel;
 	private String prenom_professionnel;
 	

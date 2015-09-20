@@ -80,7 +80,7 @@ public class Connexion extends HttpServlet {
 				
 				Cookie cookie = new Cookie(cookieTools.COOKIE_KEY, token);
 				response.addCookie(cookie);
-				System.out.println(cookie);
+				
 				response.sendRedirect("accueil");		
 			}
 		}

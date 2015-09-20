@@ -15,7 +15,6 @@ public class UsagerService {
 	EntityManager entityManager;
 
 	public List<UsagerEntity> findAll() {
-
 		@SuppressWarnings("unchecked")
 		List<UsagerEntity> listing = entityManager.createNamedQuery("usagerEntity.findAll", UsagerEntity.class).getResultList();
 		return listing;

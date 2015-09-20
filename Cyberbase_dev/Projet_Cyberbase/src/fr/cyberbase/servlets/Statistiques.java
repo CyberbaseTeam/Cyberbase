@@ -13,7 +13,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Services.CspService;
+import Services.FormationService;
+import Services.QuartierService;
+import Services.SiteService;
 import Services.StatistiqueService;
+import Services.UsagerService;
+import fr.cyberbase.entities.CspEntity;
+import fr.cyberbase.entities.FormationEntity;
+import fr.cyberbase.entities.QuartierEntity;
+import fr.cyberbase.entities.RequeteEntity;
+import fr.cyberbase.entities.SiteEntity;
+import fr.cyberbase.entities.UsagerEntity;
 
 /**
  * Servlet implementation class statistiques
@@ -21,6 +32,11 @@ import Services.StatistiqueService;
 @WebServlet("/statistiques")
 public class Statistiques extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final String ATTR_SITES 			= "siteList";
+	private static final String ATTR_QUARTIERS 		= "quartierList";
+	private static final String ATTR_CSP	 		= "cspList";
+	private static final String ATTR_FORMATION	 	= "formationList";
 	
 	private static final String FIELD_DISPLAY_DATA 	= "displayData";
 	private static final String FIELD_SEARCH_PANEL 	= "searchPanel";
@@ -35,9 +51,29 @@ public class Statistiques extends HttpServlet {
 	private static final String FIELD_DATE_END 		= "dateEnd";
 	private static final String FIELD_SAVE_QUERY 	= "saveQuery";
 	 
+	List<SiteEntity> siteList;
+	List<UsagerEntity> usagerList;
+	List<CspEntity> cspList;
+	List<FormationEntity> formationList;
+	List<QuartierEntity> quartierList;
+	List<RequeteEntity> requeteList;
 	
 	@EJB
 	StatistiqueService statistiqueService;
+	
+	@EJB
+	SiteService siteService;
+	
+	@EJB
+	QuartierService  quartierService;
+	
+	@EJB
+	CspService  cspService;
+	
+	@EJB
+	FormationService  formationService;
+	
+	
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -51,6 +87,17 @@ public class Statistiques extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		siteList = siteService.findAll();
+		quartierList = quartierService.findAll();
+		cspList = cspService.findAll();
+		formationList = formationService.findAll();
+		
+		request.setAttribute(ATTR_SITES, siteList);
+		request.setAttribute(ATTR_QUARTIERS, quartierList);
+		request.setAttribute(ATTR_CSP, cspList);
+		request.setAttribute(ATTR_FORMATION, formationList);
+		
+		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);
 	}
 
@@ -83,18 +130,7 @@ public class Statistiques extends HttpServlet {
 			queryObjects.put(FIELD_DATE_END, request.getParameter(FIELD_DATE_END));
 		if(request.getParameter(FIELD_SAVE_QUERY)!= "")
 			queryObjects.put(FIELD_SAVE_QUERY, request.getParameter(FIELD_SAVE_QUERY));
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+			
 	}
 
 }

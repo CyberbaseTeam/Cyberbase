@@ -13,7 +13,7 @@ import org.jboss.resteasy.util.Hex;
 import fr.cyberbase.entities.ProfessionnelEntity;
 
 public class CookieTools {
-	//format du cookie: 1441048867730------CYBERPRO------P0000003------Clinton------4
+	//format du cookie: 1441048867730------CYBERPRO------P0000003------nom------prenom------4
 	private static final String KEY 				= "ad77bedbe8bc93ccc779e655bed7dcff";
     private static final String SEPARATOR 			= "------";
     private static final String CHECK_MSG_PRO_USER 	= "CYBERPRO";
@@ -25,7 +25,7 @@ public class CookieTools {
     /**
      * @brief fonction de cryptage d'une chaine
      * @param String chain
-     * @return String chaine criptée
+     * @return String chaine criptÃ©e
      * @throws NoSuchAlgorithmException
      * @throws NoSuchPaddingException
      * @throws InvalidKeyException
@@ -64,6 +64,9 @@ public class CookieTools {
 		Calendar maxAge = Calendar.getInstance();
 		maxAge.setTimeInMillis(Long.valueOf(tokenParts[0]));
 		login.setMaxAge(maxAge);
+		login.setNom(tokenParts[3]);
+		login.setPrenom(tokenParts[4]);
+		login.setSiteId(Integer.valueOf(tokenParts[5]));
 		if(tokenParts[1].equals(CHECK_MSG_ADMIN))
 			login.setAdmin(true);
         
@@ -73,9 +76,9 @@ public class CookieTools {
 
 	
 	/**
-	 * @brief fonction de g�n�ration d'une valeur de cookie pour un utilisateur classique
+	 * @brief fonction de génération d'une valeur de cookie pour un utilisateur classique
 	 * @param ProfessionnelEntity 
-	 * @return String valeur cript�e d'un cookie
+	 * @return String valeur criptée d'un cookie
 	 * @throws InvalidKeyException
 	 * @throws NoSuchAlgorithmException
 	 * @throws NoSuchPaddingException
@@ -85,11 +88,11 @@ public class CookieTools {
     public String generateNewProfessionalToken(ProfessionnelEntity pro) throws InvalidKeyException, NoSuchAlgorithmException,
     NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException
     {
-    	//objet Calendar qui manipule les �lements YEAR, MONTH etc et permet des conversions. Initialisation � l'heure locale
+    	//objet Calendar qui manipule les élements YEAR, MONTH etc et permet des conversions. Initialisation à l'heure locale
     	Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 7);
         Long expireTimeInMillis = calendar.getTimeInMillis();
-        
+        System.out.println(pro.getNom_professionnel());
         StringBuilder token = new StringBuilder();
         token.append(expireTimeInMillis);
         token.append(SEPARATOR);
@@ -108,9 +111,9 @@ public class CookieTools {
     }
     
     /**
-	 * @brief fonction de g�n�ration d'une valeur de cookie pour un utilisateur administrateur
+	 * @brief fonction de génération d'une valeur de cookie pour un utilisateur administrateur
 	 * @param ProfessionnelEntity 
-	 * @return String valeur cript�e d'un cookie
+	 * @return String valeur criptée d'un cookie
 	 * @throws InvalidKeyException
 	 * @throws NoSuchAlgorithmException
 	 * @throws NoSuchPaddingException
@@ -132,6 +135,8 @@ public class CookieTools {
         token.append(SEPARATOR);
         token.append(pro.getTech_id());
         token.append(SEPARATOR);
+        token.append(pro.getNom_professionnel());
+        token.append(SEPARATOR);
         token.append(pro.getPrenom_professionnel());
         token.append(SEPARATOR);
         token.append(pro.getSite_reference().getId_site());
@@ -141,7 +146,7 @@ public class CookieTools {
     
     
     /**
-     * @brief r�cup�ration ou cr�ation de la cl� sur laquelle se base le cryptage
+     * @brief recupération ou création de la clé sur laquelle se base le cryptage
      * @return SecretKey
      */
     public SecretKey getKey(){

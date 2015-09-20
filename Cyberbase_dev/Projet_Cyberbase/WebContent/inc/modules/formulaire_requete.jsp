@@ -10,8 +10,12 @@
 		<form action="/statistiques" method="POST">
 			<div>
 				<label for="search_panel" class="label">Chercher parmi:</label> 
-				<input type="radio" name="search_panel" value="tous" checked>Tous les usagers 
-				<input type="radio" name="search_panel" value="nouveaux"> Les nouveaux usagers
+				<SELECT name="search_panel">
+					<option value="all">Tous les inscrits</option>
+         			<c:forEach items="${siteList}" var="site">
+						<option value="${site.nom_site}">${site.nom_site}</option>
+					</c:forEach>	    
+				</SELECT>
 			</div>
 			<br />
 			
@@ -29,7 +33,8 @@
 			<input type="checkbox" name="displayData" value="displayDistrict">Quartier
 			<input type="checkbox" name="displayData" value="displayCSP">CSP<br />
 			<input type="checkbox" name="displayData" value="displayFormation">Formation
-				
+			<input type="checkbox" name="displayData" value="displayVisitCount"/>Nombre de visites <br />	
+			
 			<h3>Critères de recherche</h3>
 
 			<div id="gender">
@@ -39,22 +44,30 @@
 			</div>
 
 			<label for="city" class="label">Ville: </label><input type="text" name="city" /><br /> 
+			
 			<label for="district" class="label">Quartier:</label> 
 			<select name="district"><br />
-				<c:forEach items="${listeQuartier}" var="quartier">
+				<c:forEach items="${quartierList}" var="quartier">
 					<option value="">${quartier.nom_quartier}</option>
+				</c:forEach>
+			</select><br /> 
+			
+			<label for="csp" class="label">CSP:</label> 
+			<select name="csp"><br />
+				<c:forEach items="${cspList}" var="csp">
+					<option value="">${csp.libelle_csp}</option>
 				</c:forEach>
 			</select><br /> 
 			<label for="formation" class="label">Niveau de formation: </label> 
 			<select name="formation"><br />
-				<c:forEach items="${listeFormation}" var="formation">
+				<c:forEach items="${formationList}" var="formation">
 					<option value="">${formation.nom_formation}</option>
 				</c:forEach>
 			</select><br />
 			<label for="objective" class="label">Objet de la visite: </label>
 			<select name="objective"><br />
-				<c:forEach items="${listeDemarche}" var="objet">
-					<option value="">${demarche.nom_formation}</option>
+				<c:forEach items="${demarcheList}" var="objet">
+					<option value="">${demarche.nom_demarche}</option>
 				</c:forEach>
 			</select><br />
 			<label for="visit_min" class="label">Nombre de venues entre </label>
@@ -66,8 +79,7 @@
 			<label for="date_end" class="label_centre"> et </label>
 			<input type="date" name="date_end"><br />
 
-			<label>Afficher le nombre de visite des usagers recherchés: </label><input
-				type="checkbox" name="displayVisits" /> <br />
+			
 			
 			<label>Enregistrer cette requète dans vos requètes favorites: </label>
 			<input type="checkbox" name="saveQuery" /> <br />
