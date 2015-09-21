@@ -7,11 +7,11 @@
 	<fieldset>
 		<legend>Requète personnalisée</legend>
 		<span class="error"></span>
-		<form action="/statistiques" method="POST">
+		<form method="POST">
 			<div>
 				<label for="search_panel" class="label">Chercher parmi:</label> 
 				<SELECT name="search_panel">
-					<option value="all">Tous les inscrits</option>
+					<option selected value="all">Tous les inscrits</option>
          			<c:forEach items="${siteList}" var="site">
 						<option value="${site.nom_site}">${site.nom_site}</option>
 					</c:forEach>	    
@@ -19,21 +19,21 @@
 			</div>
 			<br />
 			
-			<label for="displayData">Données à afficher: </label><br />
-			<input type="checkbox" name="displayData" value="displayGender">Civilité
-			<input type="checkbox" name="displayData" value="displaySurname">Nom<br />
-			<input type="checkbox" name="displayData" value="displayName">Prénom
-			<input type="checkbox" name="displayData" value="displayDOB">Date de naissance<br />
-			<input type="checkbox" name="displayData" value="diplayAddress">Adresse
-			<input type="checkbox" name="displayData" value="displayCity">Ville<br />
-			<input type="checkbox" name="displayData" value="displayZipCode">Code postal
-			<input type="checkbox" name="displayData" value="displayEmail">email<br />
-			<input type="checkbox" name="displayData" value="displayPatronage">Accompagnement
-			<input type="checkbox" name="displayData" value="displaySite">Site d'inscription<br />
-			<input type="checkbox" name="displayData" value="displayDistrict">Quartier
-			<input type="checkbox" name="displayData" value="displayCSP">CSP<br />
-			<input type="checkbox" name="displayData" value="displayFormation">Formation
-			<input type="checkbox" name="displayData" value="displayVisitCount"/>Nombre de visites <br />	
+			<label for="displayData[]">Données à afficher: </label><br />
+			<input type="checkbox" name="displayData[]" value="displayGender">Civilité
+			<input type="checkbox" name="displayData[]" value="displaySurname">Prénom<br />
+			<input type="checkbox" name="displayData[]" value="displayName">Nom
+			<input type="checkbox" name="displayData[]" value="displayDOB">Date de naissance<br />
+			<input type="checkbox" name="displayData[]" value="displayAddress">Adresse
+			<input type="checkbox" name="displayData[]" value="displayCity">Ville<br />
+			<input type="checkbox" name="displayData[]" value="displayZipCode">Code postal
+			<input type="checkbox" name="displayData[]" value="displayEmail">email<br />
+			<input type="checkbox" name="displayData[]" value="displayPatronage">Accompagnement
+			<input type="checkbox" name="displayData[]" value="displaySite">Site d'inscription<br />
+			<input type="checkbox" name="displayData[]" value="displayDistrict">Quartier
+			<input type="checkbox" name="displayData[]" value="displayCsp">CSP<br />
+			<input type="checkbox" name="displayData[]" value="displayFormation">Formation
+			<input type="checkbox" name="displayData[]" value="displayVisitCount"/>Nombre de visites <br />	
 			
 			<h3>Critères de recherche</h3>
 
@@ -47,27 +47,31 @@
 			
 			<label for="district" class="label">Quartier:</label> 
 			<select name="district"><br />
+				<option value="">Critère par quartier</option>
 				<c:forEach items="${quartierList}" var="quartier">
-					<option value="">${quartier.nom_quartier}</option>
+					<option value="${quartier.nom_quartier}">${quartier.nom_quartier}</option>
 				</c:forEach>
 			</select><br /> 
 			
 			<label for="csp" class="label">CSP:</label> 
 			<select name="csp"><br />
+				<option value="">Critère par csp</option>
 				<c:forEach items="${cspList}" var="csp">
-					<option value="">${csp.libelle_csp}</option>
+					<option value="${csp.libelle_csp}">${csp.libelle_csp}</option>
 				</c:forEach>
 			</select><br /> 
 			<label for="formation" class="label">Niveau de formation: </label> 
 			<select name="formation"><br />
+				<option value="">Critère par formation</option>
 				<c:forEach items="${formationList}" var="formation">
-					<option value="">${formation.nom_formation}</option>
+					<option value="${formation.nom_formation}">${formation.nom_formation}</option>
 				</c:forEach>
 			</select><br />
 			<label for="objective" class="label">Objet de la visite: </label>
 			<select name="objective"><br />
+				<option value="">Critère par démarche</option>
 				<c:forEach items="${demarcheList}" var="objet">
-					<option value="">${demarche.nom_demarche}</option>
+					<option value="${objet.nom_demarche}">${objet.nom_demarche}</option>
 				</c:forEach>
 			</select><br />
 			<label for="visit_min" class="label">Nombre de venues entre </label>

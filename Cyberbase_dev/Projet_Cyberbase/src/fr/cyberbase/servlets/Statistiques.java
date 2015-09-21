@@ -14,12 +14,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Services.CspService;
+import Services.DemarcheService;
 import Services.FormationService;
 import Services.QuartierService;
 import Services.SiteService;
 import Services.StatistiqueService;
 import Services.UsagerService;
 import fr.cyberbase.entities.CspEntity;
+import fr.cyberbase.entities.DemarcheEntity;
 import fr.cyberbase.entities.FormationEntity;
 import fr.cyberbase.entities.QuartierEntity;
 import fr.cyberbase.entities.RequeteEntity;
@@ -37,8 +39,9 @@ public class Statistiques extends HttpServlet {
 	private static final String ATTR_QUARTIERS 		= "quartierList";
 	private static final String ATTR_CSP	 		= "cspList";
 	private static final String ATTR_FORMATION	 	= "formationList";
+	private static final String ATTR_DEMARCHE	 	= "demarcheList";
 	
-	private static final String FIELD_DISPLAY_DATA 	= "displayData";
+	private static final String FIELD_DISPLAY_DATA 	= "displayData[]";
 	private static final String FIELD_SEARCH_PANEL 	= "searchPanel";
 	private static final String FIELD_GENDER 		= "gender";
 	private static final String FIELD_CITY 			= "city";
@@ -55,6 +58,7 @@ public class Statistiques extends HttpServlet {
 	List<UsagerEntity> usagerList;
 	List<CspEntity> cspList;
 	List<FormationEntity> formationList;
+	List<DemarcheEntity> demarcheList;
 	List<QuartierEntity> quartierList;
 	List<RequeteEntity> requeteList;
 	
@@ -73,6 +77,11 @@ public class Statistiques extends HttpServlet {
 	@EJB
 	FormationService  formationService;
 	
+	@EJB
+	DemarcheService  demarcheService;
+	
+	
+	
 	
 	
     /**
@@ -87,16 +96,7 @@ public class Statistiques extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		siteList = siteService.findAll();
-		quartierList = quartierService.findAll();
-		cspList = cspService.findAll();
-		formationList = formationService.findAll();
-		
-		request.setAttribute(ATTR_SITES, siteList);
-		request.setAttribute(ATTR_QUARTIERS, quartierList);
-		request.setAttribute(ATTR_CSP, cspList);
-		request.setAttribute(ATTR_FORMATION, formationList);
-		
+		initializeData(request);
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);
 	}
@@ -110,6 +110,17 @@ public class Statistiques extends HttpServlet {
 		
 		if(request.getParameter(FIELD_SEARCH_PANEL)!= "")
 			queryObjects.put(FIELD_SEARCH_PANEL, request.getParameter(FIELD_SEARCH_PANEL));
+		if(request.getParameterValues(FIELD_DISPLAY_DATA) == null)
+			querySelectObjects.add("displayAll");
+		else{
+			for(int i = 0; i < request.getParameterValues(FIELD_DISPLAY_DATA).length; i++){
+				querySelectObjects.add(request.getParameterValues(FIELD_DISPLAY_DATA)[i]);
+			}				
+		}
+			
+		for(int i = 0; i < querySelectObjects.size(); i++){
+			System.out.println(querySelectObjects.get(i));
+		}	
 		if(request.getParameter(FIELD_GENDER)!= "")
 			queryObjects.put(FIELD_GENDER, request.getParameter(FIELD_GENDER));
 		if(request.getParameter(FIELD_CITY)!= "")
@@ -130,7 +141,24 @@ public class Statistiques extends HttpServlet {
 			queryObjects.put(FIELD_DATE_END, request.getParameter(FIELD_DATE_END));
 		if(request.getParameter(FIELD_SAVE_QUERY)!= "")
 			queryObjects.put(FIELD_SAVE_QUERY, request.getParameter(FIELD_SAVE_QUERY));
-			
+		
+		statistiqueService.executePersonalQuery(queryObjects, querySelectObjects);
+		
+		
+	}
+	
+	private void initializeData(HttpServletRequest request){
+		siteList = siteService.findAll();
+		quartierList = quartierService.findAll();
+		cspList = cspService.findAll();
+		formationList = formationService.findAll();
+		demarcheList = demarcheService.findAll();
+		
+		request.setAttribute(ATTR_SITES, siteList);
+		request.setAttribute(ATTR_QUARTIERS, quartierList);
+		request.setAttribute(ATTR_CSP, cspList);
+		request.setAttribute(ATTR_FORMATION, formationList);
+		request.setAttribute(ATTR_DEMARCHE, demarcheList);
 	}
 
 }
