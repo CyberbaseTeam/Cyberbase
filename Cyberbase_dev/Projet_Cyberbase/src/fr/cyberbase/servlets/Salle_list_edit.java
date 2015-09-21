@@ -16,11 +16,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Services.PosteService;
 import Services.ProfessionnelService;
-import Services.SalleService;
 import Services.SiteService;
-import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
 import fr.cyberbase.entities.SalleEntity;
 import fr.cyberbase.entities.SiteEntity;
@@ -28,25 +25,21 @@ import fr.cyberbase.util.CookieTools;
 import fr.cyberbase.util.Login;
 
 /**
- * Servlet implementation class Salle_form
+ * Servlet implementation class Salle_list_edit
  */
-@WebServlet("/salle_form")
-public class Salle_form extends HttpServlet {
+@WebServlet("/salle_list_edit")
+public class Salle_list_edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
 	SiteService siteService;
 	@EJB
 	ProfessionnelService proService;
-	@EJB
-	PosteService posteService;
-	@EJB
-	SalleService salleService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Salle_form() {
+    public Salle_list_edit() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -93,15 +86,7 @@ public class Salle_form extends HttpServlet {
 		List<SiteEntity> siteEntities = siteService.findAll();
 		request.setAttribute("sitePro", siteProfessionnel);
 		
-		//Récupération de l'id salle passé en paramètre d'URL dans le cas d'une modification 
-		String idSalleParameter = request.getParameter("id");
-		if (idSalleParameter != null) {
-			Integer idSalle = Integer.valueOf(idSalleParameter);
-			request.setAttribute("salle", salleService.findById(idSalle));
-		}
-		
-		request.getRequestDispatcher("/WEB-INF/salle_form.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/WEB-INF/salle_list_edit.jsp").forward(request, response);
 	}
 
 	/**
@@ -109,29 +94,11 @@ public class Salle_form extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if (request.getParameter("createSalle") != null) {
-			SalleEntity salle = new SalleEntity();
-			salle.setNom_salle(request.getParameter("nomSalle"));
-			String idSiteParameter = request.getParameter("idSite");
-			Integer idSite = Integer.valueOf(idSiteParameter);
-			SiteEntity site = siteService.findById(idSite);
-			salle.setSite(site);
-			salleService.createSalle(salle);
-			response.sendRedirect("salle_list");
-		} else if (request.getParameter("editPoste") != null){
-			String idPosteParameter = request.getParameter("idPoste");
-			Integer idPoste = Integer.valueOf(idPosteParameter);
-			response.sendRedirect("poste_form?id="+idPoste);
-		} else if (request.getParameter("deletePoste") != null){
-			String idPosteParameter = request.getParameter("idPoste");
-			Integer idPoste = Integer.valueOf(idPosteParameter);
-			PosteEntity poste = new PosteEntity();
-			poste.setId_poste(idPoste);
-			posteService.deletePoste(poste);
+		if (request.getParameter("editSalle") != null) {
 			String idSalleParameter = request.getParameter("idSalle");
 			Integer idSalle = Integer.valueOf(idSalleParameter);
 			response.sendRedirect("salle_form?id="+idSalle);
-		}
+		} 
 		
 	}
 

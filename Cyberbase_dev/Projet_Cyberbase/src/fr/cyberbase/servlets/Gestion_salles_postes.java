@@ -1,8 +1,13 @@
 package fr.cyberbase.servlets;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.cyberbase.entities.ProfessionnelEntity;
 import fr.cyberbase.entities.SiteEntity;
+import fr.cyberbase.util.CookieTools;
+import fr.cyberbase.util.Login;
 import Services.ProfessionnelService;
 import Services.SiteService;
 
@@ -41,14 +48,36 @@ public class Gestion_salles_postes extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		//Simulation de récupération de l'idTech d'un professionnel via le cookie
-		String idTechProfessionnel = "P0000003";
+		CookieTools cookieTools = new CookieTools();
+		String techId = null;
+		Login login = new Login();
+		
+		//Récupéraction du cookie
+		//Décryptage du cookie
+		//Récupération du TechID du professionnel connecté
+		Cookie cookies [] = request.getCookies();
+		for(Cookie cookie: cookies)
+		{
+			if(cookie.getName().equals(CookieTools.COOKIE_KEY)) 
+	        {
+				String tokenCookie = cookie.getValue();
+				try {
+					login = cookieTools.getLogin(tokenCookie);
+				} catch (InvalidKeyException | NoSuchPaddingException
+						| NoSuchAlgorithmException | IllegalBlockSizeException
+						| BadPaddingException e) {
+					e.printStackTrace();
+				}
+	        	techId = login.getLoginTechId();
+	        }
+		}
+		request.setAttribute("login", techId);
 		
 		//Récupération du professionnel connecté
-		ProfessionnelEntity professionnel = proService.findByTechId(idTechProfessionnel);
+		ProfessionnelEntity professionnel = proService.findByTechId(techId);
 		
 		//Récupération de l'id du site du professionnel connecté
-		Integer idSiteProfessionnel = professionnel.getSite_reference().getId_site();
+		Integer idSiteProfessionnel = login.getSiteId();
 		
 		//Récupération du site du professionnel connecté
 		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);

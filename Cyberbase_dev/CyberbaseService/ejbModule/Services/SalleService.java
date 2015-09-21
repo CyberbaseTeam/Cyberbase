@@ -22,6 +22,11 @@ public class SalleService {
 		return entityManager.find(SalleEntity.class, id);
 	}
 	
+	public SalleEntity createSalle(SalleEntity salle) {
+		entityManager.persist(salle);
+		return salle;
+	}
+	
 	public List<SalleEntity> findAll(){
 		@SuppressWarnings("unchecked")
 		List<SalleEntity> sallesEntities = entityManager.createNamedQuery("SalleEntity.findAll").getResultList();

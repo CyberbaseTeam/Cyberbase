@@ -62,6 +62,7 @@ public class Poste_list extends HttpServlet {
 		
 		CookieTools cookieTools = new CookieTools();
 		String techId = null;
+		Login login = new Login();
 		
 		//Récupéraction du cookie
 		//Décryptage du cookie
@@ -72,7 +73,6 @@ public class Poste_list extends HttpServlet {
 			if(cookie.getName().equals(CookieTools.COOKIE_KEY)) 
 	        {
 				String tokenCookie = cookie.getValue();
-	        	Login login = new Login();
 				try {
 					login = cookieTools.getLogin(tokenCookie);
 				} catch (InvalidKeyException | NoSuchPaddingException
@@ -85,14 +85,11 @@ public class Poste_list extends HttpServlet {
 		}
 		request.setAttribute("login", techId);
 		
-		//Simulation de récupération de l'idTech d'un professionnel via le cookie
-		String idTechProfessionnel = "P0000003";
-				
 		//Récupération du professionnel connecté
-		ProfessionnelEntity professionnel = proService.findByTechId(idTechProfessionnel);
+		ProfessionnelEntity professionnel = proService.findByTechId(techId);
 				
 		//Récupération de l'id du site du professionnel connecté
-		Integer idSiteProfessionnel = professionnel.getSite_reference().getId_site();
+		Integer idSiteProfessionnel = login.getSiteId();
 				
 		//Récupération du site du professionnel connecté
 		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
@@ -138,6 +135,10 @@ public class Poste_list extends HttpServlet {
 		        }
 	        }
 			response.sendRedirect("poste_list");
+		} else if (request.getParameter("editSalle") != null) {
+			String idParameterSalle = request.getParameter("idSalle");
+			Integer idSalle = Integer.valueOf(idParameterSalle);
+			response.sendRedirect("salle_form?id="+idSalle);
 		}
 	}
 	

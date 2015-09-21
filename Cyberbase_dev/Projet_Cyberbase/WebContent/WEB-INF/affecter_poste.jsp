@@ -8,7 +8,7 @@
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
 	<section>
 		 		<article class="colonne-affecter">
-		 			<form class="affecter-form" method="post" action="">
+		 			<form class="affecter-form" method="post">
 						<fieldset>
 							<legend class="legende-form">
 								<h2>Choix usager</h2>

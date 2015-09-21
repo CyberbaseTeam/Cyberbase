@@ -26,7 +26,7 @@ public class Salle_list extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/salle_liste.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/salle_list.jsp").forward(request, response);
 	}
 
 	/**

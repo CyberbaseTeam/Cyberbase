@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.cyberbase.entities.PosteEntity;
+import fr.cyberbase.entities.SalleEntity;
 
 
 @Stateless
@@ -37,6 +38,20 @@ public class PosteService {
 			poste2.setDisponibilite(true);
 			entityManager.merge(poste2);
 		}
+	}
+	
+	public PosteEntity createPoste(PosteEntity poste) {
+		entityManager.persist(poste);
+		return poste;
+	}
+	
+	public PosteEntity updatePoste(PosteEntity poste) {
+		return entityManager.merge(poste);
+	}
+	
+	public void deletePoste(PosteEntity poste) {
+		poste = entityManager.merge(poste);
+		entityManager.remove(poste);
 	}
 	
 }

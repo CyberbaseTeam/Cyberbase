@@ -56,6 +56,12 @@ public class SalleEntity implements Serializable {
 	}
 	public void setPostes(List<PosteEntity> postes) {
 		this.postes = postes;
+	}
+	public SiteEntity getSite() {
+		return site;
+	}
+	public void setSite(SiteEntity site) {
+		this.site = site;
 	}  
 	
 	
