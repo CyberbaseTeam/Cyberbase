@@ -142,7 +142,7 @@ public class Statistiques extends HttpServlet {
 		if(request.getParameter(FIELD_SAVE_QUERY)!= "")
 			queryObjects.put(FIELD_SAVE_QUERY, request.getParameter(FIELD_SAVE_QUERY));
 		
-		statistiqueService.executePersonalQuery(queryObjects, querySelectObjects);
+		statistiqueService.createPersonalQuery(queryObjects, querySelectObjects);
 		
 		
 	}

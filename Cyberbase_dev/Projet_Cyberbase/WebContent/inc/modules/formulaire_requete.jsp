@@ -85,6 +85,7 @@
 
 			
 			
+			
 			<label>Enregistrer cette requète dans vos requètes favorites: </label>
 			<input type="checkbox" name="saveQuery" /> <br />
 			
