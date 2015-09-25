@@ -118,6 +118,14 @@ public class Salle_form extends HttpServlet {
 			salle.setSite(site);
 			salleService.createSalle(salle);
 			response.sendRedirect("salle_list");
+		} else if(request.getParameter("confirmEditSalle") != null){
+			String idSalleParameter = request.getParameter("idSalle");
+			Integer idSalle = Integer.valueOf(idSalleParameter);
+			String nomSalle = request.getParameter("nomSalle");
+			SalleEntity salle = salleService.findById(idSalle);
+			salle.setNom_salle(nomSalle);
+			salleService.updateSalle(salle);
+			response.sendRedirect("poste_list");
 		} else if (request.getParameter("editPoste") != null){
 			String idPosteParameter = request.getParameter("idPoste");
 			Integer idPoste = Integer.valueOf(idPosteParameter);
@@ -125,13 +133,13 @@ public class Salle_form extends HttpServlet {
 		} else if (request.getParameter("deletePoste") != null){
 			String idPosteParameter = request.getParameter("idPoste");
 			Integer idPoste = Integer.valueOf(idPosteParameter);
+			String idSalleParameter = request.getParameter("idSalle");
+			Integer idSalle = Integer.valueOf(idSalleParameter);
 			PosteEntity poste = new PosteEntity();
 			poste.setId_poste(idPoste);
 			posteService.deletePoste(poste);
-			String idSalleParameter = request.getParameter("idSalle");
-			Integer idSalle = Integer.valueOf(idSalleParameter);
 			response.sendRedirect("salle_form?id="+idSalle);
-		}
+		} 
 		
 	}
 

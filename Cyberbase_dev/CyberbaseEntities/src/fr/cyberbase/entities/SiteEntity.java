@@ -16,6 +16,7 @@ import javax.persistence.*;
 @Table(name="site")
 @NamedQueries({
 	@NamedQuery(name = "SiteEntity.findAll", query = "SELECT u FROM SiteEntity u"),
+	@NamedQuery(name = "SiteEntity.findAllExceptMine", query = "SELECT u FROM SiteEntity u WHERE u.id_site <> :id_site")
 	 })
 public class SiteEntity implements Serializable {
 

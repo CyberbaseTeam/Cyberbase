@@ -27,19 +27,6 @@ public class PosteService {
 		return entityManager.find(PosteEntity.class, id);
 	}
 	
-	public void changeDisponibility (PosteEntity poste){
-		Boolean disponibility = poste.getDisponibilite();
-		if (disponibility){
-			PosteEntity poste2 = entityManager.find(PosteEntity.class, poste.getId_poste());
-			poste2.setDisponibilite(false);
-			entityManager.merge(poste2);
-		} else {
-			PosteEntity poste2 = entityManager.find(PosteEntity.class, poste.getId_poste());
-			poste2.setDisponibilite(true);
-			entityManager.merge(poste2);
-		}
-	}
-	
 	public PosteEntity createPoste(PosteEntity poste) {
 		entityManager.persist(poste);
 		return poste;
@@ -52,6 +39,17 @@ public class PosteService {
 	public void deletePoste(PosteEntity poste) {
 		poste = entityManager.merge(poste);
 		entityManager.remove(poste);
+	}
+	
+	public void changeDisponibility (PosteEntity poste){
+		Boolean disponibility = poste.getDisponibilite();
+		if (disponibility){
+			poste.setDisponibilite(false);
+			entityManager.merge(poste);
+		} else {
+			poste.setDisponibilite(true);
+			entityManager.merge(poste);
+		}
 	}
 	
 }

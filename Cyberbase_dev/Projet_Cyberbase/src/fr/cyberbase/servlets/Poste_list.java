@@ -105,40 +105,35 @@ public class Poste_list extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("libererPoste") != null) {
-			String idParameterPoste = request.getParameter("inputIdPoste");
-			Integer idPoste = Integer.valueOf(idParameterPoste);
+			String inputIdPoste = request.getParameter("inputIdPoste");
+			Integer idPoste = Integer.valueOf(inputIdPoste);
 			PosteEntity poste = posteService.findById(idPoste);
 			posteService.changeDisponibility(poste);
 			response.sendRedirect("poste_list");
 		} else if (request.getParameter("libererPostesSalle") != null) {
-			String idParameterSalle = request.getParameter("inputIdSalle");
-			Integer idSalle = Integer.valueOf(idParameterSalle);
+			String inputIdSalle = request.getParameter("inputIdSalle");
+			Integer idSalle = Integer.valueOf(inputIdSalle);
 			SalleEntity salle = salleService.findById(idSalle);
 			List<PosteEntity> postes = salle.getPostes();
 			for (PosteEntity poste : postes) {
-				if (poste.getDisponibilite() == false){
-					posteService.changeDisponibility(poste);
-				}
-	        }
+				PosteEntity poste2 = posteService.findById(poste.getId_poste());
+				poste2.setNom_poste("test123");
+				posteService.updatePoste(poste2);
+//				posteService.changeDisponibility(poste);
+			}
 			response.sendRedirect("poste_list");
 		} else if (request.getParameter("libererPostesSite") != null) {
-			String idParameterSite = request.getParameter("inputIdSite");
-			Integer idSite = Integer.valueOf(idParameterSite);
-			SiteEntity site = siteService.findById(idSite);
-			Set<SalleEntity> salles = site.getSalles();
-			for (SalleEntity salle : salles) {
-				List<PosteEntity> postes = salle.getPostes();
-				for (PosteEntity poste : postes) {
-					if (poste.getDisponibilite() == false){
-						posteService.changeDisponibility(poste);
-					}
-		        }
-	        }
-			response.sendRedirect("poste_list");
+			
 		} else if (request.getParameter("editSalle") != null) {
-			String idParameterSalle = request.getParameter("idSalle");
-			Integer idSalle = Integer.valueOf(idParameterSalle);
+			String inputIdSalle = request.getParameter("inputIdSalle");
+			Integer idSalle = Integer.valueOf(inputIdSalle);
 			response.sendRedirect("salle_form?id="+idSalle);
+		}else if (request.getParameter("deleteSalle") != null){
+			String inputIdSalle = request.getParameter("inputIdSalle");
+			Integer idSalle = Integer.valueOf(inputIdSalle);
+			SalleEntity salle = salleService.findById(idSalle);
+			salleService.deleteSalle(salle);
+			response.sendRedirect("poste_list");
 		}
 	}
 	

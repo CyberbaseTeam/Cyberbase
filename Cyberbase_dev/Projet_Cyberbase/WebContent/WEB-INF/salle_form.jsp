@@ -24,7 +24,6 @@
 						</div>
 					</div>
 				</fieldset>
-			</form>
 		</div>
 	</section>
 	<section>
@@ -33,10 +32,12 @@
 				<input type="submit" name="createSalle" value="Créer" />
 			</c:when>
 			<c:otherwise>
+				<input type="hidden" value="${salle.id_salle}" name="idSalle">
 				<input type="submit" name="confirmEditSalle" value="Valider" />
 			</c:otherwise>
 		</c:choose>
 		<input type="reset" name="effacer" value="Retour" />
+	  </form>
 	</section>
 	<section>
 			<fieldset>

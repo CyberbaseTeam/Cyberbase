@@ -27,10 +27,20 @@ public class SalleService {
 		return salle;
 	}
 	
+	public SalleEntity updateSalle(SalleEntity salle) {
+		return entityManager.merge(salle);
+	}
+	
+	
 	public List<SalleEntity> findAll(){
 		@SuppressWarnings("unchecked")
 		List<SalleEntity> sallesEntities = entityManager.createNamedQuery("SalleEntity.findAll").getResultList();
 		return sallesEntities;
+	}
+	
+	public void deleteSalle(SalleEntity salle) {
+		salle = entityManager.merge(salle);
+		entityManager.remove(salle);
 	}
 
 	public List<SalleEntity> findSallesBySite(SiteEntity site) {
@@ -40,6 +50,5 @@ public class SalleService {
 		List<SalleEntity> sallesEntities = query.getResultList();
 		return sallesEntities;
 	}
-	
-	
+
 }

@@ -37,12 +37,12 @@
 							<div>
 								<input type="hidden" value="${salle.id_salle}"
 									name="inputIdSalle" /> <input type="submit"
-									value="Libérer tous les postes de la ${salle.nom_salle}"
+									value="Libérer tous les postes de la ${salle.nom_salle}" ®
 									name="libererPostesSalle">
 							</div>
 							<div class="buttons-bas">
 								<form method="post">
-									<input type="hidden" value="${salle.id_salle}" name="idSalle">
+									<input type="hidden" value="${salle.id_salle}" name="inputIdSalle">
 									<input type="submit"
 										name="editSalle" value="Modifier salle" /><input
 										type="submit" name="deleteSalle" value="Supprimer salle" />

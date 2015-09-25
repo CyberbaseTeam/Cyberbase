@@ -5,7 +5,9 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
+import fr.cyberbase.entities.SiteEntity;
 import fr.cyberbase.entities.UsagerEntity;
 
 @Stateless
@@ -31,6 +33,16 @@ public class UsagerService {
 	public void delete(UsagerEntity usagerEntity) {
 		usagerEntity = entityManager.merge(usagerEntity);
 		entityManager.remove(usagerEntity);		
+	}
+	
+	public List<UsagerEntity> findAllUsersBySite(SiteEntity site){
+		Query query = entityManager.createNamedQuery(
+				"usagerEntity.findAllUsersBySite");
+		Integer id_site = site.getId_site();
+		query.setParameter("id_site", id_site);
+		@SuppressWarnings("unchecked")
+		List<UsagerEntity> usagers = query.getResultList();
+		return usagers;
 	}
 
 }
