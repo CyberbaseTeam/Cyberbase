@@ -9,11 +9,11 @@
 		<span class="error"></span>
 		<form method="POST">
 			<div>
-				<label for="search_panel" class="label">Chercher parmi:</label> 
-				<SELECT name="search_panel">
+				<label for="searchPanel" class="label">Chercher parmi:</label> 
+				<SELECT name="searchPanel">
 					<option selected value="all">Tous les inscrits</option>
          			<c:forEach items="${siteList}" var="site">
-						<option value="${site.nom_site}">${site.nom_site}</option>
+						<option value="${site.id_site}">${site.nom_site}</option>
 					</c:forEach>	    
 				</SELECT>
 			</div>
@@ -49,7 +49,7 @@
 			<select name="district"><br />
 				<option value="">Critère par quartier</option>
 				<c:forEach items="${quartierList}" var="quartier">
-					<option value="${quartier.nom_quartier}">${quartier.nom_quartier}</option>
+					<option value="${quartier.id_quartier}">${quartier.nom_quartier}</option>
 				</c:forEach>
 			</select><br /> 
 			
@@ -57,37 +57,39 @@
 			<select name="csp"><br />
 				<option value="">Critère par csp</option>
 				<c:forEach items="${cspList}" var="csp">
-					<option value="${csp.libelle_csp}">${csp.libelle_csp}</option>
+					<option value="${csp.id_csp}">${csp.libelle_csp}</option>
 				</c:forEach>
 			</select><br /> 
 			<label for="formation" class="label">Niveau de formation: </label> 
 			<select name="formation"><br />
 				<option value="">Critère par formation</option>
 				<c:forEach items="${formationList}" var="formation">
-					<option value="${formation.nom_formation}">${formation.nom_formation}</option>
+					<option value="${formation.id_formation}">${formation.nom_formation}</option>
 				</c:forEach>
 			</select><br />
 			<label for="objective" class="label">Objet de la visite: </label>
 			<select name="objective"><br />
 				<option value="">Critère par démarche</option>
 				<c:forEach items="${demarcheList}" var="objet">
-					<option value="${objet.nom_demarche}">${objet.nom_demarche}</option>
+					<option value="${objet.id_demarche}">${objet.nom_demarche}</option>
 				</c:forEach>
 			</select><br />
-			<label for="visit_min" class="label">Nombre de venues entre </label>
-			<input type="text" name="visit_min"> 
-			<label	class="label_centre" for="visit_max"> et </label>
-			<input type="text"	name="visit_max"><br /> 
-			<label for="date_start"	class="label">Venues entre </label>
-			<input type="date"	name="date_start">
-			<label for="date_end" class="label_centre"> et </label>
-			<input type="date" name="date_end"><br />
+			<label for="visitMin" class="label">Nombre de venues entre </label>
+			<input type="text" name="visitMin"> 
+			<label	class="label_centre" for="visitMax"> et </label>
+			<input type="text"	name="visitMax"><br /> 
+			<label for="dateStart"	class="label">Venues entre </label>
+			<input type="date"	name="dateStart">
+			<label for="dateEnd" class="label_centre"> et </label>
+			<input type="date" name="dateEnd"><br />
 
 			
 			
 			
 			<label>Enregistrer cette requète dans vos requètes favorites: </label>
-			<input type="checkbox" name="saveQuery" /> <br />
+			<input type="checkbox" name="saveQuery" />
+			<label>Sous quel nom: </label>
+			<input type="text" name="queryName" /> <br />
 			
 			<input class="executeQuery" type="submit" value="lancer la requète" />
 		</form>

@@ -62,7 +62,9 @@ public class CookieTools {
 		Login login = new Login();
 		login.setLoginTechId(tokenParts[2]);
 		Calendar maxAge = Calendar.getInstance();
+		
 		maxAge.setTimeInMillis(Long.valueOf(tokenParts[0]));
+		
 		login.setMaxAge(maxAge);
 		login.setNom(tokenParts[3]);
 		login.setPrenom(tokenParts[4]);
@@ -92,7 +94,6 @@ public class CookieTools {
     	Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, 7);
         Long expireTimeInMillis = calendar.getTimeInMillis();
-        System.out.println(pro.getNom_professionnel());
         StringBuilder token = new StringBuilder();
         token.append(expireTimeInMillis);
         token.append(SEPARATOR);
@@ -153,8 +154,8 @@ public class CookieTools {
     	if(key == null) {
             key =  new SecretKeySpec(Hex.decodeHex(KEY.toString()), "AES");
         }
-        return key;	
-		
-    	
+        return key;	    	
     }
+    
+    
 }
