@@ -16,7 +16,8 @@ import javax.persistence.*;
 @Entity
 @Table(name="usager")
 @NamedQueries({
-	@NamedQuery(name="usagerEntity.findAll", query="SELECT e FROM UsagerEntity e ORDER BY e.nom_usager")
+	@NamedQuery(name="usagerEntity.findAll", query="SELECT e FROM UsagerEntity e ORDER BY e.nom_usager"),
+	@NamedQuery(name="usagerEntity.findAllUsersBySite", query="SELECT e FROM UsagerEntity e WHERE e.site_inscription = :id_site ORDER BY e.nom_usager")
 })
 public class UsagerEntity implements Serializable {
 

@@ -23,7 +23,7 @@ public class SalleEntity implements Serializable {
 	private Integer id_salle;
 	private String nom_salle;
 	
-	@OneToMany(mappedBy="salle", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="salle", fetch=FetchType.EAGER, cascade = CascadeType.ALL)
 	@OrderBy("nom_poste ASC")
 	private List<PosteEntity> postes;
 	

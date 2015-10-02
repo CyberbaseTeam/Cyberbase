@@ -14,30 +14,20 @@
 								<h2>Choix usager</h2>
 							</legend>
 							<div class="conteneur-form">
-								<div class="label-form">
 									<label for="selection-site">Site:</label>
-								</div>
-								<div class="champs-form">
      								<select name="selection-site">
-     									<option value="" disabled selected>Choix du site</option>
-				     					<option value="">Site 1</option>
-				        				<option value="">Site 2</option>
-				        				<option value="">Site 3</option>
+     									<option value="" disabled selected>${site.nom_site}</option>
+ 
     				 				</select>
-    				 			</div>
 							</div>
 							<div class="conteneur-form">
-								<div class="label-form">
 									<label for="selection-site">Usager :</label>
-								</div>
-								<div class="champs-form">
      								<select name="selection-site">
      									<option value="" disabled selected>Choix de l'usager</option>
-				     					<option value="">Usager 1</option>
-				        				<option value="">Usager 2</option>
-				        				<option value="">Usager 3</option>
+     										<c:forEach items="${users}" var="user">
+     											<option value="${user.tech_id}">${user.prenom_usager} ${user.nom_usager}</option>
+     										</c:forEach>
     				 				</select>
-    				 			</div>
 							</div>
 		 		</article>
 		 		<article class="colonne-affecter">
@@ -46,20 +36,20 @@
 								<h2>Choix poste à affecter</h2>
 							</legend>
 							<div class="conteneur-form">
-								<div class="label-form">
 									<label for="selection-site">Salle:</label>
-								</div>
 								<c:choose>
 									<c:when test="${! empty poste}">
 										<input type="text" value="${poste.salle.nom_salle}" disabled>
 									</c:when>
 									<c:otherwise>
-										<select name="selection-site">
-	     									<option value="" disabled selected>Choix de la salle</option>
-					     					<option value="">Salle 1</option>
-					        				<option value="">Salle 2</option>
-					        				<option value="">Salle 3</option>
-    				 					</select>
+										<select id="dropdown1">
+										    <c:forEach items="${salles}" var="salle">
+										        <option value="${salle.id_salle}">${salle.nom_salle}</option>
+										    </c:forEach>
+										</select>
+										<select id="dropdown2">
+										    <option>Please select dropdown1</option>
+										</select>
 									</c:otherwise>
 								</c:choose>
      								

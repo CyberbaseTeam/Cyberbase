@@ -15,7 +15,7 @@
 						<div >
 							<h2 class="title-colonne">${salle.nom_salle}</h2>
 							<div>
-								<input type="hidden" value="${salle.id_salle}" name="idSalle"/>
+								<input type="hidden" value="${salle.id_salle}" name="inputIdSalle"/>
 							</div>
 							<div class="buttons-bas">
 								<input type="submit" name="editSalle" value="Modifier"/>

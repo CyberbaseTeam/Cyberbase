@@ -39,24 +39,26 @@
 		<input type="reset" name="effacer" value="Retour" />
 	  </form>
 	</section>
-	<section>
-			<fieldset>
-				<legend class="legende-form">
-					<h2>Postes rattachés à ${salle.nom_salle}</h2>
-				</legend>
-				<ul>
-					<c:forEach items="${salle.postes}" var="poste">
-						<form method="post">
-							<input type="hidden" value="${salle.id_salle}" name="idSalle">
-							<li>${poste.nom_poste} : <input type="submit"
-								name="editPoste" value="Modifier poste" /><input type="submit"
-								name="deletePoste" value="Supprimer poste" /><input
-								type="hidden" value="${poste.id_poste}" name="idPoste">
-							</li>
-						</form>
-					</c:forEach>
-				</ul>
-			</fieldset>
-	</section>
+	<c:if test="${not empty salle}">
+		<section>
+				<fieldset>
+					<legend class="legende-form">
+						<h2>Postes rattachés à ${salle.nom_salle}</h2>
+					</legend>
+					<ul>
+						<c:forEach items="${salle.postes}" var="poste">
+							<form method="post">
+								<input type="hidden" value="${salle.id_salle}" name="idSalle">
+								<li>${poste.nom_poste} : <input type="submit"
+									name="editPoste" value="Modifier poste" /><input type="submit"
+									name="deletePoste" value="Supprimer poste" /><input
+									type="hidden" value="${poste.id_poste}" name="idPoste">
+								</li>
+							</form>
+						</c:forEach>
+					</ul>
+				</fieldset>
+		</section>
+	</c:if>
 	</div>
 </t:main>

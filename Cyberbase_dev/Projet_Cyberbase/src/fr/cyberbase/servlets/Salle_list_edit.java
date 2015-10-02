@@ -16,8 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Services.PosteService;
 import Services.ProfessionnelService;
+import Services.SalleService;
 import Services.SiteService;
+import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
 import fr.cyberbase.entities.SalleEntity;
 import fr.cyberbase.entities.SiteEntity;
@@ -27,12 +30,16 @@ import fr.cyberbase.util.Login;
 /**
  * Servlet implementation class Salle_list_edit
  */
-@WebServlet("/salle_list_edit")
+@WebServlet("/salle_list")
 public class Salle_list_edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
 	SiteService siteService;
+	@EJB
+	SalleService salleService;
+	@EJB
+	PosteService posteService;
 	@EJB
 	ProfessionnelService proService;
        
@@ -95,10 +102,23 @@ public class Salle_list_edit extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if (request.getParameter("editSalle") != null) {
-			String idSalleParameter = request.getParameter("idSalle");
-			Integer idSalle = Integer.valueOf(idSalleParameter);
+			String inputIdSalle = request.getParameter("inputIdSalle");
+			Integer idSalle = Integer.valueOf(inputIdSalle);
 			response.sendRedirect("salle_form?id="+idSalle);
-		} 
+		} else if (request.getParameter("deleteSalle") != null) {
+			String inputIdSalle = request.getParameter("inputIdSalle");
+			Integer idSalle = Integer.valueOf(inputIdSalle);
+			SalleEntity salle = salleService.findById(idSalle);
+			List<PosteEntity> postes = salle.getPostes();
+			for (PosteEntity poste : postes) {
+				PosteEntity poste2 = posteService.findById(poste.getId_poste());
+				posteService.deletePoste(poste2);
+			}
+			Integer idSiteProfessionnel = salle.getSite().getId_site();
+			salleService.deleteSalle(salle);
+			SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
+			response.sendRedirect("salle_list");
+		}
 		
 	}
 

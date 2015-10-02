@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Set;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
@@ -16,13 +17,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
+import fr.cyberbase.entities.SalleEntity;
 import fr.cyberbase.entities.SiteEntity;
+import fr.cyberbase.entities.UsagerEntity;
 import fr.cyberbase.util.CookieTools;
 import fr.cyberbase.util.Login;
 import Services.PosteService;
 import Services.ProfessionnelService;
 import Services.SiteService;
+import Services.UsagerService;
 
 /**
  * Servlet implementation class Affecter_poste
@@ -37,6 +42,8 @@ public class Affecter_poste extends HttpServlet {
 	ProfessionnelService proService;
 	@EJB
 	SiteService siteService;
+	@EJB
+	UsagerService userService;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -73,7 +80,6 @@ public class Affecter_poste extends HttpServlet {
 	        	techId = login.getLoginTechId();
 	        }
 		}
-		request.setAttribute("login", techId);
 		
 		//Récupération du professionnel connecté
 		ProfessionnelEntity professionnel = proService.findByTechId(techId);
@@ -83,6 +89,24 @@ public class Affecter_poste extends HttpServlet {
 				
 		//Récupération du site du professionnel connecté
 		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
+		
+		//Récupération des salles du site concerné
+		Set<SalleEntity> salles = siteProfessionnel.getSalles();
+		request.setAttribute("salles", salles);
+		
+		//Récupération de la liste des usagers d'un site
+		List<UsagerEntity> users = userService.findAllUsersBySite(siteProfessionnel);
+		request.setAttribute("users", users);
+		request.setAttribute("site", siteProfessionnel);
+		
+		//Récupération de l'id poste passé en paramètre d'URL pour une affectation
+		String idPosteParameter = request.getParameter("id");
+		if (idPosteParameter != null) {
+			Integer idPoste = Integer.valueOf(idPosteParameter);
+			PosteEntity poste = posteService.findById(idPoste);
+			Integer idSalle = poste.getSalle().getId_salle();
+			request.setAttribute("poste", poste);
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/affecter_poste.jsp").forward(request, response);
 	}

@@ -39,7 +39,7 @@ public class UsagerService {
 		Query query = entityManager.createNamedQuery(
 				"usagerEntity.findAllUsersBySite");
 		Integer id_site = site.getId_site();
-		query.setParameter("id_site", id_site);
+		query.setParameter("id_site", site);
 		@SuppressWarnings("unchecked")
 		List<UsagerEntity> usagers = query.getResultList();
 		return usagers;

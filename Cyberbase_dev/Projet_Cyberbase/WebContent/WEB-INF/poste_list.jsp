@@ -7,8 +7,8 @@
 <t:main>
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
 	<div>
-		<form method="post">
 			<section id="conteneur-colonnes">
+			${id}
 				<c:forEach items="${sitePro.salles}" var="salle">
 					<article class="colonne">
 						<div>
@@ -16,7 +16,9 @@
 							<div class="conteneur-list">
 								<ul class="list-postes">
 									<c:forEach items="${salle.postes}" var="poste">
-										<li>- ${poste.nom_poste} : <c:choose>
+										<li>- ${poste.nom_poste} : 
+										<form method="post">
+											<c:choose>
 												<c:when test="${poste.disponibilite}">
 													<span>Poste disponible</span>
 													<a href="affecter_poste?id=${poste.id_poste}">Affecter
@@ -27,22 +29,25 @@
 													<input type="hidden" value="${poste.id_poste}"
 														name="inputIdPoste" />
 													<input type="submit" value="Libérer poste"
-														name="libererPoste">
+														name="libererPoste" />
 												</c:otherwise>
-											</c:choose>
+											  </c:choose>
+										    </form>
 										</li>
 									</c:forEach>
 								</ul>
 							</div>
 							<div>
+							  <form method="post">
 								<input type="hidden" value="${salle.id_salle}"
 									name="inputIdSalle" /> <input type="submit"
-									value="Libérer tous les postes de la ${salle.nom_salle}" ®
-									name="libererPostesSalle">
+									value="Libérer tous les postes de la ${salle.nom_salle}"
+									name="libererPostesSalle" />
+								</form>
 							</div>
 							<div class="buttons-bas">
 								<form method="post">
-									<input type="hidden" value="${salle.id_salle}" name="inputIdSalle">
+									<input type="hidden" value="${salle.id_salle}" name="inputIdSalle" />
 									<input type="submit"
 										name="editSalle" value="Modifier salle" /><input
 										type="submit" name="deleteSalle" value="Supprimer salle" />
@@ -55,13 +60,14 @@
 			<section id="liberer-postes-salle">
 				<article>
 					<div>
+					  <form method="post">
 						<input type="hidden" value="${sitePro.id_site}" name="inputIdSite" />
 						<input type="submit"
 							value="Libérer tous les postes du site ${sitePro.nom_site}"
-							name="libererPostesSite">
+							name="libererPostesSite" />
+					  </form>
 					</div>
 				</article>
 			</section>
-		</form>
 	</div>
 </t:main>

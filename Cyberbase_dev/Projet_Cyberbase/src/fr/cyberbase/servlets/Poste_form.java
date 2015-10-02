@@ -119,7 +119,7 @@ public class Poste_form extends HttpServlet {
 			SalleEntity salle = salleService.findById(idSalle);
 			poste.setSalle(salle);
 			posteService.createPoste(poste);
-			response.sendRedirect("salle_list_edit");
+			response.sendRedirect("poste_list");
 		} else if (request.getParameter("confirmEditPoste") != null){
 			PosteEntity poste = new PosteEntity();
 			poste.setNom_poste(request.getParameter("nomPoste"));

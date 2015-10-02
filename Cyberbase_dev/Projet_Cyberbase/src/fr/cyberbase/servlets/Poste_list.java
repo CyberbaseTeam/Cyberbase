@@ -44,8 +44,6 @@ public class Poste_list extends HttpServlet {
 	PosteService posteService;
 	@EJB
 	SalleService salleService;
-	
-	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -83,7 +81,6 @@ public class Poste_list extends HttpServlet {
 	        	techId = login.getLoginTechId();
 	        }
 		}
-		request.setAttribute("login", techId);
 		
 		//Récupération du professionnel connecté
 		ProfessionnelEntity professionnel = proService.findByTechId(techId);
@@ -117,13 +114,27 @@ public class Poste_list extends HttpServlet {
 			List<PosteEntity> postes = salle.getPostes();
 			for (PosteEntity poste : postes) {
 				PosteEntity poste2 = posteService.findById(poste.getId_poste());
-				poste2.setNom_poste("test123");
-				posteService.updatePoste(poste2);
-//				posteService.changeDisponibility(poste);
+				if (poste2.getDisponibilite() == false){
+					posteService.changeDisponibility(poste2);
+					posteService.updatePoste(poste2);
+				}
+			}
+				response.sendRedirect("poste_list");
+		} else if (request.getParameter("libererPostesSite") != null) {
+			String inputIdSite = request.getParameter("inputIdSite");
+			Integer idSite = Integer.valueOf(inputIdSite);
+			SiteEntity site = siteService.findById(idSite);
+			Set<SalleEntity> salles = site.getSalles();
+			for (SalleEntity salle : salles) {
+				List<PosteEntity> postes = salle.getPostes();
+				for (PosteEntity poste : postes){
+					if (poste.getDisponibilite() == false){
+						posteService.changeDisponibility(poste);
+						posteService.updatePoste(poste);
+					}
+				}
 			}
 			response.sendRedirect("poste_list");
-		} else if (request.getParameter("libererPostesSite") != null) {
-			
 		} else if (request.getParameter("editSalle") != null) {
 			String inputIdSalle = request.getParameter("inputIdSalle");
 			Integer idSalle = Integer.valueOf(inputIdSalle);
@@ -132,8 +143,16 @@ public class Poste_list extends HttpServlet {
 			String inputIdSalle = request.getParameter("inputIdSalle");
 			Integer idSalle = Integer.valueOf(inputIdSalle);
 			SalleEntity salle = salleService.findById(idSalle);
+			List<PosteEntity> postes = salle.getPostes();
+			for (PosteEntity poste : postes) {
+				PosteEntity poste2 = posteService.findById(poste.getId_poste());
+				posteService.deletePoste(poste2);
+			}
+			Integer idSiteProfessionnel = salle.getSite().getId_site();
 			salleService.deleteSalle(salle);
-			response.sendRedirect("poste_list");
+			SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
+			request.setAttribute("sitePro", siteProfessionnel);
+			request.getRequestDispatcher("/WEB-INF/poste_list.jsp").forward(request, response);
 		}
 	}
 	
