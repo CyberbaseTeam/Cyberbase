@@ -7,6 +7,7 @@
 <t:main>
 	<c:import url="/inc/modules/menu_stat.jsp" />
 	<div id="statistics">
+		
 		<c:import url="/inc/modules/stat_temps_reel.jsp" />
 		<c:import url="/inc/modules/formulaire_requete.jsp" />
 	</div>

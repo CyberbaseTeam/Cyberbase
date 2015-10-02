@@ -32,12 +32,11 @@ public class ProfessionnelService {
 		return listing;
 	}	
 	
-	public void add(UsagerEntity employe){
+	public void add(ProfessionnelEntity employe){
 		entityManager.persist(employe);
 	}
-	
-	
-	public void update(UsagerEntity employe){
+		
+	public void update(ProfessionnelEntity employe){
 			entityManager.merge(employe);
 		}
 		
@@ -64,6 +63,31 @@ public class ProfessionnelService {
 		else 
 			return null;
 	}
+	
+	public void delete(ProfessionnelEntity professionnelEntity) {
+		professionnelEntity = entityManager.merge(professionnelEntity);
+		entityManager.remove(professionnelEntity);
+
+	}
+
+	public List<ProfessionnelEntity> findBySite(SiteEntity siteEntity) {
+		Query query = entityManager
+				.createNamedQuery("professionnelEntity.findBySite");
+		query.setParameter("site_reference", siteEntity);
+		@SuppressWarnings("unchecked")
+		List<ProfessionnelEntity> professionnelEntity = query.getResultList();
+		return professionnelEntity;
+	}
+
+	public List<ProfessionnelEntity> findById(Integer id_professionnel) {
+		Query query = entityManager
+				.createNamedQuery("professionnelEntity.findById");
+		query.setParameter("id_professionnel", id_professionnel);
+		@SuppressWarnings("unchecked")
+		List<ProfessionnelEntity> professionnelEntity = query.getResultList();
+		return professionnelEntity;
+	}
+
 	
 	
 }

@@ -131,7 +131,9 @@ public class Statistiques extends HttpServlet {
 		System.out.println(login.getLoginTechId());
 		
 		Map<String, String> queryObjects = new HashMap<String, String>();
+		
 		List<String> querySelectObjects = new ArrayList<String>();
+		List<String> columnNames = new ArrayList<String>();
 		
 		
 		if(request.getParameterValues(FIELD_DISPLAY_DATA) == null)
@@ -152,7 +154,8 @@ public class Statistiques extends HttpServlet {
 		}
 		else{
 			for(int i = 0; i < request.getParameterValues(FIELD_DISPLAY_DATA).length; i++){
-				querySelectObjects.add(request.getParameterValues(FIELD_DISPLAY_DATA)[i]);
+				querySelectObjects.add(request.getParameterValues(FIELD_DISPLAY_DATA)[i]);				
+				
 			}				
 		}
 			
@@ -216,13 +219,12 @@ public class Statistiques extends HttpServlet {
 		while(iterateur.hasNext())
 		{
 			Object key= iterateur.next();
-			System.out.println (key+"=>"+queryObjects.get(key));
-		
+			System.out.println (key+"=>"+queryObjects.get(key));		
 		}	
 		
 		List<UsagerEntity> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
-		
-		
+		request.setAttribute("queryResult", queryResult);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);		
 	}
 	
 	private Login getLoginFromCookie(Cookie[] cookies) throws UnsupportedEncodingException {

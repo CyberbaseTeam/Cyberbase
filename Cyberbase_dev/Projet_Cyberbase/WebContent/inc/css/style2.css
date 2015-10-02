@@ -1,0 +1,46 @@
+#banniere {
+	background-color : #ffffff;	
+	height: 20%;
+	width : 100%;
+	display: inline-block;
+	box-shadow: -1px 3px 6px 2px rgba(0, 0, 0, 0.7);
+	border-bottom: solid #375D81 40px;
+	padding-left : 2%;
+}
+
+#banniere img {
+	width:17%;
+	display : inline-block;
+	float : left;
+}
+
+#banniere h1 {
+	margin-left : 30%;
+	margin-top : 2%;
+}
+
+#footer {
+	background-color : #f3f5f3;
+	height : 20%;
+	width : 100%;
+	display: inline-block;
+	text-align : center;
+	padding-top : 1%;
+	padding-bottom : 1%;
+	box-shadow: 0px -3px 6px 2px rgba(0, 0, 0, 0.7);
+
+}
+
+#contenu {
+	margin-top : 5%;
+	margin-bottom : 5%;
+}
+
+#contenu h2 {
+	font-size : 18px;
+	margin : 15px;
+}
+
+#contenu a{
+	margin-bottom : 7%;
+}

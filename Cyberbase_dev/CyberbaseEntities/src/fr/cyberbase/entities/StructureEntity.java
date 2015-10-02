@@ -20,6 +20,22 @@ public class StructureEntity {
 	private Integer id_structure;
 	
 	private String nom_structure;
+
+	public Integer getId_structure() {
+		return id_structure;
+	}
+
+	public void setId_structure(Integer id_structure) {
+		this.id_structure = id_structure;
+	}
+
+	public String getNom_structure() {
+		return nom_structure;
+	}
+
+	public void setNom_structure(String nom_structure) {
+		this.nom_structure = nom_structure;
+	}
 	
 	
 }
