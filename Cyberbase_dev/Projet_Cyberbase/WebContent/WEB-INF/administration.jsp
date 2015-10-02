@@ -41,51 +41,56 @@
 		<li class="deconnexion"><a href="">Déconnexion</a></li>
 	</ul>
 	</nav>
-	<div class="arianne">
+	<div>
 		<p>OUTILS D'ADMINISTRATION</p>
 	</div>
 	</header>
-	<div id="containt1">
+	<div id="content">
 		<div id="side-menu">
 			<nav>
-			<p>Gérer professionnels</p>
-			<ul>
-				<li><a href="ajout_professionnel">Créer professionnel</a></li>
-				<li><a href="administration">Liste des professionnels</a></li>
-			</ul>
-			<c:forEach items="${sites}" var="site">
-				<form method="get">
-					<input type="hidden" value="${site.id_site}" name="inputIdSite" />
-
-					<input type="submit" name="site" value="${site.nom_site}" />
-				</form>
-			</c:forEach> 
+				<p>Gérer professionnels</p>
+				<ul>
+					<li><a href="add_or_update_pro">Créer professionnel</a></li>
+					<li><a href="administration">Liste des professionnels</a></li>
+				</ul>
 			</nav>
+			<h4>Professionnels par site</h4>
+			<c:forEach items="${siteList}" var="site">
+				<a href="administration?action=listBySite&id=${site.id_site}">${site.nom_site}</a><br />
+				
+			</c:forEach> 
+			
 
 		</div>
-		<div id="menu-admin">
-			<c:forEach items="${professionnels}" var="professionnel">
-				<section> <article id="pro1">
-				${professionnel.nom_professionnel}
-				${professionnel.prenom_professionnel}
-				<p>
-				Identifiant : ${professionnel.tech_id}
-				<p>
-				Site : ${professionnel.site_reference.nom_site}
-				<p>
-				Structure : ${professionnel.structure.nom_structure}
-
-				<form method="post">
-					<input type="hidden" value="${professionnel.id_professionnel}"
-						name="inputId" /> <input id="modifier" type="submit"
-						name="actionModifier" value="Modifier" /> <input type="submit"
-						value="Supprimer" name="actionSupprimer">
-				</form>
-				</article> </section>
+		<div id="content-admin">
+			<c:forEach items="${professionnelList}" var="professionnel">
+				<section> 
+					<article id="pro1">
+						${professionnel.nom_professionnel}
+						${professionnel.prenom_professionnel}
+						<p>
+							Identifiant : ${professionnel.tech_id}
+						</p>
+						<p>
+							Site : ${professionnel.site_reference.nom_site}
+						</p>
+						<p>
+							Structure : ${professionnel.structure.nom_structure}
+						</p>
+						<form method="get">
+							<input type="hidden" value="${professionnel.tech_id}"name="inputId" />
+							<input id="modifier" type="submit" name="actionModifier" value="Modifier" /> 
+							<input type="submit" value="Supprimer" name="actionSupprimer">
+						</form>
+					</article> 
+				</section>
 			</c:forEach>
 		</div>
-		<section> <article id="exporter"> <input
-			type="submit" name="Exporter" value="Exporter" /> </article> </section>
+		<section> 
+			<article id="exporter"> 
+				<input type="submit" name="Exporter" value="Exporter" />
+			 </article> 
+		</section>
 	</div>
 </body>
 </html>

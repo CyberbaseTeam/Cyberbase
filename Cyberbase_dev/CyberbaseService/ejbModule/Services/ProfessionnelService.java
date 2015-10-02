@@ -80,8 +80,7 @@ public class ProfessionnelService {
 	}
 
 	public List<ProfessionnelEntity> findById(Integer id_professionnel) {
-		Query query = entityManager
-				.createNamedQuery("professionnelEntity.findById");
+		Query query = entityManager.createNamedQuery("professionnelEntity.findById");
 		query.setParameter("id_professionnel", id_professionnel);
 		@SuppressWarnings("unchecked")
 		List<ProfessionnelEntity> professionnelEntity = query.getResultList();

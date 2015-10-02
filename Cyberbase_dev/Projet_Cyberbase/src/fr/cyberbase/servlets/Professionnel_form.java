@@ -19,9 +19,11 @@ import Services.StructureService;
 /**
  * Servlet implementation class Professionnel_form
  */
-@WebServlet("/ajout_professionnel")
+@WebServlet("/add_or_update_pro")
 public class Professionnel_form extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ATTR_SITES 	= "siteList";
+	private static final String ATTR_PRO 	= "professionnelList";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -44,49 +46,68 @@ public class Professionnel_form extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("sites", siteService.findAll());
 		request.setAttribute("structures", structureService.findAll());
-		request.getRequestDispatcher("/WEB-INF/ajout_professionnel.jsp")
-				.forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/ajout_professionnel.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("creer") != null) {
-			ProfessionnelEntity professionnelEntity = new ProfessionnelEntity();
-			professionnelEntity.setNom_professionnel(request
-					.getParameter("inputNom"));
-			try{
-			SiteEntity siteEntity = new SiteEntity();
-			siteEntity.setId_site(Integer.valueOf(request
-					.getParameter("site")));
-			professionnelEntity.setSite_reference(siteEntity);
-			}catch (Exception e) { System.out.println("site");
-			}
-			professionnelEntity.setPrenom_professionnel(request
-					.getParameter("inputPrenom"));
-			professionnelEntity.setPassword(request
-					.getParameter("inputPassword"));
+		if (request.getParameter("create") != null) {
+			ProfessionnelEntity entity = new ProfessionnelEntity();
 			
+			
+			entity.setNom_professionnel(request.getParameter("name"));
+			entity.setPrenom_professionnel(request.getParameter("firstName"));
+			entity.setPassword(request.getParameter("password"));
+			SiteEntity site = new SiteEntity();
+			site = siteService.findById(Integer.valueOf(request.getParameter("site")));
+			StructureEntity structure = new StructureEntity();
+			structure = structureService.findById(Integer.valueOf(request.getParameter("structure")));
+			entity.setSite_reference(site);
+			entity.setStructure(structure);
 			try{
-			StructureEntity structureEntity = new StructureEntity();
-			structureEntity.setId_structure(Integer.valueOf(request
-					.getParameter("structure")));
-			professionnelEntity.setStructure(structureEntity);}
-			catch (Exception e) { System.out.println("structure");
+				professionnelService.add(entity);
+				
 			}
-			try{
-			professionnelService.add(professionnelEntity);
-			}catch (Exception e) { System.out.println("creation");
+			catch(Exception e){
+				
 			}
-			request.getRequestDispatcher("administration")
-					.forward(request, response);
-		}
-		else if (request.getParameter("retour") != null) {
+			
+			
+			
 			
 		}
-		request.getRequestDispatcher("administration")
-		.forward(request, response);
+		if (request.getParameter("retour") != null) {
+			response.sendRedirect("administration");
+		}
+		if (request.getParameter("update") != null) {
+			ProfessionnelEntity entity = new ProfessionnelEntity();
+		
+			entity = professionnelService.findByTechId(request.getParameter("inputId"));
+			entity.setNom_professionnel(request.getParameter("name"));
+			entity.setPrenom_professionnel(request.getParameter("firstName"));
+			entity.setPassword(request.getParameter("password"));
+			SiteEntity site = new SiteEntity();
+			site = siteService.findById(Integer.valueOf(request.getParameter("site")));
+			StructureEntity structure = new StructureEntity();
+			structure = structureService.findById(Integer.valueOf(request.getParameter("structure")));
+			entity.setSite_reference(site);
+			entity.setStructure(structure);
+			try{
+				professionnelService.update(entity);
+				
+			}
+			catch(Exception e){
+				
+			}
+			
+			response.sendRedirect("administration");
+			
+			
+		}
+	
+		
 		
 	}
 

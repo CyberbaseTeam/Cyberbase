@@ -11,7 +11,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="structure_appartenance")
 @NamedQueries({
-	@NamedQuery(name="sutructureEntity.findAll", query="SELECT s FROM StructureEntity s ORDER BY s.nom_structure")		
+	@NamedQuery(name="structureEntity.findAll", query="SELECT s FROM StructureEntity s ORDER BY s.nom_structure"),
+	@NamedQuery(name="structureEntity.findById", query="SELECT s FROM StructureEntity s WHERE s.id_structure = :id_structure ORDER BY s.nom_structure"),
 })
 public class StructureEntity {
 

@@ -17,6 +17,9 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name="professionnelEntity.findAll", query="SELECT p FROM ProfessionnelEntity p ORDER BY p.nom_professionnel"),
 	@NamedQuery(name = "professionnelEntity.findByTechId", query = "SELECT p FROM ProfessionnelEntity p WHERE p.tech_id = :tech_id"),
+	@NamedQuery(name = "professionnelEntity.findById", query = "SELECT u FROM ProfessionnelEntity u WHERE u.id_professionnel = :id_professionnel"),
+	@NamedQuery(name = "professionnelEntity.findBySite", query = "SELECT u FROM ProfessionnelEntity u WHERE u.site_reference = :site_reference"),
+	
 	
 })
 public class ProfessionnelEntity implements Serializable {
@@ -26,7 +29,9 @@ public class ProfessionnelEntity implements Serializable {
 	private Integer id_professionnel;
 	
 	//pas sur que ca suffise. meme chose sur usagers
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	
+	  @SequenceGenerator(name="SEQ_GEN", sequenceName="professional_id", allocationSize=1)
+	  @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private String tech_id;
 	
 	
