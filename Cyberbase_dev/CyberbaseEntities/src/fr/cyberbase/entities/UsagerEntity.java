@@ -25,8 +25,8 @@ public class UsagerEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_usager;
 	
-	//pas sur que ca suffise. meme chose sur professionnels
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "tech_id", insertable = false)
 	private String tech_id;
 	
 	private String civilite_usager;

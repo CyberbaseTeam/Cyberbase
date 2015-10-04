@@ -60,7 +60,7 @@ public class Admin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		System.out.println("admin!!");
 		String action = request.getParameter("action");
 			
 		if(action != null && action.equals("listBySite"))

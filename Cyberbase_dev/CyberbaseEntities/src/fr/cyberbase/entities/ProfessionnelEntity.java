@@ -6,6 +6,7 @@ import java.lang.Integer;
 import java.lang.String;
 import java.util.List;
 
+import javax.annotation.Generated;
 import javax.persistence.*;
 
 /**
@@ -28,10 +29,8 @@ public class ProfessionnelEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_professionnel;
 	
-	//pas sur que ca suffise. meme chose sur usagers
-	
-	  @SequenceGenerator(name="SEQ_GEN", sequenceName="professional_id", allocationSize=1)
-	  @GeneratedValue(strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "tech_id", insertable = false)
 	private String tech_id;
 	
 	
