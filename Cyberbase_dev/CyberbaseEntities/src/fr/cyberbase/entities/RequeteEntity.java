@@ -15,7 +15,8 @@ import javax.persistence.Table;
 @Entity
 @Table(name="requete_favorite")
 @NamedQueries({
-	@NamedQuery(name="requeteEntity.findAll", query="SELECT r FROM RequeteEntity r ")
+	@NamedQuery(name="requeteEntity.findAll", query="SELECT r FROM RequeteEntity r "),
+	@NamedQuery(name="requeteEntity.findPersonalQueries", query="SELECT r FROM RequeteEntity r WHERE r.id_professionel = :id"),
 })
 public class RequeteEntity {
 	@Id

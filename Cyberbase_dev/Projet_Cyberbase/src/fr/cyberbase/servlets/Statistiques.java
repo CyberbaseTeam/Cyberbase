@@ -53,6 +53,7 @@ public class Statistiques extends HttpServlet {
 	private static final String ATTR_CSP	 		= "cspList";
 	private static final String ATTR_FORMATION	 	= "formationList";
 	private static final String ATTR_DEMARCHE	 	= "demarcheList";
+	private static final String ATTR_REQUETES	 	= "requeteList";
 	
 	private static final String FIELD_DISPLAY_DATA 	= "displayData[]";
 	private static final String FIELD_SEARCH_PANEL 	= "searchPanel";
@@ -113,8 +114,8 @@ public class Statistiques extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		initializeData(request);
 		
+		initializeData(request);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);
 	}
 
@@ -224,6 +225,7 @@ public class Statistiques extends HttpServlet {
 		
 		List<UsagerEntity> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
 		request.setAttribute("queryResult", queryResult);
+		initializeData(request);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);		
 	}
 	
@@ -254,12 +256,14 @@ public class Statistiques extends HttpServlet {
 		cspList = cspService.findAll();
 		formationList = formationService.findAll();
 		demarcheList = demarcheService.findAll();
+		requeteList = statistiqueService.findAll();
 		
 		request.setAttribute(ATTR_SITES, siteList);
 		request.setAttribute(ATTR_QUARTIERS, quartierList);
 		request.setAttribute(ATTR_CSP, cspList);
 		request.setAttribute(ATTR_FORMATION, formationList);
 		request.setAttribute(ATTR_DEMARCHE, demarcheList);
+		request.setAttribute(ATTR_REQUETES, requeteList);
 	}
 
 }

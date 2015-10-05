@@ -25,8 +25,8 @@
 					<p>Mes requètes</p>
 				<ul>
 					<lh></lh>
-					<c:forEach items="${queryList}" var="query" begin="0" varStatus='i'>
-						<li><a href="">${query.nom_requete}</a></li>	
+					<c:forEach items="${requeteList}" var="query" begin="0" varStatus='i'>
+						<li><a href="statistiques?action=personalQuery&id=${query.id_requete}">${query.nom_requete}</a></li>	
 					</c:forEach>
 				</ul>
 

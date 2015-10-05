@@ -66,6 +66,13 @@ public class StatistiqueService {
 	}
 	
 	
+//	public List<RequeteEntity> findPersonalQuery(ProfessionnelEntity pro){
+//		@SuppressWarnings("unchecked")
+//		List<RequeteEntity> listing = entityManager.createNamedQuery("requeteEntity.findPersonalQueries", RequeteEntity.class);
+//		return listing;
+//	}
+	
+	
 	private void initializeSqlEquivalence()	
 	{
 		this.sqlEquivalence = new HashMap<String, String>();
@@ -442,6 +449,7 @@ public class StatistiqueService {
 	{	
 		RequeteEntity savedQuery = new RequeteEntity();
 		savedQuery.setNom_requete(queryName);
+		savedQuery.setId_professionnel(logged.getId_professionnel());
 		String contenuRequete = personalQuery;
 		contenuRequete = personalQuery.concat(setParameterElements.toString());
 		System.out.println("PQ: " + contenuRequete);
