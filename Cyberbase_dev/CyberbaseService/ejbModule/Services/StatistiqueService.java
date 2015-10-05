@@ -66,11 +66,13 @@ public class StatistiqueService {
 	}
 	
 	
-//	public List<RequeteEntity> findPersonalQuery(ProfessionnelEntity pro){
-//		@SuppressWarnings("unchecked")
-//		List<RequeteEntity> listing = entityManager.createNamedQuery("requeteEntity.findPersonalQueries", RequeteEntity.class);
-//		return listing;
-//	}
+	public List<RequeteEntity> findPersonalQueries(ProfessionnelEntity pro){
+		@SuppressWarnings("unchecked")
+		Query query = entityManager.createNamedQuery("requeteEntity.findPersonalQueries", RequeteEntity.class);
+		query.setParameter("id", pro.getId_professionnel());
+		List<RequeteEntity> queryList = query.getResultList();
+		return queryList;
+	}
 	
 	
 	private void initializeSqlEquivalence()	

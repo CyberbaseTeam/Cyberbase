@@ -114,8 +114,12 @@ public class Statistiques extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Login login = new Login();	
+		Cookie cookies [] = request.getCookies();
+		login = getLoginFromCookie(cookies);
 		
-		initializeData(request);
+		ProfessionnelEntity logged = professionnelService.findByTechId(login.getLoginTechId());
+		initializeData(request, logged);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);
 	}
 
@@ -225,7 +229,7 @@ public class Statistiques extends HttpServlet {
 		
 		List<UsagerEntity> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
 		request.setAttribute("queryResult", queryResult);
-		initializeData(request);
+		initializeData(request, logged);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);		
 	}
 	
@@ -250,13 +254,13 @@ public class Statistiques extends HttpServlet {
 		return null;
 	}
 
-	private void initializeData(HttpServletRequest request){
+	private void initializeData(HttpServletRequest request, ProfessionnelEntity pro){
 		siteList = siteService.findAll();
 		quartierList = quartierService.findAll();
 		cspList = cspService.findAll();
 		formationList = formationService.findAll();
 		demarcheList = demarcheService.findAll();
-		requeteList = statistiqueService.findAll();
+		requeteList = statistiqueService.findPersonalQueries(pro);
 		
 		request.setAttribute(ATTR_SITES, siteList);
 		request.setAttribute(ATTR_QUARTIERS, quartierList);
