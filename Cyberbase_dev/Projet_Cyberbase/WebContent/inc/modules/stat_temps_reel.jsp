@@ -2,12 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<c:choose>
-		<c:when test="${not empty columnNames }">
-			<table>
-				<c:forEach items="${columnNames}" var="column" begin="0" varStatus='i'>
-						<th>${column }</th>
-				</c:forEach>
+		<c:when test="${not empty htmlResult }">
+			
 				
+				${htmlResult}
 			</table>
 		</c:when>
 		<c:otherwise>

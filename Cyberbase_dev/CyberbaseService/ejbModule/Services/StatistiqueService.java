@@ -95,7 +95,7 @@ public class StatistiqueService {
 	}
 	
 
-	public List<UsagerEntity> createPersonalQuery(Map<String, String> queryObjects, List<String> querySelectObjects, ProfessionnelEntity logged){
+	public List<Object> createPersonalQuery(Map<String, String> queryObjects, List<String> querySelectObjects, ProfessionnelEntity logged){
 		initializeSqlEquivalence();
 		String personalQuery = "";
 		String selectPart = "SELECT ";
@@ -441,7 +441,7 @@ public class StatistiqueService {
 		{
 			savePersonalQuery(personalQuery, setParameterElements, queryName, logged);
 		}
-		List<UsagerEntity> result = executePersonalQuery(personalQuery, setParameterElements);
+		List<Object> result = executePersonalQuery(personalQuery, setParameterElements);
 		System.out.println(setParameterElements.toString());
 		return result;
 			
@@ -469,9 +469,9 @@ public class StatistiqueService {
 	
 
 	@SuppressWarnings("unchecked")
-	private List<UsagerEntity> executePersonalQuery(String query,Map<String, Object> setParameterElements){
+	private List<Object> executePersonalQuery(String query,Map<String, Object> setParameterElements){
 		Query executedQuery = entityManager.createNativeQuery(query) ;
-		List<UsagerEntity> result = new ArrayList();
+		List<Object> result = new ArrayList();
 		Set listKeys = setParameterElements.keySet();  
 		
 		Iterator iterateur = listKeys.iterator();
@@ -487,7 +487,7 @@ public class StatistiqueService {
 		result = executedQuery.getResultList();
 		
 	    for(int i = 0; i < result.size(); i++)
-	    	 System.out.println("i" + result.get(i));
+	    	 System.out.println(result.get(i));
 		
 	    return result;
 	}

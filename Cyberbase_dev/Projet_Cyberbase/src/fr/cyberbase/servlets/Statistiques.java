@@ -234,8 +234,7 @@ public class Statistiques extends HttpServlet {
 				
 				}
 				
-				if(request.getParameterValues(FIELD_DISPLAY_DATA)[i].equals("displayName"))
-					columnNames.add("Nom");
+				
 				
 				
 				
@@ -313,9 +312,13 @@ public class Statistiques extends HttpServlet {
 			System.out.println (key+"=>"+queryObjects.get(key));		
 		}	
 		
-		List<UsagerEntity> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
+		List<Object> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
+		String htmlResult = queryResultToHtml(queryResult, querySelectObjects.size(), columnNames  );
+		
+		
+		
 		request.setAttribute("columnNames", columnNames);
-		request.setAttribute("queryResult", queryResult);
+		request.setAttribute("htmlResult", htmlResult);
 		initializeData(request, logged);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);		
 	}
@@ -357,4 +360,32 @@ public class Statistiques extends HttpServlet {
 		request.setAttribute(ATTR_REQUETES, requeteList);
 	}
 
+	
+	
+	private String queryResultToHtml (List<Object> queryResult, Integer maxIndex, List<String> columnNames)
+	{
+		String htmlResult = "<table><tr>";
+		for(String name : columnNames)
+		{
+			htmlResult = htmlResult.concat("<th>");
+			htmlResult = htmlResult.concat(name);
+			htmlResult = htmlResult.concat("</th>");
+		}
+		htmlResult = htmlResult.concat("</tr>");
+		
+		Iterator itr = queryResult.iterator();
+		while(itr.hasNext())
+		{
+		   Object[] obj = (Object[]) itr.next();
+		   htmlResult = htmlResult.concat("<tr>");
+		   for(int i = 0; i < maxIndex; i++)
+		   {
+			   htmlResult = htmlResult.concat("<td>");
+			   htmlResult = htmlResult.concat(String.valueOf(obj[i]));
+			   htmlResult = htmlResult.concat("</td>");
+		   }
+		}
+		htmlResult = htmlResult.concat("</tr></table>");
+		return htmlResult;
+	}
 }
