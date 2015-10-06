@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+	<c:choose>
+		<c:when test="${not empty columnNames }">
+			<table>
+				<c:forEach items="${columnNames}" var="column" begin="0" varStatus='i'>
+						<th>${column }</th>
+				</c:forEach>
+				
+			</table>
+		</c:when>
+		<c:otherwise>
 			<div id="current-stats">
 				<h1>Site n°3</h1>
 				<table>
@@ -30,3 +40,8 @@
 					</tr>
 				</table>
 			</div>
+		
+		</c:otherwise>
+	</c:choose>
+	
+			

@@ -144,28 +144,114 @@ public class Statistiques extends HttpServlet {
 		if(request.getParameterValues(FIELD_DISPLAY_DATA) == null)
 		{
 			querySelectObjects.add("displayGender");
+			columnNames.add("Civilité");
 			querySelectObjects.add("displaySurname");
+			columnNames.add("Prénom");
 			querySelectObjects.add("displayName");
+			columnNames.add("Nom");
 			querySelectObjects.add("displayDOB");
+			columnNames.add("Date de naissance");
 			querySelectObjects.add("displayAddress");
+			columnNames.add("Adresse");
 			querySelectObjects.add("displayCity");
+			columnNames.add("Ville");
 			querySelectObjects.add("displayZipCode");
+			columnNames.add("Code postal");
 			querySelectObjects.add("displayEmail");
+			columnNames.add("email");
 			querySelectObjects.add("displayPatronage");
+			columnNames.add("Acompagnement");
 			querySelectObjects.add("displaySite");
+			columnNames.add("Site de référence");
 			querySelectObjects.add("displayDistrict");
+			columnNames.add("Quartier");
 			querySelectObjects.add("displayCsp");
-			querySelectObjects.add("displayFormation");						
+			columnNames.add("CSP");
+			querySelectObjects.add("displayFormation");	
+			columnNames.add("Niveau de formation");
 		}
 		else{
 			for(int i = 0; i < request.getParameterValues(FIELD_DISPLAY_DATA).length; i++){
-				querySelectObjects.add(request.getParameterValues(FIELD_DISPLAY_DATA)[i]);				
+				querySelectObjects.add(request.getParameterValues(FIELD_DISPLAY_DATA)[i]);	
+				
+				switch(request.getParameterValues(FIELD_DISPLAY_DATA)[i]){
+					case "displayGender":
+						columnNames.add("Civilité");
+						break;	
+					
+					case "displayName":
+						columnNames.add("Nom");
+						break;				
+									
+					case "displaySurname":
+							columnNames.add("Prénom");
+							break;
+						
+					case "displayDOB":
+						columnNames.add("Date de naissance");
+						break;
+						
+					case "displayAddress":
+						columnNames.add("Adresse");
+						break;
+				
+					case "displayCity":
+						columnNames.add("Ville");
+						break;
+				
+					case "displayZipCode":
+						columnNames.add("Code Postal");
+						break;
+						
+					case "displayEmail":
+						columnNames.add("Email");
+						break;
+						
+					case "displayPatronage":
+						columnNames.add("Accompagnement");
+						break;
+						
+					case "displaySite":
+						columnNames.add("Site référence");
+						break;
+						
+					case "displayDistrict":
+						columnNames.add("Quartier");
+						break;
+						
+					case "displayCsp":
+						columnNames.add("CSP");
+						break;
+						
+					case "displayFormation":
+						columnNames.add("Niveau de formation");
+						break;
+						
+					case "displayVisitCount":
+						columnNames.add("Nombre de visites");
+						break;
+						
+				
+				}
+				
+				if(request.getParameterValues(FIELD_DISPLAY_DATA)[i].equals("displayName"))
+					columnNames.add("Nom");
+				
+				
+				
+				
+				
+				
 				
 			}				
 		}
 			
 		for(int i = 0; i < querySelectObjects.size(); i++){
 			System.out.println(querySelectObjects.get(i));
+		}
+		
+		for(int i = 0; i < columnNames.size(); i++){
+			System.out.println(columnNames.get(i));
 		}
 		
 		String searchPanel = request.getParameter(FIELD_SEARCH_PANEL);
@@ -228,6 +314,7 @@ public class Statistiques extends HttpServlet {
 		}	
 		
 		List<UsagerEntity> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
+		request.setAttribute("columnNames", columnNames);
 		request.setAttribute("queryResult", queryResult);
 		initializeData(request, logged);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);		

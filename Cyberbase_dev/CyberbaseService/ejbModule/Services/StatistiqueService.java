@@ -60,16 +60,16 @@ public class StatistiqueService {
 	EntityManager entityManager;
 	
 	public List<RequeteEntity> findAll(){
-		@SuppressWarnings("unchecked")
+		
 		List<RequeteEntity> listing = entityManager.createNamedQuery("requeteEntity.findAll", RequeteEntity.class).getResultList();
 		return listing;
 	}
 	
 	
-	public List<RequeteEntity> findPersonalQueries(ProfessionnelEntity pro){
-		@SuppressWarnings("unchecked")
+	public List<RequeteEntity> findPersonalQueries(ProfessionnelEntity pro){		
 		Query query = entityManager.createNamedQuery("requeteEntity.findPersonalQueries", RequeteEntity.class);
 		query.setParameter("id", pro.getId_professionnel());
+		@SuppressWarnings("unchecked")
 		List<RequeteEntity> queryList = query.getResultList();
 		return queryList;
 	}
@@ -460,7 +460,7 @@ public class StatistiqueService {
 		entityManager.persist(savedQuery);			
 	}
 	
-	private void executeSavedQuery(RequeteEntity savedQuery){
+	public void executeSavedQuery(RequeteEntity savedQuery){
 		Map<String, Object> setParameterElements = new HashMap<String, Object>();
 		Integer index = savedQuery.getContenu_requete().lastIndexOf(";");
 		String setParameterElementsToString = savedQuery.getContenu_requete().substring(index+1);
