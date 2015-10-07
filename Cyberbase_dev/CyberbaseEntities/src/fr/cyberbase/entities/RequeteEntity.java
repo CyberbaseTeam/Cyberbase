@@ -17,6 +17,7 @@ import javax.persistence.Table;
 @NamedQueries({
 	@NamedQuery(name="requeteEntity.findAll", query="SELECT r FROM RequeteEntity r "),
 	@NamedQuery(name="requeteEntity.findPersonalQueries", query="SELECT r FROM RequeteEntity r WHERE r.id_professionnel = :id"),
+	@NamedQuery(name="requeteEntity.findSpecificQuery", query="SELECT r FROM RequeteEntity r WHERE r.id_professionnel = :idPro AND r.id_requete = :id")
 })
 public class RequeteEntity {
 	@Id

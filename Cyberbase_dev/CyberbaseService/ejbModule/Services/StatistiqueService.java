@@ -74,6 +74,14 @@ public class StatistiqueService {
 		return queryList;
 	}
 	
+	public RequeteEntity findSpecificQuery(RequeteEntity requete){
+		Query query = entityManager.createNamedQuery("requeteEntity.findSpecificQuery", RequeteEntity.class);
+		query.setParameter("idPro", requete.getId_professionnel());
+		query.setParameter("id", requete.getId_requete());
+		RequeteEntity requestedQuery = (RequeteEntity) query.getSingleResult();
+		return requestedQuery;
+	}
+	
 	
 	private void initializeSqlEquivalence()	
 	{
@@ -415,10 +423,7 @@ public class StatistiqueService {
 					case FIELD_QUERY_NAME:
 						queryName = queryObjects.get(FIELD_QUERY_NAME);
 						break;
-				}	
-					
-						
-				
+				}					
 			}
 		}
 		
@@ -460,16 +465,46 @@ public class StatistiqueService {
 		entityManager.persist(savedQuery);			
 	}
 	
-	public void executeSavedQuery(RequeteEntity savedQuery){
-		Map<String, Object> setParameterElements = new HashMap<String, Object>();
-		Integer index = savedQuery.getContenu_requete().lastIndexOf(";");
-		String setParameterElementsToString = savedQuery.getContenu_requete().substring(index+1);
-		System.out.println(setParameterElementsToString);
+	public List<Object>  executeSavedQuery(RequeteEntity requete){
+		Map<String, Object> queryParameters = new HashMap<String, Object>();
+		List<Object> result = new ArrayList<Object>();
+		
+		Integer index = requete.getContenu_requete().lastIndexOf(";");
+		String query = requete.getContenu_requete().substring(0, index);
+		String queryParametersToString = requete.getContenu_requete().substring(index+1);
+		queryParametersToString = queryParametersToString.replace("{", "");
+		queryParametersToString = queryParametersToString.replace("}", "");
+		System.out.println("parametres de requete: " + queryParametersToString);
+		if(!queryParametersToString.equals(""))
+		{
+			
+
+			String[] parameterElements = queryParametersToString.split(",");
+			for(String element : parameterElements)
+			{
+				String keyValueTab[] = element.split("=");
+				String key = keyValueTab[0].trim();
+				System.out.println("key: " + key);
+				String value = keyValueTab[1].trim();
+				System.out.println("value: " + value);
+				if(key.startsWith("id") || key.startsWith("visit"))
+					queryParameters.put(key, Integer.valueOf(value));
+				else if(key.startsWith("date"))
+					queryParameters.put(key, Timestamp.valueOf(value));
+				else
+					queryParameters.put(key,value);
+			}
+		}
+		
+		result = executePersonalQuery(query, queryParameters);
+		
+		return result;
+		
 	}
 	
 
 	@SuppressWarnings("unchecked")
-	private List<Object> executePersonalQuery(String query,Map<String, Object> setParameterElements){
+	private List<Object> executePersonalQuery(String query, Map<String, Object> setParameterElements){
 		Query executedQuery = entityManager.createNativeQuery(query) ;
 		List<Object> result = new ArrayList();
 		Set listKeys = setParameterElements.keySet();  
@@ -483,7 +518,7 @@ public class StatistiqueService {
 			
 			
 		}	
-		System.out.println(executedQuery.toString().getClass());
+		
 		result = executedQuery.getResultList();
 		
 	    for(int i = 0; i < result.size(); i++)

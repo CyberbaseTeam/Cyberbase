@@ -91,7 +91,7 @@
 			<label>Sous quel nom: </label>
 			<input type="text" name="queryName" /> <br />
 			
-			<input class="executeQuery" type="submit" value="lancer la requète" />
+			<input class="executeQuery" name="newQuery"  type="submit" value="lancer la requète" />
 		</form>
 	</fieldset>
 </div>

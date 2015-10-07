@@ -120,6 +120,18 @@ public class Statistiques extends HttpServlet {
 		
 		ProfessionnelEntity logged = professionnelService.findByTechId(login.getLoginTechId());
 		initializeData(request, logged);
+		
+		if(request.getParameter("action") != null && request.getParameter("action").equals("personalQuery"))
+		{
+			RequeteEntity demandedQuery = new RequeteEntity();
+			demandedQuery.setId_requete(Integer.valueOf(request.getParameter("queryId")));
+			demandedQuery.setId_professionnel(logged.getId_professionnel());
+			RequeteEntity query = statistiqueService.findSpecificQuery(demandedQuery);
+			List<Object> queryResult = statistiqueService.executeSavedQuery(query);
+			
+		}
+		
+		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);
 	}
 
@@ -230,18 +242,8 @@ public class Statistiques extends HttpServlet {
 					case "displayVisitCount":
 						columnNames.add("Nombre de visites");
 						break;
-						
-				
 				}
-				
-				
-				
-				
-				
-				
-				
-				
-				
+			
 			}				
 		}
 			
@@ -364,28 +366,37 @@ public class Statistiques extends HttpServlet {
 	
 	private String queryResultToHtml (List<Object> queryResult, Integer maxIndex, List<String> columnNames)
 	{
-		String htmlResult = "<table><tr>";
-		for(String name : columnNames)
+		String htmlResult = "";
+		System.out.println("taille du résultat: " + queryResult.size());
+		if(queryResult.size() == 0)
 		{
-			htmlResult = htmlResult.concat("<th>");
-			htmlResult = htmlResult.concat(name);
-			htmlResult = htmlResult.concat("</th>");
+			htmlResult = "<strong>Cette requète ne retourne aucune valeur.</strong>";
 		}
-		htmlResult = htmlResult.concat("</tr>");
-		
-		Iterator itr = queryResult.iterator();
-		while(itr.hasNext())
+		else
 		{
-		   Object[] obj = (Object[]) itr.next();
-		   htmlResult = htmlResult.concat("<tr>");
-		   for(int i = 0; i < maxIndex; i++)
-		   {
-			   htmlResult = htmlResult.concat("<td>");
-			   htmlResult = htmlResult.concat(String.valueOf(obj[i]));
-			   htmlResult = htmlResult.concat("</td>");
-		   }
+			htmlResult = "<table><tr>";
+			for(String name : columnNames)
+			{
+				htmlResult = htmlResult.concat("<th>");
+				htmlResult = htmlResult.concat(name);
+				htmlResult = htmlResult.concat("</th>");
+			}
+			htmlResult = htmlResult.concat("</tr>");
+			
+			Iterator itr = queryResult.iterator();
+			while(itr.hasNext())
+			{
+			   Object[] obj = (Object[]) itr.next();
+			   htmlResult = htmlResult.concat("<tr>");
+			   for(int i = 0; i < maxIndex; i++)
+			   {
+				   htmlResult = htmlResult.concat("<td>");
+				   htmlResult = htmlResult.concat(String.valueOf(obj[i]));
+				   htmlResult = htmlResult.concat("</td>");
+			   }
+			}
+			htmlResult = htmlResult.concat("</tr></table>");
 		}
-		htmlResult = htmlResult.concat("</tr></table>");
 		return htmlResult;
 	}
 }
