@@ -3,7 +3,10 @@ package fr.cyberbase.servlets;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.crypto.BadPaddingException;
@@ -16,6 +19,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
@@ -95,9 +100,9 @@ public class Affecter_poste extends HttpServlet {
 		request.setAttribute("salles", salles);
 		
 		//Récupération de la liste des usagers d'un site
-		List<UsagerEntity> users = userService.findAllUsersBySite(siteProfessionnel);
-		request.setAttribute("users", users);
-		request.setAttribute("site", siteProfessionnel);
+//		List<UsagerEntity> users = userService.findAllUsersBySite(siteProfessionnel);
+//		request.setAttribute("users", users);
+//		request.setAttribute("site", siteProfessionnel);
 		
 		//Récupération de l'id poste passé en paramètre d'URL pour une affectation
 		String idPosteParameter = request.getParameter("id");
@@ -107,6 +112,18 @@ public class Affecter_poste extends HttpServlet {
 			Integer idSalle = poste.getSalle().getId_salle();
 			request.setAttribute("poste", poste);
 		}
+		
+		//TEST
+		List<SiteEntity> sites = siteService.findAll();
+		String siteName = "";
+		Integer ii = 0;
+		Hashtable<String, List<UsagerEntity>> users = new Hashtable<String, List<UsagerEntity>>();
+		for (SiteEntity site : sites) {
+			siteName = site.getNom_site();
+			List<UsagerEntity> usersSite = userService.findAllUsersBySite(site);
+			users.put(siteName, usersSite);
+		}
+		request.setAttribute("users", users);
 		
 		request.getRequestDispatcher("/WEB-INF/affecter_poste.jsp").forward(request, response);
 	}

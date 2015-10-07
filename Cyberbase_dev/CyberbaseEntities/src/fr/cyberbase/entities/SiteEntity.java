@@ -32,7 +32,6 @@ public class SiteEntity implements Serializable {
 	@OrderBy("nom_salle ASC")
 	private Set<SalleEntity> salles;
 	
-
 	private static final long serialVersionUID = 1L;
 
 	public SiteEntity() {

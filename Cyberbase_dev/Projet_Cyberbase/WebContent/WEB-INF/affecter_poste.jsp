@@ -13,6 +13,12 @@
 							<legend class="legende-form">
 								<h2>Choix usager</h2>
 							</legend>
+							<c:forEach items="${users}" var="site">
+     							${site.key}
+     								<c:forEach items="${site.value}" var="usager">
+        								<c:out value="${usager.nom_usager}" /> 
+    								</c:forEach>
+     						</c:forEach>                     
 							<div class="conteneur-form">
 									<label for="selection-site">Site:</label>
      								<select name="selection-site">
@@ -24,9 +30,9 @@
 									<label for="selection-site">Usager :</label>
      								<select name="selection-site">
      									<option value="" disabled selected>Choix de l'usager</option>
-     										<c:forEach items="${users}" var="user">
-     											<option value="${user.tech_id}">${user.prenom_usager} ${user.nom_usager}</option>
-     										</c:forEach>
+<%--      										<c:forEach items="${users}" var="user"> --%>
+<%--      											<option value="${user.tech_id}">${user.prenom_usager} ${user.nom_usager}</option> --%>
+<%--      										</c:forEach> --%>
     				 				</select>
 							</div>
 		 		</article>
@@ -64,11 +70,25 @@
 									</c:when>
 									<c:otherwise>
 										<select name="selection-site">
-     									<option value="" disabled selected>Choix du poste</option>
-				     					<option value="">Poste 1</option>
-				        				<option value="">Poste 2</option>
-				        				<option value="">Poste 3</option>
-    				 				</select>
+	     									<option value="" disabled selected>Choix du poste</option>
+					     					<option value="">Poste 1</option>
+					        				<option value="">Poste 2</option>
+					        				<option value="">Poste 3</option>
+    				 					</select>
+    				 					<select id="mark" name="mark">
+										  <option value="">--</option>
+										  <option value="bmw">BMW</option>
+										  <option value="audi">Audi</option>
+										</select>
+										<select id="series" name="series">
+										  <option value="">--</option>
+										  <option value="series-3" class="bmw">3 series</option>
+										  <option value="series-5" class="bmw">5 series</option>
+										  <option value="series-6" class="bmw">6 series</option>
+										  <option value="a3" class="audi">A3</option>
+										  <option value="a4" class="audi">A4</option>
+										  <option value="a5" class="audi">A5</option>
+										</select>
 									</c:otherwise>
 								</c:choose>
 							</div>

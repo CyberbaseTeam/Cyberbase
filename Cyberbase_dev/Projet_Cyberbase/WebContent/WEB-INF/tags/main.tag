@@ -36,7 +36,8 @@
 		<jsp:doBody/>
 	  </div>
 	  	<c:import url="/inc/modules/footer.jsp" />
-	  	
-	  	<script src="lib/jquery-2.1.4.min.js"></script>
+	<script src="lib/jquery-2.1.4.min.js"></script>
+	<script src="lib/jquery.chained.min.js"></script>
+	<script src="inc/js/gestion_salles_postes.js"></script>
 </body>
 </html>
