@@ -92,7 +92,7 @@ public class CookieTools {
     {
     	//objet Calendar qui manipule les élements YEAR, MONTH etc et permet des conversions. Initialisation à l'heure locale
     	Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, 7);
+        calendar.add(Calendar.HOUR, 4);
         Long expireTimeInMillis = calendar.getTimeInMillis();
         StringBuilder token = new StringBuilder();
         token.append(expireTimeInMillis);

@@ -79,6 +79,11 @@ public class Statistiques extends HttpServlet {
 	List<QuartierEntity> quartierList;
 	List<RequeteEntity> requeteList;
 	
+	Map<String, String> queryObjects = new HashMap<String, String>();
+	
+	List<String> querySelectObjects = new ArrayList<String>();
+	List<String> columnNames = new ArrayList<String>();
+	
 	@EJB
 	StatistiqueService statistiqueService;
 	
@@ -114,6 +119,13 @@ public class Statistiques extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		queryObjects = new HashMap<String, String>();
+		
+		querySelectObjects = new ArrayList<String>();
+		columnNames = new ArrayList<String>();
+		
+		
+		
 		Login login = new Login();	
 		Cookie cookies [] = request.getCookies();
 		login = getLoginFromCookie(cookies);
@@ -123,15 +135,36 @@ public class Statistiques extends HttpServlet {
 		
 		if(request.getParameter("action") != null && request.getParameter("action").equals("personalQuery"))
 		{
-			RequeteEntity demandedQuery = new RequeteEntity();
-			demandedQuery.setId_requete(Integer.valueOf(request.getParameter("queryId")));
-			demandedQuery.setId_professionnel(logged.getId_professionnel());
-			RequeteEntity query = statistiqueService.findSpecificQuery(demandedQuery);
-			List<Object> queryResult = statistiqueService.executeSavedQuery(query);
+			RequeteEntity query = new RequeteEntity();
+			query.setId_requete(Integer.valueOf(request.getParameter("queryId")));
+			query.setId_professionnel(logged.getId_professionnel());
+			RequeteEntity queryInfo = statistiqueService.findSpecificQuery(query);
+			
+			String[] displayData = statistiqueService.getDisplayData(queryInfo.getContenu_requete());
+			prepareSelectObjectsAndColums(displayData);
+			queryObjects = statistiqueService.getQueryParameter(queryInfo.getContenu_requete());
+			
+			List<Object> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
+			String htmlResult = queryResultToHtml(queryResult, querySelectObjects.size(), columnNames  );
+					
+			request.setAttribute("columnNames", columnNames);
+			request.setAttribute("htmlResult", htmlResult);
+			initializeData(request, logged);
+			
+				
+		}
+		else
+		{
+			Integer visitsThisDay;
+			Integer visitsThisMonth;
+			Integer visitsThisYear;
+			Integer newUsersThisDay;
+			Integer newUsersThisMonth;
+			Integer newUsersThisYear;
+			
+			
 			
 		}
-		
-		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);
 	}
 
@@ -139,7 +172,10 @@ public class Statistiques extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		queryObjects = new HashMap<String, String>();
 		
+		querySelectObjects = new ArrayList<String>();
+		columnNames = new ArrayList<String>();
 		Login login = new Login();	
 		Cookie cookies [] = request.getCookies();
 		login = getLoginFromCookie(cookies);
@@ -147,106 +183,8 @@ public class Statistiques extends HttpServlet {
 		ProfessionnelEntity logged = professionnelService.findByTechId(login.getLoginTechId());
 		System.out.println(login.getLoginTechId());
 		
-		Map<String, String> queryObjects = new HashMap<String, String>();
-		
-		List<String> querySelectObjects = new ArrayList<String>();
-		List<String> columnNames = new ArrayList<String>();
-		
-		
-		if(request.getParameterValues(FIELD_DISPLAY_DATA) == null)
-		{
-			querySelectObjects.add("displayGender");
-			columnNames.add("Civilité");
-			querySelectObjects.add("displaySurname");
-			columnNames.add("Prénom");
-			querySelectObjects.add("displayName");
-			columnNames.add("Nom");
-			querySelectObjects.add("displayDOB");
-			columnNames.add("Date de naissance");
-			querySelectObjects.add("displayAddress");
-			columnNames.add("Adresse");
-			querySelectObjects.add("displayCity");
-			columnNames.add("Ville");
-			querySelectObjects.add("displayZipCode");
-			columnNames.add("Code postal");
-			querySelectObjects.add("displayEmail");
-			columnNames.add("email");
-			querySelectObjects.add("displayPatronage");
-			columnNames.add("Acompagnement");
-			querySelectObjects.add("displaySite");
-			columnNames.add("Site de référence");
-			querySelectObjects.add("displayDistrict");
-			columnNames.add("Quartier");
-			querySelectObjects.add("displayCsp");
-			columnNames.add("CSP");
-			querySelectObjects.add("displayFormation");	
-			columnNames.add("Niveau de formation");
-		}
-		else{
-			for(int i = 0; i < request.getParameterValues(FIELD_DISPLAY_DATA).length; i++){
-				querySelectObjects.add(request.getParameterValues(FIELD_DISPLAY_DATA)[i]);	
-				
-				switch(request.getParameterValues(FIELD_DISPLAY_DATA)[i]){
-					case "displayGender":
-						columnNames.add("Civilité");
-						break;	
+		prepareSelectObjectsAndColums(request.getParameterValues(FIELD_DISPLAY_DATA));
 					
-					case "displayName":
-						columnNames.add("Nom");
-						break;				
-									
-					case "displaySurname":
-							columnNames.add("Prénom");
-							break;
-						
-					case "displayDOB":
-						columnNames.add("Date de naissance");
-						break;
-						
-					case "displayAddress":
-						columnNames.add("Adresse");
-						break;
-				
-					case "displayCity":
-						columnNames.add("Ville");
-						break;
-				
-					case "displayZipCode":
-						columnNames.add("Code Postal");
-						break;
-						
-					case "displayEmail":
-						columnNames.add("Email");
-						break;
-						
-					case "displayPatronage":
-						columnNames.add("Accompagnement");
-						break;
-						
-					case "displaySite":
-						columnNames.add("Site référence");
-						break;
-						
-					case "displayDistrict":
-						columnNames.add("Quartier");
-						break;
-						
-					case "displayCsp":
-						columnNames.add("CSP");
-						break;
-						
-					case "displayFormation":
-						columnNames.add("Niveau de formation");
-						break;
-						
-					case "displayVisitCount":
-						columnNames.add("Nombre de visites");
-						break;
-				}
-			
-			}				
-		}
-			
 		for(int i = 0; i < querySelectObjects.size(); i++){
 			System.out.println(querySelectObjects.get(i));
 		}
@@ -254,9 +192,9 @@ public class Statistiques extends HttpServlet {
 		for(int i = 0; i < columnNames.size(); i++){
 			System.out.println(columnNames.get(i));
 		}
-		
+				
 		String searchPanel = request.getParameter(FIELD_SEARCH_PANEL);
-			queryObjects.put(FIELD_SEARCH_PANEL, request.getParameter(FIELD_SEARCH_PANEL).toString());
+		queryObjects.put(FIELD_SEARCH_PANEL, request.getParameter(FIELD_SEARCH_PANEL).toString());
 		String gender = request.getParameter(FIELD_GENDER);
 		if(gender != null)
 			queryObjects.put(FIELD_GENDER, gender);
@@ -362,7 +300,101 @@ public class Statistiques extends HttpServlet {
 		request.setAttribute(ATTR_REQUETES, requeteList);
 	}
 
-	
+	private void prepareSelectObjectsAndColums(String[] displayData){
+		if(displayData == null)
+		{
+			querySelectObjects.add("displayGender");
+			columnNames.add("Civilité");
+			querySelectObjects.add("displaySurname");
+			columnNames.add("Prénom");
+			querySelectObjects.add("displayName");
+			columnNames.add("Nom");
+			querySelectObjects.add("displayDOB");
+			columnNames.add("Date de naissance");
+			querySelectObjects.add("displayAddress");
+			columnNames.add("Adresse");
+			querySelectObjects.add("displayCity");
+			columnNames.add("Ville");
+			querySelectObjects.add("displayZipCode");
+			columnNames.add("Code postal");
+			querySelectObjects.add("displayEmail");
+			columnNames.add("email");
+			querySelectObjects.add("displayPatronage");
+			columnNames.add("Acompagnement");
+			querySelectObjects.add("displaySite");
+			columnNames.add("Site de référence");
+			querySelectObjects.add("displayDistrict");
+			columnNames.add("Quartier");
+			querySelectObjects.add("displayCsp");
+			columnNames.add("CSP");
+			querySelectObjects.add("displayFormation");	
+			columnNames.add("Niveau de formation");
+		}
+		else{
+			for(int i = 0; i < displayData.length; i++){
+				querySelectObjects.add(displayData[i]);	
+				
+				switch(displayData[i]){
+					case "displayGender":
+						columnNames.add("Civilité");
+						break;	
+					
+					case "displayName":
+						columnNames.add("Nom");
+						break;				
+									
+					case "displaySurname":
+							columnNames.add("Prénom");
+							break;
+						
+					case "displayDOB":
+						columnNames.add("Date de naissance");
+						break;
+						
+					case "displayAddress":
+						columnNames.add("Adresse");
+						break;
+				
+					case "displayCity":
+						columnNames.add("Ville");
+						break;
+				
+					case "displayZipCode":
+						columnNames.add("Code Postal");
+						break;
+						
+					case "displayEmail":
+						columnNames.add("Email");
+						break;
+						
+					case "displayPatronage":
+						columnNames.add("Accompagnement");
+						break;
+						
+					case "displaySite":
+						columnNames.add("Site référence");
+						break;
+						
+					case "displayDistrict":
+						columnNames.add("Quartier");
+						break;
+						
+					case "displayCsp":
+						columnNames.add("CSP");
+						break;
+						
+					case "displayFormation":
+						columnNames.add("Niveau de formation");
+						break;
+						
+					case "displayVisitCount":
+						columnNames.add("Nombre de visites");
+						break;
+				}
+			
+			}				
+		}
+	}
 	
 	private String queryResultToHtml (List<Object> queryResult, Integer maxIndex, List<String> columnNames)
 	{
@@ -396,6 +428,7 @@ public class Statistiques extends HttpServlet {
 			   }
 			}
 			htmlResult = htmlResult.concat("</tr></table>");
+			htmlResult = htmlResult.concat("<form method=\"get\"><input type=\"submit\" id=\"export\" value=\"export\"/></form>");
 		}
 		return htmlResult;
 	}

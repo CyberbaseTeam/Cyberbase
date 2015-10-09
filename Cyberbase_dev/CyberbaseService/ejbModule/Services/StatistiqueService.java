@@ -118,7 +118,8 @@ public class StatistiqueService {
 		Boolean saveQuery = false;
 		String queryName = "";
 		
-		for (Integer i = 0; i < querySelectObjects.size(); i ++){			
+		for (Integer i = 0; i < querySelectObjects.size(); i ++){	
+			System.out.println("display element: " + querySelectObjects.get(i));
 			switch(querySelectObjects.get(i)){
 					
 				case ATTR_DISPLAY_GENDER:
@@ -444,7 +445,7 @@ public class StatistiqueService {
 		
 		if(saveQuery)
 		{
-			savePersonalQuery(personalQuery, setParameterElements, queryName, logged);
+			savePersonalQuery(queryObjects, querySelectObjects, queryName, logged);
 		}
 		List<Object> result = executePersonalQuery(personalQuery, setParameterElements);
 		System.out.println(setParameterElements.toString());
@@ -452,18 +453,64 @@ public class StatistiqueService {
 			
 	}		
 			
-	private void savePersonalQuery(String personalQuery, Map<String, Object> setParameterElements, String queryName, ProfessionnelEntity logged)
+	private void savePersonalQuery(Map<String, String> queryObjects, List<String> querySelectObjects, String queryName, ProfessionnelEntity logged)
 	{	
-		RequeteEntity savedQuery = new RequeteEntity();
-		savedQuery.setNom_requete(queryName);
-		savedQuery.setId_professionnel(logged.getId_professionnel());
-		String contenuRequete = personalQuery;
-		contenuRequete = personalQuery.concat(setParameterElements.toString());
+		RequeteEntity savedQueryInfo = new RequeteEntity();
+		savedQueryInfo.setNom_requete(queryName);
+		savedQueryInfo.setId_professionnel(logged.getId_professionnel());
+		String contenuRequete = querySelectObjects.toString();
+		contenuRequete = contenuRequete.concat(";");
+		contenuRequete = contenuRequete.concat(queryObjects.toString());
 		System.out.println("PQ: " + contenuRequete);
-		savedQuery.setContenu_requete(contenuRequete);
-			
-		entityManager.persist(savedQuery);			
+		savedQueryInfo.setContenu_requete(contenuRequete);			
+		entityManager.persist(savedQueryInfo);	
+		
 	}
+	
+	public String[] getDisplayData(String queryContent){
+		String[] dataSplit = queryContent.split(";");
+		String displayDataToString = dataSplit[0];
+		displayDataToString = displayDataToString.replace("[", "");
+		displayDataToString = displayDataToString.replace("]", "");
+		displayDataToString = displayDataToString.replace(" ", "");
+		
+		String[] displayData  = displayDataToString.trim().split(",");
+		
+		return displayData;	
+	}
+	
+	public Map<String, String> getQueryParameter(String queryContent){
+		String[] dataSplit = queryContent.split(";");
+		String queryObjectsToString = dataSplit[1];
+		queryObjectsToString = queryObjectsToString.replace("{", "");
+		queryObjectsToString = queryObjectsToString.replace("}", "");
+		Map<String, String> queryObjects  = new HashMap<String, String>();
+		String[] queryObjectsData = queryObjectsToString.split(",");
+		for(Integer i = 0; i < queryObjectsData.length; i++)
+		{
+			String key = queryObjectsData[i].split("=")[0].trim();
+			String value = queryObjectsData[i].split("=")[1].trim();	
+			System.out.println("key" + key);
+			System.out.println("value" + value);
+			if(key.equals("saveQuery") || key.equals("queryName"))
+				
+				break;
+			else
+				queryObjects.put(key, value);
+		}
+		
+		Set listKeys=queryObjects.keySet();  
+		Iterator iterateur=listKeys.iterator();
+		while(iterateur.hasNext())
+		{
+			Object key= iterateur.next();
+			System.out.println (key+"=>"+queryObjects.get(key));		
+		}
+		return queryObjects;	
+	}
+	
+	
+	
 	
 	public List<Object>  executeSavedQuery(RequeteEntity requete){
 		Map<String, Object> queryParameters = new HashMap<String, Object>();
@@ -522,7 +569,7 @@ public class StatistiqueService {
 		result = executedQuery.getResultList();
 		
 	    for(int i = 0; i < result.size(); i++)
-	    	 System.out.println(result.get(i));
+	    	 System.out.println("result " + result.get(i));
 		
 	    return result;
 	}
