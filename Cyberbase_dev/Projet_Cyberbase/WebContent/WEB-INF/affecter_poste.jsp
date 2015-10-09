@@ -8,33 +8,31 @@
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
 	<section>
 		 		<article class="colonne-affecter">
-		 			<form class="affecter-form" method="post">
+		 			<form method="post">
 						<fieldset>
 							<legend class="legende-form">
 								<h2>Choix usager</h2>
 							</legend>
-							<c:forEach items="${users}" var="site">
-     							${site.key}
-     								<c:forEach items="${site.value}" var="usager">
-        								<c:out value="${usager.nom_usager}" /> 
-    								</c:forEach>
-     						</c:forEach>                     
 							<div class="conteneur-form">
 									<label for="selection-site">Site:</label>
-     								<select name="selection-site">
-     									<option value="" disabled selected>${site.nom_site}</option>
- 
+     								<select name="site" id="site">
+     									<option value="" disabled selected>Choix du site</option>
+											<c:forEach items="${users}" var="site">
+	     										<option value="${site.key}" class="${site.key}">${site.key}</option>
+	     									</c:forEach> 
     				 				</select>
 							</div>
 							<div class="conteneur-form">
 									<label for="selection-site">Usager :</label>
-     								<select name="selection-site">
+     								<select name="user" id="user">
      									<option value="" disabled selected>Choix de l'usager</option>
-<%--      										<c:forEach items="${users}" var="user"> --%>
-<%--      											<option value="${user.tech_id}">${user.prenom_usager} ${user.nom_usager}</option> --%>
-<%--      										</c:forEach> --%>
+      										<c:forEach items="${users}" var="site">
+      											<c:forEach items="${site.value}" var="user">
+     												<option value="${user.id_usager}" class="${site.key}">${user.prenom_usager} ${user.nom_usager}</option>
+     											</c:forEach>
+     										</c:forEach>
     				 				</select>
-							</div>
+							</div>   								    													
 		 		</article>
 		 		<article class="colonne-affecter">
 						<fieldset>
@@ -43,55 +41,39 @@
 							</legend>
 							<div class="conteneur-form">
 									<label for="selection-site">Salle:</label>
-								<c:choose>
-									<c:when test="${! empty poste}">
-										<input type="text" value="${poste.salle.nom_salle}" disabled>
-									</c:when>
-									<c:otherwise>
-										<select id="dropdown1">
-										    <c:forEach items="${salles}" var="salle">
-										        <option value="${salle.id_salle}">${salle.nom_salle}</option>
-										    </c:forEach>
-										</select>
-										<select id="dropdown2">
-										    <option>Please select dropdown1</option>
-										</select>
-									</c:otherwise>
-								</c:choose>
-     								
+     								<select name="salle" id="salle">
+     										<c:choose>
+												<c:when test="${empty inputSalle}">
+													<option value="" disabled selected>Choix de la salle</option>
+													<c:forEach items="${postes}" var="salle">
+	     												<option value="${salle.key}" class="${salle.key}">${salle.key}</option>
+	     											</c:forEach> 
+												</c:when>
+												<c:otherwise>
+													<option value="${inputSalle.id_salle}">${inputSalle.nom_salle}</option>
+												</c:otherwise>
+											</c:choose>
+    				 				</select>
 							</div>
 							<div class="conteneur-form">
-								<div class="label-form">
-									<label for="selection-site">Poste:</label>
-								</div>
-								<c:choose>
-									<c:when test="${! empty poste}">
-										<input type="text" value="${poste.nom_poste}" disabled>
-									</c:when>
-									<c:otherwise>
-										<select name="selection-site">
-	     									<option value="" disabled selected>Choix du poste</option>
-					     					<option value="">Poste 1</option>
-					        				<option value="">Poste 2</option>
-					        				<option value="">Poste 3</option>
-    				 					</select>
-    				 					<select id="mark" name="mark">
-										  <option value="">--</option>
-										  <option value="bmw">BMW</option>
-										  <option value="audi">Audi</option>
-										</select>
-										<select id="series" name="series">
-										  <option value="">--</option>
-										  <option value="series-3" class="bmw">3 series</option>
-										  <option value="series-5" class="bmw">5 series</option>
-										  <option value="series-6" class="bmw">6 series</option>
-										  <option value="a3" class="audi">A3</option>
-										  <option value="a4" class="audi">A4</option>
-										  <option value="a5" class="audi">A5</option>
-										</select>
-									</c:otherwise>
-								</c:choose>
-							</div>
+									<label for="selection-site">Poste :</label>
+     								<select name="poste" id="poste">
+     									<c:choose>
+												<c:when test="${empty inputPoste}">
+													<option value="" disabled selected>Choix du poste</option>
+													<c:forEach items="${postes}" var="salle">
+      													<c:forEach items="${salle.value}" var="poste">
+     														<option value="${poste.id_poste}" class="${salle.key}">${poste.nom_poste}</option>
+     													</c:forEach>
+     												</c:forEach> 
+												</c:when>
+												<c:otherwise>
+													<option value="${inputPoste.id_poste}">${inputPoste.nom_poste}</option>
+												</c:otherwise>										
+										</c:choose>
+    				 				</select>
+							</div>   						
+						</fieldset>
 		 		</article>
 		 		<article class="colonne-affecter">
 						<fieldset>
@@ -99,27 +81,42 @@
 								<h2>Infos affectations</h2>
 							</legend>
 							<div class="conteneur-form">
-								<div class="label-form">
-									<label for="selection-site">Objet:</label>
-								</div>
-     								<select name="selection-site">
-     									<option value="" disabled selected>Motif de l'affactation</option>
-				     					<option value="">Recherche d'emploi</option>
-				        				<option value="">Travail du CV</option>
-				        				<option value="">Lettre de motivation</option>
+									<label for="selection-site">Démarche :</label>
+     								<select name="demarche" id="demarche">
+     									<option value="" disabled selected>Choix de la démarche</option>
+      											<c:forEach items="${demarches}" var="demarche">
+     												<option value="${demarche.id_demarche}">${demarche.nom_demarche}</option>
+     											</c:forEach>
     				 				</select>
 							</div>
-					</form>
+		 		</article>
+		 		<article class="colonne-affecter">
+						<fieldset>
+							<legend class="legende-form">
+								<h2>Durée affectation</h2>
+							</legend>
+							<div class="conteneur-form">
+									<label for="selection-site">Durée :</label>
+     								<select name="time" id="time">
+     									<option value="" disabled selected>Choix de la durée</option>
+      									<option value="15">15 min</option>
+      									<option value="30">30 min</option>
+      									<option value="45">45 min</option>
+      									<option value="60">1 heure</option>
+      									<option value="75">1 heure 15 min</option>
+      									<option value="90">1 heure 30 min</option>
+      									<option value="105">1 heure 45 min</option>
+      									<option value="120">2 heures</option>
+    				 				</select>
+							</div>
 		 		</article>
 		 	</section>
 		 	<section>
-		 		<div class="conteneur-buttons">
-		 			<div class="valider-button">
-		 				<input type="submit" name="envoyer" value"Envoyer"/>
-		 			</div>
-		 			<div class="retour-button">
-		 				<input type="reset" name="effacer" value"Retour"/>
-		 			</div>
-		 		</div>
+		 		<article>
+		 				<input type="hidden" value="${idPro}" name="inputIdPro"/>
+		 				<input type="submit" name="submit" value="Envoyer"/>
+		 				<input type="reset" name="reset" value="Retour"/>
+		 		</article>
 		 	</section>
+		 </form>
 </t:main>

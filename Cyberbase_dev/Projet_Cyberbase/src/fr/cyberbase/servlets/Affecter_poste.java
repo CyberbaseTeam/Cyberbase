@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -22,6 +23,29 @@ import javax.servlet.http.HttpServletResponse;
 
 //import com.google.gson.Gson;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.sql.Timestamp;
+
+import fr.cyberbase.entities.AffectationEntity;
+import fr.cyberbase.entities.DemarcheEntity;
 import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
 import fr.cyberbase.entities.SalleEntity;
@@ -29,8 +53,11 @@ import fr.cyberbase.entities.SiteEntity;
 import fr.cyberbase.entities.UsagerEntity;
 import fr.cyberbase.util.CookieTools;
 import fr.cyberbase.util.Login;
+import Services.AffectationService;
+import Services.DemarcheService;
 import Services.PosteService;
 import Services.ProfessionnelService;
+import Services.SalleService;
 import Services.SiteService;
 import Services.UsagerService;
 
@@ -48,7 +75,13 @@ public class Affecter_poste extends HttpServlet {
 	@EJB
 	SiteService siteService;
 	@EJB
+	SalleService salleService;
+	@EJB
 	UsagerService userService;
+	@EJB
+	DemarcheService demarcheService;
+	@EJB
+	AffectationService affectationService;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -91,29 +124,22 @@ public class Affecter_poste extends HttpServlet {
 				
 		//Récupération de l'id du site du professionnel connecté
 		Integer idSiteProfessionnel = login.getSiteId();
+		request.setAttribute("idPro", idSiteProfessionnel);
 				
 		//Récupération du site du professionnel connecté
 		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
-		
-		//Récupération des salles du site concerné
-		Set<SalleEntity> salles = siteProfessionnel.getSalles();
-		request.setAttribute("salles", salles);
-		
-		//Récupération de la liste des usagers d'un site
-//		List<UsagerEntity> users = userService.findAllUsersBySite(siteProfessionnel);
-//		request.setAttribute("users", users);
-//		request.setAttribute("site", siteProfessionnel);
-		
-		//Récupération de l'id poste passé en paramètre d'URL pour une affectation
+			
+		//Récupération de l'id poste passé en paramètre d'URL pour une affectation d'un poste spécifique
 		String idPosteParameter = request.getParameter("id");
 		if (idPosteParameter != null) {
 			Integer idPoste = Integer.valueOf(idPosteParameter);
 			PosteEntity poste = posteService.findById(idPoste);
-			Integer idSalle = poste.getSalle().getId_salle();
-			request.setAttribute("poste", poste);
+			SalleEntity salle = poste.getSalle();
+			request.setAttribute("inputPoste", poste);
+			request.setAttribute("inputSalle", salle);
 		}
 		
-		//TEST
+		//Récupération de la liste des usagers pour chaque site
 		List<SiteEntity> sites = siteService.findAll();
 		String siteName = "";
 		Integer ii = 0;
@@ -125,6 +151,21 @@ public class Affecter_poste extends HttpServlet {
 		}
 		request.setAttribute("users", users);
 		
+		//Récupération de la liste des postes pour chaque salle du site du professionnel connecté
+		Set<SalleEntity> salles = siteProfessionnel.getSalles();
+		String salleName = "";
+		Hashtable<String, List<PosteEntity>> postes = new Hashtable<String, List<PosteEntity>>();
+		for (SalleEntity salle : salles){
+			salleName = salle.getNom_salle();
+			List<PosteEntity> postesSalle = salle.getPostes();
+			postes.put(salleName, postesSalle);
+		}
+		request.setAttribute("postes", postes);
+		
+		//Récupération des affectations
+		List<DemarcheEntity> demarches = demarcheService.findAll();
+		request.setAttribute("demarches", demarches);
+		
 		request.getRequestDispatcher("/WEB-INF/affecter_poste.jsp").forward(request, response);
 	}
 
@@ -132,7 +173,46 @@ public class Affecter_poste extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		if (request.getParameter("submit") != null) {
+			String[] inputIdUserTable = request.getParameterValues("user");
+			Integer idUser = null;
+			for(int ii=0;ii<inputIdUserTable.length;ii++)
+		       {
+				String inputIdUser = inputIdUserTable[ii];
+				idUser = Integer.valueOf(inputIdUser);
+		       }
+			String inputIdPro = request.getParameter("inputIdPro");
+			Integer idPro = Integer.valueOf(inputIdPro);
+			String[] inputIdPosteTable = request.getParameterValues("poste");
+			Integer idPoste = null;
+			for(int jj=0;jj<inputIdPosteTable.length;jj++)
+		       {
+				String inputIdPoste = inputIdPosteTable[jj];
+				idPoste = Integer.valueOf(inputIdPoste);
+		       }
+			String[] inputIdDemarcheTable = request.getParameterValues("demarche");
+			Integer idDemarche = null;
+			for(int kk=0;kk<inputIdDemarcheTable.length;kk++)
+		       {
+				String inputIdDemarche = inputIdDemarcheTable[kk];
+				idDemarche = Integer.valueOf(inputIdDemarche);
+		       }
+			String inputMinutes = request.getParameter("time");
+			Integer minutes = Integer.valueOf(inputMinutes);
+			DateTime dateStart = new DateTime();
+			DateTime dateEnd = dateStart.plusMinutes(minutes);
+			Timestamp tsDateStart = new Timestamp(dateStart.getMillis());
+			Timestamp tsDateEnd = new Timestamp(dateEnd.getMillis());
+			AffectationEntity affectation = new AffectationEntity();
+			affectation.setDate_debut_affectation(tsDateStart);
+			affectation.setDate_fin_affectation(tsDateEnd);
+			affectation.setId_demarche(idDemarche);
+			affectation.setId_poste(idPoste);
+			affectation.setId_professionnel(idPro);
+			affectation.setId_usager(idUser);
+			affectationService.createAffectation(affectation);
+			response.sendRedirect("salle_list");
+		}
 	}
 
 }

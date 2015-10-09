@@ -21,6 +21,11 @@ public class UsagerService {
 		List<UsagerEntity> listing = entityManager.createNamedQuery("usagerEntity.findAll", UsagerEntity.class).getResultList();
 		return listing;
 	}
+	
+	public UsagerEntity findById(Integer id) {
+		UsagerEntity user = entityManager.find(UsagerEntity.class, id);
+		return user;
+	}
 
 	public void add(UsagerEntity usager) {
 		entityManager.persist(usager);
