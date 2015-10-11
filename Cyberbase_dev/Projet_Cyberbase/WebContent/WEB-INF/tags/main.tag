@@ -8,7 +8,9 @@
 	<title>Cyberbase</title>
 	<meta name="description" content="" />
 	<meta name="keywords" content="" />
-	<link  rel="stylesheet" type="text/css" href="<c:url value="inc/css/style.css"/>" >
+	<link rel="stylesheet" href="lib/bootstrap.min.css">
+	<link rel="stylesheet" href="lib/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="inc/css/style2.css">
 		
 </head>
 <body>
@@ -30,12 +32,12 @@
 	</header>
 		
       <div id="content">
-      	<div id="conteneur-arianne">
+      	<div id="section_name">
 			<h1>"Nom de la section"</h1>
 	  	</div>
 		<jsp:doBody/>
-	  </div>
-	  	<c:import url="/inc/modules/footer.jsp" />
+	 
+	  <c:import url="/inc/modules/footer.jsp" />
 	<script src="lib/jquery-2.1.4.min.js"></script>
 	<script src="lib/jquery.chained.min.js"></script>
 	<script src="inc/js/gestion_salles_postes.js"></script>

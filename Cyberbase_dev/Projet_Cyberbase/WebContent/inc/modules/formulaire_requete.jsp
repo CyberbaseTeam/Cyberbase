@@ -1,97 +1,270 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<div id="query">
-	<fieldset>
-		<legend>Requète personnalisée</legend>
+
+	<div id="query">
+
+		<h3>Requête personnalisée</h3>
 		<span class="error"></span>
 		<form method="POST">
-			<div>
-				<label for="searchPanel" class="label">Chercher parmi:</label> 
-				<SELECT name="searchPanel">
+			<div class="row">
+				<div class="col-md-1"></div>
+				<label for="searchPanel">Chercher parmi:</label>
+				 <select name="searchPanel">
 					<option selected value="all">Tous les inscrits</option>
-         			<c:forEach items="${siteList}" var="site">
+					<c:forEach items="${siteList}" var="site">
 						<option value="${site.id_site}">${site.nom_site}</option>
-					</c:forEach>	    
-				</SELECT>
+					</c:forEach>
+				</select>
 			</div>
-			<br />
 			
-			<label for="displayData[]">Données à afficher: </label><br />
-			<input type="checkbox" name="displayData[]" value="displayGender">Civilité
-			<input type="checkbox" name="displayData[]" value="displaySurname">Prénom<br />
-			<input type="checkbox" name="displayData[]" value="displayName">Nom
-			<input type="checkbox" name="displayData[]" value="displayDOB">Date de naissance<br />
-			<input type="checkbox" name="displayData[]" value="displayAddress">Adresse
-			<input type="checkbox" name="displayData[]" value="displayCity">Ville<br />
-			<input type="checkbox" name="displayData[]" value="displayZipCode">Code postal
-			<input type="checkbox" name="displayData[]" value="displayEmail">email<br />
-			<input type="checkbox" name="displayData[]" value="displayPatronage">Accompagnement
-			<input type="checkbox" name="displayData[]" value="displaySite">Site d'inscription<br />
-			<input type="checkbox" name="displayData[]" value="displayDistrict">Quartier
-			<input type="checkbox" name="displayData[]" value="displayCsp">CSP<br />
-			<input type="checkbox" name="displayData[]" value="displayFormation">Formation
-			<input type="checkbox" name="displayData[]" value="displayVisitCount"/>Nombre de visites <br />	
+			<div class="row">
+				<div class="col-md-1"></div>
+				<label for="displayData[]">Données à afficher: </label>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displayGender">
+						Civilité
+					</p>
+				</div>
 			
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displaySurname">
+						Prénom
+					</p>
+				</div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displayName">
+						Nom
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displayDOB">
+						Date de naissance
+					</p>
+				</div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displayAddress">Adresse
+					</p>
+				</div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displayCity">
+						Ville
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displayZipCode">Code
+						postal
+					</p>
+				</div>
+
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displayEmail">
+						Email
+					</p>
+				</div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]"
+							value="displayPatronage">Accompagnement
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displaySite">
+						Site d'inscription
+					</p>
+				</div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]"
+							value="displayDistrict">Quartier
+					</p>
+				</div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]" value="displayCsp">CSP
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]"
+							value="displayFormation">Formation
+					</p>
+				</div>
+				<div class="col-md-2">
+					<p>
+						<input type="checkbox" name="displayData[]"
+							value="displayVisitCount" /> Nombre de visite
+					</p>
+				</div>
+			</div>
 			<h3>Critères de recherche</h3>
+			<div class="row">
 
-			<div id="gender">
-				<label for="gender" class="label">Sexe: </label> 
-				<input type="radio" name="gender" value="M"> Masculin 
-				<input type="radio" name="gender" value="F"> Féminin<br />
+				<div id="gender">
+					<div class="col-md-1"></div>
+					<div class="col-md-1">
+						<label for="gender">Sexe: </label>
+					</div>
+					<div class="col-md-1">
+						<input type="radio" name="gender" value="M">
+					</div>
+					<div class="col-md-1">
+						<p>Masculin</p>
+					</div>
+					<div class="col-md-1">
+						<input type="radio" name="gender" value="F">
+					</div>
+					<div class="col-md-1">
+						<p>Féminin</p>
+					</div>
+				</div>
 			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-2">
+					<label for="city">Ville: </label>
+				</div>
+				<div class="col-md-2">
+					<input type="text" name="city" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-2">
+					<label for="district">Quartier:</label>
+				</div>
+				<div class="col-md-2">
+					<select name="district">
+						<option value="">Critère par quartier</option>
+						<c:forEach items="${quartierList}" var="quartier">
+							<option value="${quartier.id_quartier}">${quartier.nom_quartier}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-2">
+					<label for="csp">CSP:</label>
+				</div>
+				<div class="col-md-2">
+					<select name="csp">
+						<option value="">Critère par csp</option>
+						<c:forEach items="${cspList}" var="csp">
+							<option value="${csp.id_csp}">${csp.libelle_csp}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-2">
+					<label for="formation">Niveau de formation: </label>
+				</div>
 
-			<label for="city" class="label">Ville: </label><input type="text" name="city" /><br /> 
-			
-			<label for="district" class="label">Quartier:</label> 
-			<select name="district"><br />
-				<option value="">Critère par quartier</option>
-				<c:forEach items="${quartierList}" var="quartier">
-					<option value="${quartier.id_quartier}">${quartier.nom_quartier}</option>
-				</c:forEach>
-			</select><br /> 
-			
-			<label for="csp" class="label">CSP:</label> 
-			<select name="csp"><br />
-				<option value="">Critère par csp</option>
-				<c:forEach items="${cspList}" var="csp">
-					<option value="${csp.id_csp}">${csp.libelle_csp}</option>
-				</c:forEach>
-			</select><br /> 
-			<label for="formation" class="label">Niveau de formation: </label> 
-			<select name="formation"><br />
-				<option value="">Critère par formation</option>
-				<c:forEach items="${formationList}" var="formation">
-					<option value="${formation.id_formation}">${formation.nom_formation}</option>
-				</c:forEach>
-			</select><br />
-			<label for="objective" class="label">Objet de la visite: </label>
-			<select name="objective"><br />
-				<option value="">Critère par démarche</option>
-				<c:forEach items="${demarcheList}" var="objet">
-					<option value="${objet.id_demarche}">${objet.nom_demarche}</option>
-				</c:forEach>
-			</select><br />
-			<label for="visitMin" class="label">Nombre de venues entre </label>
-			<input type="text" name="visitMin"> 
-			<label	class="label_centre" for="visitMax"> et </label>
-			<input type="text"	name="visitMax"><br /> 
-			<label for="dateStart"	class="label">Venues entre </label>
-			<input type="date"	name="dateStart">
-			<label for="dateEnd" class="label_centre"> et </label>
-			<input type="date" name="dateEnd"><br />
-
-			
-			
-			
-			<label>Enregistrer cette requète dans vos requètes favorites: </label>
-			<input type="checkbox" name="saveQuery" />
-			<label>Sous quel nom: </label>
-			<input type="text" name="queryName" /> <br />
-			
-			<input class="executeQuery" name="newQuery"  type="submit" value="lancer la requète" />
+				<div class="col-md-2">
+					<select name="formation">
+						<option value="">Critère par formation</option>
+						<c:forEach items="${formationList}" var="formation">
+							<option value="${formation.id_formation}">${formation.nom_formation}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-2">
+					<label for="objective">Objet de la visite: </label>
+				</div>
+				<div class="col-md-2">
+					<select name="objective">
+						<option value="">Critère par démarche</option>
+						<c:forEach items="${demarcheList}" var="objet">
+							<option value="${objet.id_demarche}">${objet.nom_demarche}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-2">
+					<label for="visitMin">Nombre de venues entre </label>
+				</div>
+				<div class="col-md-2">
+					<input type="text" name="visitMin">
+				</div>
+				<div class="col-md-1">
+					<label for="visitMax"> et </label>
+				</div>
+				<div class="col-md-2">
+					<input type="text" name="visitMax">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-2">
+					<label for="dateStart">Venues entre </label>
+				</div>
+				<div class="col-md-2">
+					<input type="date" name="dateStart">
+				</div>
+				<div class="col-md-1">
+					<label for="dateEnd"> et </label>
+				</div>
+				<div class="col-md-2">
+					<input type="date" name="dateEnd">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-1"></div>
+				<div class="col-md-3">
+					<label>Enregistrer cette requête dans vos requêtes
+						favorites: </label>
+				</div>
+				<div class="col-md-1">
+					<input type="checkbox" name="saveQuery" />
+				</div>
+				<div class="col-md-1">
+					<label>Sous quel nom: </label>
+				</div>
+				<div class="col-md-2">
+					<input type="text" name="queryName" />
+				</div>
+			</div>
+			<br>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4">
+					<input class="btn btn-primary btn-lg btn-block" type="submit"
+						value="Lancer la requête" />
+				</div>
+				<div class="col-md-4"></div>
+			</div>
 		</form>
-	</fieldset>
-</div>
+
+	</div>

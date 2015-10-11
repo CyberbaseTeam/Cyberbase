@@ -55,6 +55,7 @@ public class Statistiques extends HttpServlet {
 	private static final String ATTR_DEMARCHE	 	= "demarcheList";
 	private static final String ATTR_REQUETES	 	= "requeteList";
 	
+	
 	private static final String FIELD_DISPLAY_DATA 	= "displayData[]";
 	private static final String FIELD_SEARCH_PANEL 	= "searchPanel";
 	private static final String FIELD_GENDER 		= "gender";
@@ -143,6 +144,14 @@ public class Statistiques extends HttpServlet {
 			String[] displayData = statistiqueService.getDisplayData(queryInfo.getContenu_requete());
 			prepareSelectObjectsAndColums(displayData);
 			queryObjects = statistiqueService.getQueryParameter(queryInfo.getContenu_requete());
+			
+			Set listKeys=queryObjects.keySet();  
+			Iterator iterateur=listKeys.iterator();
+			while(iterateur.hasNext())
+			{
+				Object key= iterateur.next();
+				System.out.println (key+" ???? =>"+queryObjects.get(key));		
+			}	
 			
 			List<Object> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
 			String htmlResult = queryResultToHtml(queryResult, querySelectObjects.size(), columnNames  );

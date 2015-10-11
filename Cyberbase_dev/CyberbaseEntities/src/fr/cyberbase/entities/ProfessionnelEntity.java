@@ -37,14 +37,14 @@ public class ProfessionnelEntity implements Serializable {
 	private String nom_professionnel;
 	private String prenom_professionnel;
 	
-	@OneToOne(fetch= FetchType.EAGER)
+	@ManyToOne(fetch= FetchType.EAGER)
 	@JoinColumn(name="site_reference")
 	private SiteEntity site_reference;
 	
 	private String password;
 	private Boolean admin;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="id_structure")
 	private StructureEntity structure;
 	

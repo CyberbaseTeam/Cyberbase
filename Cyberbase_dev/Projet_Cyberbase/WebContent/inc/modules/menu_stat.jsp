@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<div id="side-menu">
-			<nav id="menu-stat">
-				<p>Statistiques temps réel</p>
+
+			
+				<p><a href="statistiques">Statistiques temps réel</a></p>
 				<ul>
 					<lh></lh>
 					<li><a href=""><c:out value="${userSession.site}"></c:out></a></li>
@@ -13,7 +13,7 @@
 					</c:forEach>
 				</ul>
 
-				<p><a href="">Liste des usagers de mon site</a></p>
+				
 				<ul>
 					<c:forEach items="${siteList}" var="site" begin="0" varStatus='i'>
 						<c:if test="${site.nom_site} != ${siteList}">
@@ -30,5 +30,5 @@
 					</c:forEach>
 				</ul>
 
-			</nav>
-		</div>
+			
+		

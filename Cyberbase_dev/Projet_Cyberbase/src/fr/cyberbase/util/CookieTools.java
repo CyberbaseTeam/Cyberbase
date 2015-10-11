@@ -126,7 +126,7 @@ public class CookieTools {
     {
     	
     	Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MINUTE, 7);
+        calendar.add(Calendar.HOUR, 4);
         Long expireTimeInMillis = calendar.getTimeInMillis();
         
         StringBuilder token = new StringBuilder();

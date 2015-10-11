@@ -99,7 +99,7 @@ public class StatistiqueService {
 		this.sqlEquivalence.put(ATTR_DISPLAY_DISTRICT, "nom_quartier");
 		this.sqlEquivalence.put(ATTR_DISPLAY_CSP, "libelle_csp");		
 		this.sqlEquivalence.put(ATTR_DISPLAY_FORMATION, "nom_formation");
-		this.sqlEquivalence.put(ATTR_DISPLAY_VISITCOUNT, "COUNT(usager.id_usager)");			
+		this.sqlEquivalence.put(ATTR_DISPLAY_VISITCOUNT, "COUNT(affectation.id_usager)");			
 	}
 	
 
@@ -257,8 +257,37 @@ public class StatistiqueService {
 					if(i > 0){
 						selectPart = selectPart.concat(", ");
 					}
-					selectPart = selectPart.concat(sqlEquivalence.get(ATTR_DISPLAY_VISITCOUNT));					
-					groupByPart = groupByPart.concat(" GROUP BY usager.id_usager");
+					selectPart = selectPart.concat(sqlEquivalence.get(ATTR_DISPLAY_VISITCOUNT));	
+					fromPart = fromPart.concat(", affectation" );
+					if(whereIsEmpty){
+						wherePart = wherePart.concat(" WHERE ");
+						whereIsEmpty = false;
+					}
+					if(!firstWhere){
+						wherePart = wherePart.concat(" AND ");
+					}
+					wherePart = wherePart.concat("affectation.id_usager = usager.id_usager");
+					groupByPart = groupByPart.concat(" GROUP BY affectation.id_usager");
+					
+					if(querySelectObjects.contains(ATTR_DISPLAY_GENDER))
+						groupByPart = groupByPart.concat(", usager.civilite_usager");
+					if(querySelectObjects.contains(ATTR_DISPLAY_NAME))
+						groupByPart = groupByPart.concat(", usager.nom_usager");
+					if(querySelectObjects.contains(ATTR_DISPLAY_SURNAME))
+						groupByPart = groupByPart.concat(", usager.prenom_usager");
+					if(querySelectObjects.contains(ATTR_DISPLAY_ADDRESS))
+						groupByPart = groupByPart.concat(", usager.adresse_usager");
+					if(querySelectObjects.contains(ATTR_DISPLAY_CITY))
+						groupByPart = groupByPart.concat(", usager.ville_usager");
+					if(querySelectObjects.contains(ATTR_DISPLAY_DOB))
+						groupByPart = groupByPart.concat(", usager.date_naissance_usager");
+					if(querySelectObjects.contains(ATTR_DISPLAY_EMAIL))
+						groupByPart = groupByPart.concat(", usager.email_usager");
+					if(querySelectObjects.contains(ATTR_DISPLAY_PATRONAGE))
+						groupByPart = groupByPart.concat(", usager.accompagnement");
+					if(querySelectObjects.contains(ATTR_DISPLAY_ZIPCODE))
+						groupByPart = groupByPart.concat(", usager.code_postal_usager");
+				
 					if(querySelectObjects.contains(ATTR_DISPLAY_SITE))
 						groupByPart = groupByPart.concat(", site.nom_site");
 					if(querySelectObjects.contains(ATTR_DISPLAY_FORMATION))
@@ -392,6 +421,14 @@ public class StatistiqueService {
 						wherePart = wherePart.concat(" usager.id_usager = affectation.id_usager");
 						if(groupByPart.equals(""))
 							groupByPart = groupByPart.concat(" GROUP BY usager.id_usager");
+						if(querySelectObjects.contains(ATTR_DISPLAY_SITE))
+							groupByPart = groupByPart.concat(", site.nom_site");
+						if(querySelectObjects.contains(ATTR_DISPLAY_FORMATION))
+							groupByPart = groupByPart.concat(", niveau_formation.nom_formation");
+						if(querySelectObjects.contains(ATTR_DISPLAY_DISTRICT))
+							groupByPart = groupByPart.concat(", quartier.nom_quartier");
+						if(querySelectObjects.contains(ATTR_DISPLAY_CSP))
+							groupByPart = groupByPart.concat(", csp.libelle_csp");
 						havingPart = havingPart.concat(" HAVING COUNT(affectation.id_affectation) BETWEEN :visitMin AND :visitMax ");
 						setParameterElements.put("visitMin", Integer.valueOf(queryObjects.get(FIELD_VISIT_MIN)));
 						setParameterElements.put("visitMax", Integer.valueOf(queryObjects.get(FIELD_VISIT_MAX)));
@@ -482,6 +519,7 @@ public class StatistiqueService {
 	public Map<String, String> getQueryParameter(String queryContent){
 		String[] dataSplit = queryContent.split(";");
 		String queryObjectsToString = dataSplit[1];
+		System.out.println("parameters: " + queryObjectsToString);
 		queryObjectsToString = queryObjectsToString.replace("{", "");
 		queryObjectsToString = queryObjectsToString.replace("}", "");
 		Map<String, String> queryObjects  = new HashMap<String, String>();
@@ -490,11 +528,11 @@ public class StatistiqueService {
 		{
 			String key = queryObjectsData[i].split("=")[0].trim();
 			String value = queryObjectsData[i].split("=")[1].trim();	
-			System.out.println("key" + key);
-			System.out.println("value" + value);
+			System.out.println("key " + key);
+			System.out.println("value " + value);
 			if(key.equals("saveQuery") || key.equals("queryName"))
 				
-				break;
+				continue;
 			else
 				queryObjects.put(key, value);
 		}

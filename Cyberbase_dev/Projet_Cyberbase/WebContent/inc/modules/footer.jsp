@@ -4,7 +4,7 @@
 
 <footer>
 	<div class="row" id="footer">
-		<div class="col-md-12">
+		
 
 			<h3>Cyber-base</h3>
 			<a href="http://www.pole-emploi.fr/accueil/">Pôle Emploi |</a>
@@ -14,6 +14,6 @@
 
 			<p>© Aymeric Frey, Maël Cormier, Alexandre Charreteur, Arthur
 				Gazeau</p>
-		</div>
+		
 	</div>
 </footer>
