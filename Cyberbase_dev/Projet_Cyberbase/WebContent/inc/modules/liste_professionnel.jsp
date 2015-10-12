@@ -4,33 +4,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
-<t:main>
-
-	<div id="admin_list">
-		<c:import url="/inc/modules/menu_admin.jsp" />
-
-		<div id="pro_list">
-			<c:import url="/inc/modules/liste_professionnel.jsp" />
-			
-		</div>
-	</div>
-</t:main>
 
 
 
-
-
-
-
-
-
-
-<%-- 
-
-
-
-
-		<div id="content-admin">
 			<c:forEach items="${professionnelList}" var="professionnel">
 				<section> 
 					<article id="pro1">
@@ -53,12 +29,11 @@
 					</article> 
 				</section>
 			</c:forEach>
-		</div>
+
 		<section> 
 			<article id="exporter"> 
 				<input type="submit" name="Exporter" value="Exporter" />
 			 </article> 
 		</section>
-	
 </body>
-</html> --%>
+</html>

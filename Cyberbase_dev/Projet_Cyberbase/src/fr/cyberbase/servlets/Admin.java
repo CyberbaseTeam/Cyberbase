@@ -97,6 +97,16 @@ public class Admin extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/administration.jsp")
 					.forward(request, response);
 		} 
+		
+		if (request.getParameter("action") != null && request.getParameter("action").equals("creerPro"))
+		{
+			
+			
+			request.setAttribute("sites", siteService.findAll());
+			request.setAttribute("structures", structureService.findAll());
+			
+			request.getRequestDispatcher("/WEB-INF/ajout_professionnel.jsp").forward(request, response);
+		}
 		else{	
 			request.setAttribute(ATTR_PRO, professionnelService.findAll());
 			request.setAttribute(ATTR_SITES, siteService.findAll());

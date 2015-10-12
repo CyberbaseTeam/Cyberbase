@@ -11,11 +11,11 @@
 		<div>
 			<ul class="nav navbar-nav">
 				
-				<li><a href="statistiques">Statistiques actuelles</a></li>
-				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Mes requêtes <span class="caret"></span></a>
+				<li><a href="usagers">Liste de tous les usagers</a></li>
+				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Usagers par site <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<c:forEach items="${requeteList}" var="query" begin="0" varStatus='i'>
-							<li><a href="statistiques?action=personalQuery&queryId=${query.id_requete}">${query.nom_requete}</a></li>
+						<c:forEach items="${siteList}" var="site" begin="0" varStatus='i'>
+							<li><a href="">${site.nom_site}</a></li>
 						</c:forEach>
 					</ul>
 				</li>
@@ -23,6 +23,3 @@
 		</div>
 	</div>
 </nav>
-
-
-

@@ -10,7 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Services.SiteService;
 import Services.UsagerService;
+import fr.cyberbase.entities.CspEntity;
+import fr.cyberbase.entities.DemarcheEntity;
+import fr.cyberbase.entities.FormationEntity;
+import fr.cyberbase.entities.ProfessionnelEntity;
+import fr.cyberbase.entities.QuartierEntity;
+import fr.cyberbase.entities.RequeteEntity;
+import fr.cyberbase.entities.SiteEntity;
 import fr.cyberbase.entities.UsagerEntity;
 
 /**
@@ -19,9 +27,19 @@ import fr.cyberbase.entities.UsagerEntity;
 @WebServlet("/usagers")
 public class Usagers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ATTR_SITES 			= "siteList";
 
+	List<SiteEntity> siteList;
+	List<UsagerEntity> usagerList;
+	
+	
+	
+	
 	@EJB
 	UsagerService usagerService;
+	
+	@EJB
+	SiteService siteService;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -36,6 +54,7 @@ public class Usagers extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		initializeData(request);
 		List<UsagerEntity> usagerEntities = usagerService.findAll();
 		request.setAttribute("usagers", usagerEntities);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/usager.jsp").forward(request, response);
@@ -56,6 +75,14 @@ public class Usagers extends HttpServlet {
 			request.setAttribute("usagers", usagerService.findAll());
 			request.getRequestDispatcher("/WEB-INF/usager.jsp").forward(request, response);
 		}
+	}
+	
+	private void initializeData(HttpServletRequest request){
+		siteList = siteService.findAll();
+		
+		
+		request.setAttribute(ATTR_SITES, siteList);
+		
 	}
 
 }

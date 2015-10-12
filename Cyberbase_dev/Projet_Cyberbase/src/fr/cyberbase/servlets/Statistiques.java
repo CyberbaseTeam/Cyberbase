@@ -414,7 +414,7 @@ public class Statistiques extends HttpServlet {
 		}
 		else
 		{
-			htmlResult = "<table><tr>";
+			htmlResult = "<table class=\"table\"><tr>";
 			for(String name : columnNames)
 			{
 				htmlResult = htmlResult.concat("<th>");
@@ -426,7 +426,8 @@ public class Statistiques extends HttpServlet {
 			Iterator itr = queryResult.iterator();
 			while(itr.hasNext())
 			{
-			   Object[] obj = (Object[]) itr.next();
+			   System.out.println("it " + itr);
+				Object[] obj = (Object[]) itr.next();
 			   htmlResult = htmlResult.concat("<tr>");
 			   for(int i = 0; i < maxIndex; i++)
 			   {

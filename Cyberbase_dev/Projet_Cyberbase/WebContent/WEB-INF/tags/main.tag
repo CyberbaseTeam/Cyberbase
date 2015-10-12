@@ -12,36 +12,37 @@
 <link rel="stylesheet" href="lib/bootstrap.min.css">
 <link rel="stylesheet" href="lib/bootstrap-theme.min.css">
 <link rel="stylesheet" href="inc/css/style2.css">
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script
+	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<header>
 	<div class="row">
-		<div id="header-top" class="col-md-7">
+		<div id="header-top" class="col-md-4">
 			<div id="header-logo">
 				<a href="accueil"><img src="inc/images/logo.jpg" alt="logo" /></a>
 			</div>
 		</div>
-		<div class="col-md-2"></div>
-		<div class="col-md-3">
-			<div id="info_session" class="" col-md-6>
-				<p>
-					<span>Nom: </span>Prénom:<span></span><span>Identifiant:</span>
-				</p>
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div id="info_session" class="col-md-6">
+				<p>Nom:</p>
+				<p>Prénom:</p>
+				<p>Identifiant:</p>
 			</div>
 		</div>
-		<c:import url="/inc/modules/menu_principal.jsp" />
-	</header>
+	</div>
+	<c:import url="/inc/modules/menu_principal.jsp" /> </header>
 
 	<div id="content">
-		<div id="section_name">
-			<p id="section-name">Nom de la section</p>
-		</div>
 		<jsp:doBody />
 
 		<c:import url="/inc/modules/footer.jsp" />
 		<script src="lib/jquery-2.1.4.min.js"></script>
 		<script src="lib/jquery.chained.min.js"></script>
 		<script src="inc/js/gestion_salles_postes.js"></script>
+	</div>
 </body>
 </html>

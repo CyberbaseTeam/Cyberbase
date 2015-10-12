@@ -5,9 +5,10 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:main>
-	<c:import url="/inc/modules/menu_stat.jsp" />
-	
 	<div id="usagers">
+		<c:import url="/inc/modules/menu_usager.jsp" />
+	
+	
 		<c:import url="/inc/modules/liste_usager.jsp" />	
 	</div>
 </t:main>
