@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.cyberbase.entities.DemarcheEntity;
+import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.QuartierEntity;
 import fr.cyberbase.entities.UsagerEntity;
 
@@ -22,5 +23,7 @@ public class DemarcheService {
 		return listing;
 	}
 	
-	
+	public DemarcheEntity findById(Integer id) {
+		return entityManager.find(DemarcheEntity.class, id);
+	}
 }

@@ -29,7 +29,6 @@ import java.sql.Timestamp;
 
 
 import fr.cyberbase.entities.AffectationEntity;
-//import fr.cyberbase.entities.AffectationEntity;
 import fr.cyberbase.entities.DemarcheEntity;
 import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
@@ -189,12 +188,16 @@ public class Affecter_poste extends HttpServlet {
 			Timestamp tsDateStart = new Timestamp(dateStart.getMillis());
 			Timestamp tsDateEnd = new Timestamp(dateEnd.getMillis());
 			AffectationEntity affectation = new AffectationEntity();
-			affectation.se
+			affectation.setDate_debut_affectation(tsDateStart);
 			affectation.setDate_fin_affectation(tsDateEnd);
-			affectation.setId_demarche(idDemarche);
-			affectation.setId_poste(idPoste);
-			affectation.setId_professionnel(idPro);
-			affectation.setId_usager(idUser);
+			DemarcheEntity demarche = demarcheService.findById(idDemarche);
+			affectation.setDemarche(demarche);
+			PosteEntity poste = posteService.findById(idPoste);
+			affectation.setPoste(poste);
+			ProfessionnelEntity professionnel = proService.findById(idPro);
+			affectation.setProfessionnel(professionnel);
+			UsagerEntity usager = userService.findById(idUser);
+			affectation.setUsager(usager);
 			affectationService.createAffectation(affectation);
 			response.sendRedirect("salle_list");
 		}

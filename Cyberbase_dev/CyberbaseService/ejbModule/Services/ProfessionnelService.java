@@ -39,6 +39,11 @@ public class ProfessionnelService {
 	public void update(ProfessionnelEntity employe){
 			entityManager.merge(employe);
 		}
+	
+	public ProfessionnelEntity findById(Integer id) {
+		ProfessionnelEntity professionnel = entityManager.find(ProfessionnelEntity.class, id);
+		return professionnel;
+	}
 		
 	public ProfessionnelEntity findByTechId(String tech_id) throws NoResultException, NonUniqueResultException, IllegalStateException,
 	QueryTimeoutException, PersistenceException 
@@ -79,14 +84,4 @@ public class ProfessionnelService {
 		return professionnelEntity;
 	}
 
-	public List<ProfessionnelEntity> findById(Integer id_professionnel) {
-		Query query = entityManager.createNamedQuery("professionnelEntity.findById");
-		query.setParameter("id_professionnel", id_professionnel);
-		@SuppressWarnings("unchecked")
-		List<ProfessionnelEntity> professionnelEntity = query.getResultList();
-		return professionnelEntity;
-	}
-
-	
-	
 }

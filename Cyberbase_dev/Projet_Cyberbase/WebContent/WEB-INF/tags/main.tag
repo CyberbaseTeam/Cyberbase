@@ -10,7 +10,7 @@
 	<meta name="keywords" content="" />
 	<link rel="stylesheet" href="lib/bootstrap.min.css">
 	<link rel="stylesheet" href="lib/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="inc/css/style2.css">
+	<link rel="stylesheet" href="inc/css/style.css">
 		
 </head>
 <body>

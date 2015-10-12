@@ -25,9 +25,9 @@ public class AffectationEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id_affectation;
 	
-	private Timestamp data_debut_affectation;
+	private Timestamp date_debut_affectation;
 	
-	private Timestamp data_fin_affectation;
+	private Timestamp date_fin_affectation;
 	
 	@ManyToOne
 	@JoinColumn(name="id_professionnel")
@@ -43,7 +43,7 @@ public class AffectationEntity {
 	
 	@ManyToOne
 	@JoinColumn(name="id_demarche")
-	private UsagerEntity demarche;
+	private DemarcheEntity demarche;
 
 	public Integer getId_affectation() {
 		return id_affectation;
@@ -53,20 +53,20 @@ public class AffectationEntity {
 		this.id_affectation = id_affectation;
 	}
 
-	public Timestamp getData_debut_affectation() {
-		return data_debut_affectation;
+	public Timestamp getDate_debut_affectation() {
+		return date_debut_affectation;
 	}
 
-	public void setData_debut_affectation(Timestamp data_debut_affectation) {
-		this.data_debut_affectation = data_debut_affectation;
+	public void setDate_debut_affectation(Timestamp date_debut_affectation) {
+		this.date_debut_affectation = date_debut_affectation;
 	}
 
-	public Timestamp getData_fin_affectation() {
-		return data_fin_affectation;
+	public Timestamp getDate_fin_affectation() {
+		return date_fin_affectation;
 	}
 
-	public void setData_fin_affectation(Timestamp data_fin_affectation) {
-		this.data_fin_affectation = data_fin_affectation;
+	public void setDate_fin_affectation(Timestamp date_fin_affectation) {
+		this.date_fin_affectation = date_fin_affectation;
 	}
 
 	public ProfessionnelEntity getProfessionnel() {
@@ -93,14 +93,15 @@ public class AffectationEntity {
 		this.poste = poste;
 	}
 
-	public UsagerEntity getDemarche() {
+	public DemarcheEntity getDemarche() {
 		return demarche;
 	}
 
-	public void setDemarche(UsagerEntity demarche) {
+	public void setDemarche(DemarcheEntity demarche) {
 		this.demarche = demarche;
 	}
-	
+
+
 	
 	
 }
