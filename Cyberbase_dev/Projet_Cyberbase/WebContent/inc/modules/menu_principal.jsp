@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <div class="row">
 	<div class="col-md-12">
-		<img src="inc/images/logo.jpg">
+		
 		<h1>Bienvenue sur la plateforme Cyber-base</h1>
 	</div>
 </div>
