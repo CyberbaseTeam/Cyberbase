@@ -44,6 +44,62 @@ public class AffectationEntity {
 	@ManyToOne
 	@JoinColumn(name="id_demarche")
 	private UsagerEntity demarche;
+
+	public Integer getId_affectation() {
+		return id_affectation;
+	}
+
+	public void setId_affectation(Integer id_affectation) {
+		this.id_affectation = id_affectation;
+	}
+
+	public Timestamp getData_debut_affectation() {
+		return data_debut_affectation;
+	}
+
+	public void setData_debut_affectation(Timestamp data_debut_affectation) {
+		this.data_debut_affectation = data_debut_affectation;
+	}
+
+	public Timestamp getData_fin_affectation() {
+		return data_fin_affectation;
+	}
+
+	public void setData_fin_affectation(Timestamp data_fin_affectation) {
+		this.data_fin_affectation = data_fin_affectation;
+	}
+
+	public ProfessionnelEntity getProfessionnel() {
+		return professionnel;
+	}
+
+	public void setProfessionnel(ProfessionnelEntity professionnel) {
+		this.professionnel = professionnel;
+	}
+
+	public UsagerEntity getUsager() {
+		return usager;
+	}
+
+	public void setUsager(UsagerEntity usager) {
+		this.usager = usager;
+	}
+
+	public PosteEntity getPoste() {
+		return poste;
+	}
+
+	public void setPoste(PosteEntity poste) {
+		this.poste = poste;
+	}
+
+	public UsagerEntity getDemarche() {
+		return demarche;
+	}
+
+	public void setDemarche(UsagerEntity demarche) {
+		this.demarche = demarche;
+	}
 	
 	
 	

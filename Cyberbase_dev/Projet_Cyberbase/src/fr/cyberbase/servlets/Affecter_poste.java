@@ -21,13 +21,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.sql.Timestamp;
 
+
+import fr.cyberbase.entities.AffectationEntity;
 //import fr.cyberbase.entities.AffectationEntity;
 import fr.cyberbase.entities.DemarcheEntity;
 import fr.cyberbase.entities.PosteEntity;
@@ -64,8 +65,8 @@ public class Affecter_poste extends HttpServlet {
 	UsagerService userService;
 	@EJB
 	DemarcheService demarcheService;
-//	@EJB
-//	AffectationService affectationService;
+	@EJB
+	AffectationService affectationService;
 	
     /**
      * @see HttpServlet#HttpServlet()
@@ -187,15 +188,15 @@ public class Affecter_poste extends HttpServlet {
 			DateTime dateEnd = dateStart.plusMinutes(minutes);
 			Timestamp tsDateStart = new Timestamp(dateStart.getMillis());
 			Timestamp tsDateEnd = new Timestamp(dateEnd.getMillis());
-//			AffectationEntity affectation = new AffectationEntity();
-//			affectation.setDate_debut_affectation(tsDateStart);
-//			affectation.setDate_fin_affectation(tsDateEnd);
-//			affectation.setId_demarche(idDemarche);
-//			affectation.setId_poste(idPoste);
-//			affectation.setId_professionnel(idPro);
-//			affectation.setId_usager(idUser);
-//			affectationService.createAffectation(affectation);
-//			response.sendRedirect("salle_list");
+			AffectationEntity affectation = new AffectationEntity();
+			affectation.se
+			affectation.setDate_fin_affectation(tsDateEnd);
+			affectation.setId_demarche(idDemarche);
+			affectation.setId_poste(idPoste);
+			affectation.setId_professionnel(idPro);
+			affectation.setId_usager(idUser);
+			affectationService.createAffectation(affectation);
+			response.sendRedirect("salle_list");
 		}
 	}
 
