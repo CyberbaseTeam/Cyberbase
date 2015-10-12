@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,6 +23,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.joda.time.DateTime;
 
 import Services.CspService;
 import Services.DemarcheService;
@@ -164,12 +168,7 @@ public class Statistiques extends HttpServlet {
 		}
 		else
 		{
-			Integer visitsThisDay;
-			Integer visitsThisMonth;
-			Integer visitsThisYear;
-			Integer newUsersThisDay;
-			Integer newUsersThisMonth;
-			Integer newUsersThisYear;
+			List<Integer> currentstats = getCurrentStats(request) ;
 			
 			
 			
@@ -440,5 +439,21 @@ public class Statistiques extends HttpServlet {
 			htmlResult = htmlResult.concat("<form method=\"get\"><input type=\"submit\" id=\"export\" value=\"export\"/></form>");
 		}
 		return htmlResult;
+	}
+	
+	private List<Integer> getCurrentStats(HttpServletRequest request){
+		List<Integer> currentStats = new ArrayList<Integer>();
+		DateTime currentDay = new DateTime();
+		
+		Timestamp currentDayInMillis = new Timestamp(currentDay.getMillis());
+		
+		System.out.println("date " + currentDayInMillis);
+		System.out.println("year " + currentDayInMillis.getYear());
+		System.out.println("month " + currentDayInMillis.getMonth());
+		System.out.println("day " + currentDayInMillis.getDate());
+		
+		
+		return currentStats;
+		
 	}
 }
