@@ -60,7 +60,7 @@ public class Admin extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("admin!!");
+		
 		String action = request.getParameter("action");
 			
 		if(action != null && action.equals("listBySite"))
@@ -72,36 +72,12 @@ public class Admin extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);
 		}	
 		
-		if (request.getParameter("actionModifier") != null)
-		{
-			String techid = request.getParameter("inputId");
-			ProfessionnelEntity searchedEntity = professionnelService.findByTechId(techid);
-			request.setAttribute("modifiedProfessional", searchedEntity);
-			System.out.println(searchedEntity.getNom_professionnel());
-			System.out.println(searchedEntity.getPrenom_professionnel());
-			System.out.println(searchedEntity.getTech_id());
-			
-			request.setAttribute("sites", siteService.findAll());
-			request.setAttribute("structures", structureService.findAll());
-			
-			request.getRequestDispatcher("/WEB-INF/modification_professionnel.jsp").forward(request, response);
-		}
 		
-		if (request.getParameter("actionSupprimer") != null) {
-			Integer id = Integer.valueOf(request.getParameter("inputId"));
-			ProfessionnelEntity professionnelEntity = new ProfessionnelEntity();
-			professionnelEntity.setId_professionnel(id);
-			professionnelService.delete(professionnelEntity);
-			request.setAttribute("professionnels",professionnelService.findAll());
-			request.setAttribute("sites", siteService.findAll());
-			request.getRequestDispatcher("/WEB-INF/administration.jsp")
-					.forward(request, response);
-		} 
+		
+		
 		
 		if (request.getParameter("action") != null && request.getParameter("action").equals("creerPro"))
-		{
-			
-			
+		{		
 			request.setAttribute("sites", siteService.findAll());
 			request.setAttribute("structures", structureService.findAll());
 			
@@ -124,25 +100,27 @@ public class Admin extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		if (request.getParameter("actionSupprimer") != null) {
-			Integer id = Integer.valueOf(request.getParameter("inputId"));
-			ProfessionnelEntity professionnelEntity = new ProfessionnelEntity();
-			professionnelEntity.setId_professionnel(id);
+			String techid = request.getParameter("inputId");
+			ProfessionnelEntity professionnelEntity = professionnelService.findByTechId(techid);
+			
 			professionnelService.delete(professionnelEntity);
-			request.setAttribute("professionnels",professionnelService.findAll());
+			request.setAttribute(ATTR_PRO,professionnelService.findAll());
 			request.setAttribute("sites", siteService.findAll());
-			request.getRequestDispatcher("/WEB-INF/administration.jsp")
-					.forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);
 		} 
-		else if (request.getParameter("action") != null) {
-			String id = request.getParameter("inputId");
-			request.setAttribute("modifiedProfessional", professionnelService.findByTechId(id));
+		if (request.getParameter("actionModifier") != null)
+		{
+			String techid = request.getParameter("inputId");
+			ProfessionnelEntity searchedEntity = professionnelService.findByTechId(techid);
+			request.setAttribute("modifiedProfessional", searchedEntity);
+			
 			request.setAttribute("sites", siteService.findAll());
 			request.setAttribute("structures", structureService.findAll());
 			
-			request.getRequestDispatcher("/WEB-INF/modification.jsp").forward(request, response);
-		} 
+			request.getRequestDispatcher("/WEB-INF/modification_professionnel.jsp").forward(request, response);
+		}
 		else if (request.getParameter("retour") != null) {
-			request.setAttribute("professionnels",
+			request.setAttribute(ATTR_PRO,
 					professionnelService.findAll());
 			request.setAttribute("sites", siteService.findAll());
 			request.getRequestDispatcher("/WEB-INF/administration.jsp")
@@ -152,30 +130,30 @@ public class Admin extends HttpServlet {
 			ProfessionnelEntity professionnelEntity = new ProfessionnelEntity();
 			professionnelEntity= professionnelService.findByTechId(request
 					.getParameter("inputId"));	
-			try{
-			SiteEntity siteEntity = new SiteEntity();
-			siteEntity.setId_site(Integer.valueOf(request
-					.getParameter("site")));
-			professionnelEntity.setSite_reference(siteEntity);
-			}catch (Exception e) {
+			try
+			{
+				
+				SiteEntity siteEntity = new SiteEntity();
+				siteEntity.setId_site(Integer.valueOf(request.getParameter("site")));
+				professionnelEntity.setSite_reference(siteEntity);
+			}catch (Exception e)
+			{
 			}
 			try{
-			StructureEntity structureEntity = new StructureEntity();
-			structureEntity.setId_structure(Integer.valueOf(request
-					.getParameter("structure")));
-			professionnelEntity.setStructure(structureEntity);
+				StructureEntity structureEntity = new StructureEntity();
+				structureEntity.setId_structure(Integer.valueOf(request
+						.getParameter("structure")));
+				professionnelEntity.setStructure(structureEntity);
 			}catch (Exception e) {
 			}
-			professionnelEntity.setNom_professionnel(request
-					.getParameter("inputNom"));
-			professionnelEntity.setPrenom_professionnel(request
-					.getParameter("inputPrenom"));
-			professionnelEntity.setPassword(request
-					.getParameter("inputPassword"));
+			
+			professionnelEntity.setNom_professionnel(request.getParameter("inputNom"));
+			professionnelEntity.setPrenom_professionnel(request.getParameter("inputPrenom"));
+			professionnelEntity.setPassword(request.getParameter("inputPassword"));
 			
 			professionnelService.update(professionnelEntity);
 			request.setAttribute("sites", siteService.findAll());
-			request.setAttribute("professionnels",
+			request.setAttribute(ATTR_PRO,
 					professionnelService.findAll());
 			request.getRequestDispatcher("/WEB-INF/administration.jsp")
 					.forward(request, response);

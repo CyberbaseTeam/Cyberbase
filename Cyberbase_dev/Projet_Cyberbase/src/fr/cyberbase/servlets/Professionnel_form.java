@@ -74,14 +74,16 @@ public class Professionnel_form extends HttpServlet {
 				
 			}
 			
-			
+			request.setAttribute(ATTR_PRO,professionnelService.findAll());
+			request.setAttribute(ATTR_SITES, siteService.findAll());
+			request.getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);
 			
 			
 		}
-		if (request.getParameter("retour") != null) {
+		else if (request.getParameter("retour") != null) {
 			response.sendRedirect("administration");
 		}
-		if (request.getParameter("update") != null) {
+		else if (request.getParameter("update") != null) {
 			ProfessionnelEntity entity = new ProfessionnelEntity();
 		
 			entity = professionnelService.findByTechId(request.getParameter("inputId"));
@@ -102,7 +104,7 @@ public class Professionnel_form extends HttpServlet {
 				
 			}
 			
-			response.sendRedirect("administration");
+			
 			
 			
 		}

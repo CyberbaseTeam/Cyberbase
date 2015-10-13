@@ -40,8 +40,6 @@ label {
 	width: 100%;
 }
 
-
-
 .navbar-brand {
 	position: absolute;
 	width: 100%;
@@ -55,7 +53,7 @@ label {
 	margin: 0 auto;
 }
 
-*************** HEADER*************** /
+/****************HEADER***************/
 #header-logo {
 	margin-left: 3px;
 }
@@ -79,9 +77,28 @@ label {
 
 .navbar-collapse li {
 	font-size: 18px;
+	width:10%;
+	
+	
+}
+
+.navbar-collapse li a{
+	color: white;
+	
+	
+}
+
+.navbar-collapse li a:hover{
+	color: black;
+	
+	
 }
 
 
+.navbar-collapse  {
+	
+	background-color: #375D81;
+}
 
 /*************ACCUEIL**************/
 #banniere {
@@ -130,7 +147,7 @@ th{
 
 
 
-/***************MENU STATS****************/
+/***************STATS****************/
 #statistics {
 	width: 100%;
 	min-height: 100%;
@@ -167,11 +184,15 @@ checkbox {
 #statistics .navbar-default a{
 	background-color:#FFE6B2;
 	color: #050055;
+	
 }
 
 
 
-/***************Menu usagers**************/
+
+
+
+/***************USAGERS**************/
 
 
 #usagers .navbar-default a{
@@ -179,14 +200,14 @@ checkbox {
 	color: #050055;
 }
 
-/***************MENU ADMIN*************/
+/***************ADMIN***************/
 
-#admin_list.navbar-default a{
+#admin_list .navbar-default a{
 	background-color:#FFE6B2;
 	color: #050055;
 }
 
-#admin_add.navbar-default a{
+#admin_add .navbar-default a{
 	background-color:#FFE6B2;
 	color: #050055;
 }
