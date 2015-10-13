@@ -34,8 +34,8 @@
 				<td>		
 						<form method="post" action="administration">
 							<input type="hidden" value="${professionnel.tech_id}"name="inputId" />
-							<input id="modifier" type="submit" name="actionModifier" value="Modifier" /> 
-							<input type="submit" value="Supprimer" name="actionSupprimer">
+							<input id="modifier" class="btn btn-primary btn-xs" type="submit" name="actionModifier" value="Modifier" /> 
+							<input type="submit" class="btn btn-primary btn-xs" value="Supprimer" name="actionSupprimer">
 						</form>
 				</td>
 				</c:forEach>	

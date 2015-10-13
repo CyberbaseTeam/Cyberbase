@@ -212,8 +212,17 @@ checkbox {
 	color: #050055;
 }
 
+#titre-modif_admin {
+	padding-bottom : 24px;
+}
 
+#modif-pro-button {
+	margin-top : 34px;
+}
 
+#ajout-pro-button {
+	margin-top : 34px;
+}
 
 /***************FOOTER***************/
 #footer {

@@ -5,41 +5,91 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 
-	<section>
-		<h2 id="titre-modif_admin">Modifier utilisateur</h2>
+<section>
+	<h2 id="titre-modif_admin">Modifier utilisateur</h2>
 
-		<form method="post" action="add_or_update_pro">
+	<form method="post" action="add_or_update_pro">
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-1">
+				<label for="name">Nom: </label> 
+			</div>
+			<div class="col-sm-2">
+				<input type="text" name="name"
+					value="${modifiedProfessional.nom_professionnel}" />
+			</div>
+			<div class="col-sm-1">
+				<label for="firstName">Prénom: </label> 
+			</div>
+			<div class="col-sm-2">
+				<input type="text"
+					name="firstName"
+					value="${modifiedProfessional.prenom_professionnel}" />
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
 
-			<label for="name">Nom: </label> <input type="text" name="name"
-				value="${modifiedProfessional.nom_professionnel}" /> <label
-				for="firstName">Prénom: </label> <input type="text" name="firstName"
-				value="${modifiedProfessional.prenom_professionnel}" /> <label
-				for="site">Site de travail: </label> <SELECT name="site">
-				<OPTION value="${modifiedProfessional.site_reference.id_site}"
-					selected>${modifiedProfessional.site_reference.nom_site}</option>
-				<c:forEach items="${sites}" var="site">
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-1">
+				<label for="site">Site de travail: </label> 
+			</div>
+			<div class="col-sm-2">
+				<SELECT name="site">
+					<OPTION value="${modifiedProfessional.site_reference.id_site}"
+						selected>${modifiedProfessional.site_reference.nom_site}</option>
+					<c:forEach items="${sites}" var="site">
+						<OPTION value="${site.id_site}">${site.nom_site}</option>
+					</c:forEach>
+				</SELECT>
+			</div>
+			<div class="col-sm-1">
+				<label for="structure">Structure: </label> 
+			</div>
+			<div class="col-sm-2">
+				<SELECT name="structure">
+					<OPTION value="${modifiedProfessional.structure.id_structure}"
+						selected>${modifiedProfessional.structure.nom_structure}</option>
+					<c:forEach items="${structures}" var="structure">
+						<OPTION value="${structure.id_structure}">${structure.nom_structure}</option>
+					</c:forEach>
+				</SELECT>
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
 
-					<OPTION value="${site.id_site}">${site.nom_site}</option>
+		<div class="row">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-1">
+				<label for="password">Mot de passe: </label> 
+			</div>
+			<div class="col-sm-2">
+				<input type="password" name="password" value="${modifiedProfessional.password}" />
+			</div>
+			<div class="col-sm-1">
+				<label for="passwordConfirm">Confirmation du mot de passe: </label>
+			</div>
+			<div class="col-sm-2">
+				<input type="password" name="passwordConfirm"
+					value="${modifiedProfessional.password}" />
+			</div>
+			<div class="col-sm-3"></div>
+		</div>
 
-				</c:forEach>
-			</SELECT> <label for="structure">Structure: </label> <SELECT name="structure">
-				<OPTION value="${modifiedProfessional.structure.id_structure}"
-					selected>${modifiedProfessional.structure.nom_structure}</option>
-				<c:forEach items="${structures}" var="structure">
-
-					<OPTION value="${structure.id_structure}">${structure.nom_structure}</option>
-				</c:forEach>
-			</SELECT> <label for="password">Mot de passe: </label> <input type="password"
-				name="password" value="${modifiedProfessional.password}" /> <label
-				for="passwordConfirm">Confirmation du mot de passe: </label> <input
-				type="password" name="passwordConfirm"
-				value="${modifiedProfessional.password}" /> <input type="submit"
-				name="retour" value="Retour" /> <input type="hidden"
-				value="${modifiedProfessional.tech_id}" name="inputId" /> <input
-				type="submit" name="update" value="Valider" />
-
-		</form>
+		<div id="modif-pro-button" class="row">
+			<div class="col-sm-5"></div>
+			<div class="col-sm-1">
+				<input type="submit" class="btn btn-primary btn-md btn-block" name="retour"
+					value="Retour" />
+			</div>
+			<div class="col-sm-1">
+				<input type="hidden" value="${modifiedProfessional.tech_id}"
+					name="inputId" /> <input type="submit" class="btn btn-primary btn-md btn-block"
+					name="update" value="Valider" />	
+			</div>
+		</div>
+	</form>
 
 
-	</section>
+</section>
 
