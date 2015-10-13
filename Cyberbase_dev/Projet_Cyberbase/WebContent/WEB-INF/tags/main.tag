@@ -16,6 +16,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script	src="lib/jquery-2.1.4.min.js"></script>
 </head>
 <body>
 	<header>
@@ -43,6 +44,7 @@
 		<script src="lib/jquery-2.1.4.min.js"></script>
 		<script src="lib/jquery.chained.min.js"></script>
 		<script src="inc/js/gestion_salles_postes.js"></script>
+		<script	src="inc/js/statistiques.js"></script>
 	</div>
 </body>
 </html>

@@ -1,10 +1,14 @@
 package fr.cyberbase.servlets;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -75,7 +79,7 @@ public class Statistiques extends HttpServlet {
 	private static final String FIELD_SAVE_QUERY 	= "saveQuery";
 	private static final String FIELD_QUERY_NAME 	= "queryName";
 	
-	 
+	private static final int BYTES_DOWNLOAD = 1024;
 	List<SiteEntity> siteList;
 	List<UsagerEntity> usagerList;
 	List<CspEntity> cspList;
@@ -166,13 +170,7 @@ public class Statistiques extends HttpServlet {
 			
 				
 		}
-		else
-		{
-			List<Integer> currentstats = getCurrentStats(request) ;
-			
-			
-			
-		}
+		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);
 	}
 
@@ -180,6 +178,9 @@ public class Statistiques extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
 		queryObjects = new HashMap<String, String>();
 		
 		querySelectObjects = new ArrayList<String>();
@@ -408,13 +409,15 @@ public class Statistiques extends HttpServlet {
 	{
 		String htmlResult = "";
 		System.out.println("taille du résultat: " + queryResult.size());
+		String prepareCsv = prepareCsv(columnNames, maxIndex, queryResult);
+		System.out.println(prepareCsv);
 		if(queryResult.size() == 0)
 		{
 			htmlResult = "<strong>Cette requète ne retourne aucune valeur.</strong>";
 		}
 		else
 		{
-			htmlResult = "<table class=\"table\"><tr>";
+			htmlResult = "<table class=\"queryResult\"><tr>";
 			for(String name : columnNames)
 			{
 				htmlResult = htmlResult.concat("<th>");
@@ -426,8 +429,7 @@ public class Statistiques extends HttpServlet {
 			Iterator itr = queryResult.iterator();
 			while(itr.hasNext())
 			{
-			   System.out.println("it " + itr);
-				Object[] obj = (Object[]) itr.next();
+			   Object[] obj = (Object[]) itr.next();
 			   htmlResult = htmlResult.concat("<tr>");
 			   for(int i = 0; i < maxIndex; i++)
 			   {
@@ -437,23 +439,65 @@ public class Statistiques extends HttpServlet {
 			   }
 			}
 			htmlResult = htmlResult.concat("</tr></table>");
-			htmlResult = htmlResult.concat("<form method=\"get\"><input type=\"submit\" id=\"export\" value=\"export\"/></form>");
+			
+			htmlResult = htmlResult.concat("<form method=\"post\" action=\"download\"\"><input type=\"submit\" name=\"export\" id=\"export\" value=\"export\"/></input>");
+			htmlResult = htmlResult.concat("<input type=\"hidden\" value=\"");
+			htmlResult = htmlResult.concat(prepareCsv);
+			htmlResult = htmlResult.concat("\" name=\"exportValue\" id=\"exportValue\"/></input></form>");
 		}
 		return htmlResult;
 	}
 	
-	private List<Integer> getCurrentStats(HttpServletRequest request){
-		List<Integer> currentStats = new ArrayList<Integer>();
+	private String prepareCsv(List<String> columnNames, Integer maxIndex, List<Object> queryResult)
+	{
+		String csvContent = "";
+		for(Integer i = 0; i < columnNames.size(); i++)
+		{
+			csvContent = csvContent.concat("'" + columnNames.get(i) + "'");
+			if(i != columnNames.size() - 1)
+				csvContent = csvContent.concat(",");
+			
+		}
+		csvContent = csvContent.concat("\n");
+		Iterator itr = queryResult.iterator();
+		while(itr.hasNext())
+		{
+		   Object[] obj = (Object[]) itr.next();
+		   
+		   for(int i = 0; i < maxIndex; i++)
+		   {
+			   
+			   csvContent = csvContent.concat("'" + String.valueOf(obj[i]) + "'");
+			   if(i != maxIndex -1)
+					csvContent = csvContent.concat(",");
+			   
+		   }
+		   csvContent = csvContent.concat("\n");
+		}
+		return csvContent;
+	}
+	
+	
+	
+	
+	
+	private Map<String, String> getCurrentStats(HttpServletRequest request){
+		Map<String, String> currentStats = new HashMap<String, String>();
 		DateTime currentDay = new DateTime();
 		
 		Timestamp currentDayInMillis = new Timestamp(currentDay.getMillis());
+		SimpleDateFormat monthDayYearformatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat dayFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat monthFormatter = new SimpleDateFormat("yyyy-MM");
+		SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy");
 		
-		System.out.println("date " + currentDayInMillis);
-		System.out.println("year " + currentDayInMillis.getYear());
-		System.out.println("month " + currentDayInMillis.getMonth());
-		System.out.println("day " + currentDayInMillis.getDate());
+		String currentYear = yearFormatter.format(currentDayInMillis);
+		String currentMonth = monthFormatter.format(currentDayInMillis);
+		String currentDate = dayFormatter.format(currentDayInMillis);
 		
 		
+		
+				
 		return currentStats;
 		
 	}
