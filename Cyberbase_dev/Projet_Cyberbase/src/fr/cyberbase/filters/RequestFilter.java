@@ -45,6 +45,8 @@ public class RequestFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
 
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String path = request.getRequestURI();
         Boolean securedResource = true;
         

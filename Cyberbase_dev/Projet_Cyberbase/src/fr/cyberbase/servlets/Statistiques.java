@@ -79,7 +79,7 @@ public class Statistiques extends HttpServlet {
 	private static final String FIELD_SAVE_QUERY 	= "saveQuery";
 	private static final String FIELD_QUERY_NAME 	= "queryName";
 	
-	private static final int BYTES_DOWNLOAD = 1024;
+	
 	List<SiteEntity> siteList;
 	List<UsagerEntity> usagerList;
 	List<CspEntity> cspList;
@@ -410,7 +410,7 @@ public class Statistiques extends HttpServlet {
 		String htmlResult = "";
 		System.out.println("taille du résultat: " + queryResult.size());
 		String prepareCsv = prepareCsv(columnNames, maxIndex, queryResult);
-		System.out.println(prepareCsv);
+		System.out.println("csv " + prepareCsv);
 		if(queryResult.size() == 0)
 		{
 			htmlResult = "<strong>Cette requète ne retourne aucune valeur.</strong>";
@@ -455,7 +455,7 @@ public class Statistiques extends HttpServlet {
 		{
 			csvContent = csvContent.concat("'" + columnNames.get(i) + "'");
 			if(i != columnNames.size() - 1)
-				csvContent = csvContent.concat(",");
+				csvContent = csvContent.concat(";");
 			
 		}
 		csvContent = csvContent.concat("\n");
@@ -469,7 +469,7 @@ public class Statistiques extends HttpServlet {
 			   
 			   csvContent = csvContent.concat("'" + String.valueOf(obj[i]) + "'");
 			   if(i != maxIndex -1)
-					csvContent = csvContent.concat(",");
+					csvContent = csvContent.concat(";");
 			   
 		   }
 		   csvContent = csvContent.concat("\n");

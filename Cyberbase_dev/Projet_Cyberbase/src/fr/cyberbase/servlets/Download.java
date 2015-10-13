@@ -2,12 +2,17 @@ package fr.cyberbase.servlets;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.sql.Timestamp;
 
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.joda.time.DateTime;
 
 import Services.DownloadService;
 
@@ -17,7 +22,10 @@ import Services.DownloadService;
 @WebServlet("/download")
 public class Download extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+      
+	
+	
+	DownloadService ds = new DownloadService();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -40,25 +48,36 @@ public class Download extends HttpServlet {
 		if(request.getParameter("export") != null)
 		{
 			String fileContent = request.getParameter("exportValue");	
+			DateTime currentDate = new DateTime();
 			
-			DownloadService ds = new DownloadService();
-			ds.writeCsv(fileContent);
+			
+			Timestamp currentDayInMillis = new Timestamp(currentDate.getMillis());
+			String fileName = "stats du " + currentDate.getMillis() + ".csv";
+			
+			ds.writeCsv(fileContent, fileName);
 			System.out.println(request.getParameter("exportValue"));
-				 String filepath = "/home/imie/lala.csv";
+			
 				 try{
-				    File file = new File(filepath);
+				    File file = new File(fileName);
 				    if(!file.exists())
 				    {
 				        throw new ServletException("File doesn't exists on server.");
 				    }
+				    String encoding = request.getCharacterEncoding();
+		            if ((encoding != null) && (encoding.equalsIgnoreCase("utf-8")))
+		            {
+		                response.setContentType("text/csv; charset=utf-8");
+		            }
+				    
+				    
+		            response.setHeader("content-type:application/csv","charset=UTF-8");
+				    response.setHeader("Content-Disposition","attachment; filename=\"" + fileName + "\""); 
 
-				    response.setContentType("application/csv");
-				    response.setHeader("Content-Disposition","attachment; filename=\"" + filepath + "\""); 
-
-				    java.io.FileInputStream fileInputStream = new java.io.FileInputStream(filepath);
+				    java.io.FileInputStream fileInputStream = new java.io.FileInputStream(fileName);
+				    InputStreamReader isr = new InputStreamReader(fileInputStream, "UTF8");
 
 				    int i; 
-				    while ((i=fileInputStream.read()) != -1) 
+				    while ((i=isr.read()) != -1) 
 				    {
 				         response.getWriter().write(i); 
 				    } 
@@ -66,7 +85,7 @@ public class Download extends HttpServlet {
 				}
 				catch(Exception e)
 				{
-				    System.err.println("Error while downloading file["+filepath+"]"+e);
+				    System.err.println("Error while downloading file["+fileName+"]"+e);
 				}
 			
 			

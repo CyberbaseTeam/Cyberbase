@@ -2,9 +2,13 @@ package Services;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import org.joda.time.DateTime;
 
@@ -15,18 +19,16 @@ public class DownloadService {
 		
 	}
 	
-	public void writeCsv(String content) throws IOException{
-		DateTime currentDate = new DateTime();
-		File f = new File ("/home/imie/lala.csv");
-		 
+	public void writeCsv(String content, String fileName) throws IOException{
 		
-		PrintWriter pw = new PrintWriter (new BufferedWriter (new FileWriter (f)));
-		 
+		File f = new File (fileName);
 		
-		pw.write(content);
+		PrintWriter out = new PrintWriter( new OutputStreamWriter( new FileOutputStream( f, true ), "UTF-8" )); 
+		
+		out.write(content);
 		
 		 
-		pw.close();
+		out.close();
 		
 	}
 		
