@@ -10,11 +10,8 @@
 						<article>
 							<div>
 								<form method="post">
-									<input type="submit" name ="onGoing" value="Voir les affectations en cours de mon site">
-									<a href="affecter_poste_list?page=past">Voir les affectations passées de mon site</a>
-									<input type="submit" name ="onGoingAll" value="Voir toutes les affectations en cours">
-									<input type="submit" name ="pastAll" value="Voir toutes les affectations passées">
-									${pq}
+									<a href="affecter_poste_list?page=1">Voir les affectations en cours</a> // 
+									<a href="affecter_poste_list?page=2">Voir les affectations passées</a>
 								</form>
 							</div>
 						</article>
@@ -30,7 +27,7 @@
 						<c:otherwise>
 								<section>
 									<article>
-										<table>
+										<table class="table">
 											<thead>
 												<th>Date de début</th>
 												<th>Date de fin</th>
@@ -42,20 +39,28 @@
 											</thead>
 											<tbody>
 												<c:forEach items="${affectations}" var="aff">
-													<form method="post">
-														<input type="hidden" value="${aff.id_affectation}" name="inputIdAffectation"/>
-														<tr>
-															<td><fmt:formatDate value="${aff.date_debut_affectation}" pattern="HH:mm MM/dd/yyyy"/></td>
-															<td><fmt:formatDate value="${aff.date_fin_affectation}" pattern="HH:mm MM/dd/yyyy"/></td>
-															<td>${aff.usager.prenom_usager} ${aff.usager.nom_usager}</td>
-															<td>${aff.professionnel.prenom_professionnel} ${aff.professionnel.nom_professionnel}</td>
-															<td>${aff.demarche.nom_demarche}</td>
-															<td>${aff.poste.salle.nom_salle}</td>
-															<td>${aff.poste.nom_poste}</td>
-															<td><input type="submit" name="edit" value="Modifier"/></td>
-															<td><input type="submit" name="delete" value="Supprimer"/></td>
-														</tr>
-													</form>
+													<c:choose>
+														<c:when test="${aff.poste.salle.site.id_site == idSite}">
+															<form method="post">
+																<input type="hidden" value="${aff.id_affectation}" name="inputIdAffectation"/>
+																<tr>
+																	<td><fmt:formatDate value="${aff.date_debut_affectation}" pattern="HH:mm MM/dd/yyyy"/></td>
+																	<td><fmt:formatDate value="${aff.date_fin_affectation}" pattern="HH:mm MM/dd/yyyy"/></td>
+																	<td>${aff.usager.prenom_usager} ${aff.usager.nom_usager}</td>
+																	<td>${aff.professionnel.prenom_professionnel} ${aff.professionnel.nom_professionnel}</td>
+																	<td>${aff.demarche.nom_demarche}</td>
+																	<td>${aff.poste.salle.nom_salle}</td>
+																	<td>${aff.poste.nom_poste}</td>
+																	<c:choose>
+																		<c:when test="${caseList == 1}">
+																			<td><input type="submit" name="edit" value="Modifier"/></td>
+																			<td><input type="submit" name="delete" value="Supprimer"/></td>
+																		</c:when>
+																	</c:choose>
+																</tr>
+															</form>
+														</c:when>
+													</c:choose>
 												</c:forEach>
 											</tbody>
 										</table>

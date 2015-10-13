@@ -55,9 +55,19 @@ public class Usagers extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		initializeData(request);
-		List<UsagerEntity> usagerEntities = usagerService.findAll();
-		request.setAttribute("usagers", usagerEntities);
-		this.getServletContext().getRequestDispatcher("/WEB-INF/usager.jsp").forward(request, response);
+		
+		String idSiteParameter = request.getParameter("site");
+		Integer idSite = null;
+		if (idSiteParameter != null) {
+			idSite = Integer.valueOf(idSiteParameter);
+			SiteEntity site = siteService.findById(idSite);
+			List<UsagerEntity> usagers = usagerService.findAllUsersBySite(site);
+			request.setAttribute("usagers", usagers);
+		} else {
+			List<UsagerEntity> usagers = usagerService.findAll();
+			request.setAttribute("usagers", usagers);
+		}
+		this.getServletContext().getRequestDispatcher("/WEB-INF/usagers.jsp").forward(request, response);
 	}
 
 	/**

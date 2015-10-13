@@ -48,8 +48,13 @@ public class Affecter_poste_list extends HttpServlet {
 		CookieTools cookieTools = new CookieTools();
 		String techId = null;
 		Login login = new Login();
+		String pageParameter = "";
+		Integer idPageParameter = null;
 		
-		String pageParameter = request.getParameter("page");
+		pageParameter = request.getParameter("page");
+		if (pageParameter != null) {
+			idPageParameter = Integer.valueOf(pageParameter);
+		}
 		Integer caseList = null;
 		
 		//Récupéraction du cookie
@@ -72,29 +77,28 @@ public class Affecter_poste_list extends HttpServlet {
 	        }
 		}
 		
+		//Récupération de l'id du site du professionnel connecté
+		Integer idSiteProfessionnel = login.getSiteId();
+		request.setAttribute("idSite", idSiteProfessionnel);
+		
 		//Récupération de la date + heure actuelles comme référence
 		java.util.Date date= new java.util.Date();
 		Timestamp tsReference = new Timestamp(date.getTime());
 		
-		request.setAttribute("pq", pageParameter);
-		
 		//Récupération de toutes les affectations actuelles du site du professionnel connecté (celles dont la date de fin est supérieure à la date actuelle)
-		if (pageParameter == "") {
+		if (idPageParameter == null || idPageParameter == 1) {
 			List<AffectationEntity> affectationsOnGoing = affectationService.findAllOnGoing(tsReference);
 			request.setAttribute("affectations", affectationsOnGoing);
 			caseList = 1;
 			request.setAttribute("caseList", caseList);
 		}
-		
 		//Récupération de toutes les affectations passées du site
-		
-		if (pageParameter == "past") {
+		else if (idPageParameter == 2) {
 			List<AffectationEntity> affectationsPast = affectationService.findAllPast(tsReference);
 			request.setAttribute("affectations", affectationsPast);
-			caseList = 1;
+			caseList = 2;
 			request.setAttribute("caseList", caseList);
 		}
-		
 		request.getRequestDispatcher("/WEB-INF/affecter_poste_list.jsp").forward(request, response);
 	}
 
@@ -105,11 +109,13 @@ public class Affecter_poste_list extends HttpServlet {
 		if (request.getParameter("edit") != null){
 			String idAffectationParameter = request.getParameter("inputIdAffectation");
 			Integer idAffectation = Integer.valueOf(idAffectationParameter);
-			response.sendRedirect("affecter_poste_form?id="+idAffectation);
-		} else if (request.getParameter("onGoing") != null){
-			response.sendRedirect("affecter_poste_list?page=");
-		} else if (request.getParameter("past") != null){
-			response.sendRedirect("affecter_poste_list?page=past");
+			response.sendRedirect("affecter_poste_form?affectation="+idAffectation);
+		}  else if (request.getParameter("delete") != null){
+			String idAffectationParameter = request.getParameter("inputIdAffectation");
+			Integer idAffectation = Integer.valueOf(idAffectationParameter);
+			AffectationEntity affectation = affectationService.findById(idAffectation);
+			affectationService.deleteAffectation (affectation);
+			response.sendRedirect("affecter_poste_list");
 		}
 	}
 

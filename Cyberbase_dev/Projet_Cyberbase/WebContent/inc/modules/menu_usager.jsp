@@ -15,7 +15,7 @@
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Usagers par site <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<c:forEach items="${siteList}" var="site" begin="0" varStatus='i'>
-							<li><a href="">${site.nom_site}</a></li>
+							<li><a href="usagers?site=${site.id_site}">${site.nom_site}</a></li>
 						</c:forEach>
 					</ul>
 				</li>

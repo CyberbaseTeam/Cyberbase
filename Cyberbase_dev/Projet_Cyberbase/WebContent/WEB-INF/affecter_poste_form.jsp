@@ -16,19 +16,41 @@
 							<div class="conteneur-form">
 									<label for="selection-site">Site:</label>
      								<select name="site" id="site">
-     									<option value="" disabled selected>Choix du site</option>
+     								<c:choose>
+     									<c:when test="${empty affectation}">
+     										<option value="" disabled selected>Choix du site</option>
+     									</c:when>
+     								</c:choose>
 											<c:forEach items="${users}" var="site">
-	     										<option value="${site.key}" class="${site.key}">${site.key}</option>
+	     											<c:choose>
+	     												<c:when test="${site.key == affectation.usager.site_inscription.nom_site}">
+	     													<option value="${affectation.usager.site_inscription.nom_site}" class="${site.key}" selected>${affectation.usager.site_inscription.nom_site}</option>
+	     												</c:when>
+	     												<c:otherwise>
+	     													<option value="${site.key}" class="${site.key}">${site.key}</option>
+	     												</c:otherwise>
+	     											</c:choose>
 	     									</c:forEach> 
     				 				</select>
 							</div>
 							<div class="conteneur-form">
 									<label for="selection-site">Usager :</label>
      								<select name="user" id="user">
-     									<option value="" disabled selected>Choix de l'usager</option>
+     								<c:choose>
+     									<c:when test="${empty affectation}">
+     										<option value="" disabled selected>Choix de l'usager</option>
+     									</c:when>
+     								</c:choose>
       										<c:forEach items="${users}" var="site">
       											<c:forEach items="${site.value}" var="user">
-     												<option value="${user.id_usager}" class="${site.key}">${user.prenom_usager} ${user.nom_usager}</option>
+      												<c:choose>
+	      												<c:when test="${user.id_usager == affectation.usager.id_usager}">
+	      													<option value="${affectation.usager.id_usager}" class="${site.key}" selected>${affectation.usager.prenom_usager} ${affectation.usager.nom_usager}</option>
+	      												</c:when>
+	      												<c:otherwise>
+	     													<option value="${user.id_usager}" class="${site.key}">${user.prenom_usager} ${user.nom_usager}</option>
+	     												</c:otherwise>
+	     											</c:choose>
      											</c:forEach>
      										</c:forEach>
     				 				</select>
@@ -44,9 +66,20 @@
      								<select name="salle" id="salle">
      										<c:choose>
 												<c:when test="${empty inputPoste}">
-													<option value="" disabled selected>Choix de la salle</option>
+													<c:choose>
+														<c:when test="${empty affectation}">
+															<option value="" disabled selected>Choix de la salle</option>
+														</c:when>
+													</c:choose>
 													<c:forEach items="${postes}" var="salle">
-	     												<option value="${salle.key}" class="${salle.key}">${salle.key}</option>
+														<c:choose>
+															<c:when test="${affectation.poste.salle.nom_salle == salle.key }">
+																<option value="${affectation.poste.salle.nom_salle}" class="${salle.key}" selected>${affectation.poste.salle.nom_salle}</option>
+															</c:when>
+															<c:otherwise>
+																<option value="${salle.key}" class="${salle.key}">${salle.key}</option>
+															</c:otherwise>
+														</c:choose>
 	     											</c:forEach> 
 												</c:when>
 												<c:otherwise>
@@ -60,10 +93,21 @@
      								<select name="poste" id="poste">
      									<c:choose>
 												<c:when test="${empty inputPoste}">
-													<option value="" disabled selected>Choix du poste</option>
+													<c:choose>
+														<c:when test="${empty affectation}">
+															<option value="" disabled selected>Choix du poste</option>
+														</c:when>
+													</c:choose>
 													<c:forEach items="${postes}" var="salle">
       													<c:forEach items="${salle.value}" var="poste">
-     														<option value="${poste.id_poste}" class="${salle.key}">${poste.nom_poste}</option>
+      														<c:choose>
+																<c:when test="${affectation.poste.id_poste == poste.id_poste }">
+     																<option value="${affectation.poste.id_poste}" class="${salle.key}" selected>${affectation.poste.nom_poste}</option>
+     															</c:when>
+     															<c:otherwise>
+     																<option value="${poste.id_poste}" class="${salle.key}">${poste.nom_poste}</option>
+     															</c:otherwise>
+     														</c:choose>
      													</c:forEach>
      												</c:forEach> 
 												</c:when>
@@ -83,10 +127,21 @@
 							<div class="conteneur-form">
 									<label for="selection-site">Démarche :</label>
      								<select name="demarche" id="demarche">
-     									<option value="" disabled selected>Choix de la démarche</option>
-      											<c:forEach items="${demarches}" var="demarche">
-     												<option value="${demarche.id_demarche}">${demarche.nom_demarche}</option>
-     											</c:forEach>
+     									<c:choose>
+											<c:when test="${empty affectation}">
+     											<option value="" disabled selected>Choix de la démarche</option>
+     										</c:when>
+     									</c:choose>
+      									<c:forEach items="${demarches}" var="demarche">
+      										<c:choose>
+												<c:when test="${affectation.demarche.id_demarche == demarche.id_demarche}">
+													<option value="${affectation.demarche.id_demarche}" selected>${affectation.demarche.nom_demarche}</option>
+												</c:when>
+												<c:otherwise>
+													<option value="${demarche.id_demarche}">${demarche.nom_demarche}</option>
+												</c:otherwise>
+											</c:choose>	
+     									</c:forEach>
     				 				</select>
 							</div>
 		 		</article>
@@ -97,8 +152,20 @@
 							</legend>
 							<div class="conteneur-form">
 									<label for="selection-site">Durée :</label>
+									<c:choose>
+											<c:when test="${not empty affectation}">
+     											<span>Fin de l'affectation : <fmt:formatDate value="${affectation.date_fin_affectation}" pattern="HH:mm MM/dd/yyyy"/></span>
+     										</c:when>
+     								</c:choose>
      								<select name="time" id="time">
-     									<option value="" disabled selected>Choix de la durée</option>
+     									<c:choose>
+											<c:when test="${not empty affectation}">
+     											<option value="0" selected>Ne pas prolonger</option>
+     										</c:when>
+     										<c:otherwise>
+     											<option value="" disabled selected>Choix de la durée</option>
+     										</c:otherwise>
+     									</c:choose>
       									<option value="15">15 min</option>
       									<option value="30">30 min</option>
       									<option value="45">45 min</option>
@@ -114,7 +181,16 @@
 		 	<section>
 		 		<article>
 		 				<input type="hidden" value="${idPro}" name="inputIdPro"/>
-		 				<input type="submit" name="submit" value="Envoyer"/>
+		 				<c:choose>
+							<c:when test="${not empty affectation}">
+								<input type="submit" name="edit" value="Mettre à jour"/>
+								<input type="hidden" value="${affectation.date_debut_affectation}" name="inputDateDebut"/>
+								<input type="hidden" value="${affectation.id_affectation}" name="inputIdAffectation"/>
+							</c:when>
+							<c:otherwise>
+								<input type="submit" name="submit" value="Créer"/>
+							</c:otherwise>
+						</c:choose>
 		 				<input type="reset" name="reset" value="Retour"/>
 		 		</article>
 		 	</section>

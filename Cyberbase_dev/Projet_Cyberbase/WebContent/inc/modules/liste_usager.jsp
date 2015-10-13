@@ -49,10 +49,10 @@
 				<td>${usager.ville_usager}</td>
 				<td>${usager.email_usager}</td>
 				<td>${usager.accompagnement}</td>
-				<td>${usager.site_inscription.id_site}</td>
-				<td>${usager.quartier.id_quartier}</td>
-				<td>${usager.csp.id_csp}</td>
-				<td>${usager.niveau_formation.id_formation}</td>
+				<td>${usager.site_inscription.nom_site}</td>
+				<td>${usager.niveau_formation.nom_formation}</td>
+				<td>${usager.csp.libelle_csp}</td>
+				<td>${usager.quartier.nom_quartier}</td>
 				<td><a href="fiche_usager?id=${usager.id_usager}">form</a>
 					<form method="post">
 						<input type="hidden" value="${usager.id_usager}" name="inputId" />

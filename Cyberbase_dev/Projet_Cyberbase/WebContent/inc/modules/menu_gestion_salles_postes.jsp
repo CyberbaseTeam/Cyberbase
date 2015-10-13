@@ -7,6 +7,7 @@
 					<li><a href="<c:url value="/poste_list"/>" style="text-transform:none;line-height:120%">Visualiser les postes disponibles de mon site : ${sitePro.nom_site}</a></li>
 					<li><a href="<c:url value="/poste_list_all"/>" style="text-transform:none;line-height:120%">Visualiser les postes disponibles d'un autre site</a></li>
 					<li><a href="<c:url value="/affecter_poste"/>" style="text-transform:none;">Affecter un poste à un usager</a></li>
+					<li><a href="<c:url value="/affecter_poste_list"/>" style="text-transform:none;">Liste des affectations</a></li>
 					<li><a href="<c:url value="/poste_form"/>" style="text-transform:none;">Créer un poste</a></li>
 				</ul>
 				<ul>

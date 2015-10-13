@@ -27,7 +27,6 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.sql.Timestamp;
 
-
 import fr.cyberbase.entities.AffectationEntity;
 import fr.cyberbase.entities.DemarcheEntity;
 import fr.cyberbase.entities.PosteEntity;
@@ -121,6 +120,14 @@ public class Affecter_poste_form extends HttpServlet {
 			request.setAttribute("inputPoste", poste);
 		}
 		
+		//Récupération de l'id affectation passé en paramètre d'URL pour une modification d'une affectation spécifique
+		String idAffParameter = request.getParameter("affectation");
+		if (idAffParameter != null) {
+			Integer idAff = Integer.valueOf(idAffParameter);
+			AffectationEntity affectation = affectationService.findById(idAff);
+			request.setAttribute("affectation", affectation);
+			}
+		
 		//Récupération de la liste des usagers pour chaque site
 		List<SiteEntity> sites = siteService.findAll();
 		String siteName = "";
@@ -197,6 +204,50 @@ public class Affecter_poste_form extends HttpServlet {
 			UsagerEntity usager = userService.findById(idUser);
 			affectation.setUsager(usager);
 			affectationService.createAffectation(affectation);
+			response.sendRedirect("salle_list");
+		} else if (request.getParameter("edit") != null) {
+			String inputIdAffectation = request.getParameter("inputIdAffectation");
+			Integer idAffectation = Integer.valueOf(inputIdAffectation);
+			AffectationEntity affectation = affectationService.findById(idAffectation);
+			String[] inputIdUserTable = request.getParameterValues("user");
+			Integer idUser = null;
+			for(int ii=0;ii<inputIdUserTable.length;ii++)
+		       {
+				String inputIdUser = inputIdUserTable[ii];
+				idUser = Integer.valueOf(inputIdUser);
+		       }
+			String inputIdPro = request.getParameter("inputIdPro");
+			Integer idPro = Integer.valueOf(inputIdPro);
+			String[] inputIdPosteTable = request.getParameterValues("poste");
+			Integer idPoste = null;
+			for(int jj=0;jj<inputIdPosteTable.length;jj++)
+		       {
+				String inputIdPoste = inputIdPosteTable[jj];
+				idPoste = Integer.valueOf(inputIdPoste);
+		       }
+			String[] inputIdDemarcheTable = request.getParameterValues("demarche");
+			Integer idDemarche = null;
+			for(int kk=0;kk<inputIdDemarcheTable.length;kk++)
+		       {
+				String inputIdDemarche = inputIdDemarcheTable[kk];
+				idDemarche = Integer.valueOf(inputIdDemarche);
+		       }
+			String inputMinutes = request.getParameter("time");
+			Integer minutes = Integer.valueOf(inputMinutes);
+			Timestamp tsDateEnd = affectation.getDate_fin_affectation();
+			DateTime dateEnd = new DateTime(tsDateEnd);
+			dateEnd = dateEnd.plusMinutes(minutes);
+			Timestamp tsDateEndEdit = new Timestamp(dateEnd.getMillis());
+			affectation.setDate_fin_affectation(tsDateEndEdit);
+			DemarcheEntity demarche = demarcheService.findById(idDemarche);
+			affectation.setDemarche(demarche);
+			PosteEntity poste = posteService.findById(idPoste);
+			affectation.setPoste(poste);
+			ProfessionnelEntity professionnel = proService.findById(idPro);
+			affectation.setProfessionnel(professionnel);
+			UsagerEntity usager = userService.findById(idUser);
+			affectation.setUsager(usager);
+			affectationService.updateAffectation(affectation);
 			response.sendRedirect("salle_list");
 		}
 	}

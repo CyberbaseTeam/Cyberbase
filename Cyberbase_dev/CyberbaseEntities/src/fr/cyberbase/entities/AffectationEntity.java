@@ -15,9 +15,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="affectation")
 @NamedQueries({
-	@NamedQuery(name="affectationEntity.findAll", query="SELECT a FROM AffectationEntity a"),
+	@NamedQuery(name = "affectationEntity.findAll", query="SELECT a FROM AffectationEntity a"),
 	@NamedQuery(name = "affectationEntity.findByUsager", query = "SELECT a FROM AffectationEntity a WHERE a.usager = :usager"),
-	
+	@NamedQuery(name = "affectationEntity.findAllOnGoing", query = "SELECT a FROM AffectationEntity a WHERE a.date_fin_affectation > :date_fin_affectation"),
+	@NamedQuery(name = "affectationEntity.findAllPast", query = "SELECT a FROM AffectationEntity a WHERE a.date_fin_affectation < :date_fin_affectation"),
 })
 public class AffectationEntity {
 
