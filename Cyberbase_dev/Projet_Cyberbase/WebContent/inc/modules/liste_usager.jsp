@@ -53,11 +53,14 @@
 				<td>${usager.niveau_formation.nom_formation}</td>
 				<td>${usager.csp.libelle_csp}</td>
 				<td>${usager.quartier.nom_quartier}</td>
-				<td><a href="fiche_usager?id=${usager.id_usager}">form</a>
+				<td>
 					<form method="post">
 						<input type="hidden" value="${usager.id_usager}" name="inputId" />
-						<input type="submit" value="delete" name="actionSupprimer">
-					</form></td>
+						<input type="submit" value="Modifier" name="editUsager" />
+						<input type="submit" value="Supprimer" name="deleteUsager" />
+						<input type="submit" value="Voir historique" name="viewHistory" />
+					</form>
+				</td>
 				</tr>
 			</c:forEach>
 
