@@ -22,5 +22,10 @@ public class CspService {
 		return listing;
 	}
 	
+	public void add(CspEntity csp) {
+		entityManager.persist(csp);
+		
+	}
+	
 	
 }

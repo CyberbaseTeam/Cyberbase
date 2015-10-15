@@ -9,16 +9,9 @@
 	<div id="admin_list">
 		<c:import url="/inc/modules/menu_admin.jsp" />
 
-		<div id="pro_list">
-			<c:import url="/inc/modules/liste_professionnel.jsp" />
+		<div id="siteAdmin">
+			<c:import url="/inc/modules/administrationSite.jsp" />
 			
 		</div>
 	</div>
 </t:main>
-
-
-
-
-
-
-

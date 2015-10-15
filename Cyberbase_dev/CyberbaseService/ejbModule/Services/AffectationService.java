@@ -1,7 +1,10 @@
 package Services;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,7 +13,9 @@ import javax.persistence.Query;
 
 import fr.cyberbase.entities.AffectationEntity;
 import fr.cyberbase.entities.PosteEntity;
+import fr.cyberbase.entities.ProfessionnelEntity;
 import fr.cyberbase.entities.SalleEntity;
+import fr.cyberbase.entities.SiteEntity;
 
 @Stateless
 public class AffectationService {
@@ -58,5 +63,49 @@ public class AffectationService {
 		affectation = entityManager.merge(affectation);
 		entityManager.remove(affectation);
 	}
+	
+	public Long findVisitCountByPeriodAndSite(SiteEntity site, Timestamp start, Timestamp end){
+
+		Query query = entityManager.createNamedQuery("affectationEntity.findOurVisitsInCertainPeriod");
+		query.setParameter("id_site", site.getId_site());
+		query.setParameter("start", start);
+		query.setParameter("end", end);
+		
+		Long count =  (Long) query.getSingleResult();
+		
+		return count;
+		
+	}
+	
+	
+	
+	public BigInteger findNewCommersByPeriodAndSite(SiteEntity site, Timestamp start, Timestamp end){
+		Query executedQuery = entityManager.createNativeQuery("SELECT COUNT(*) FROM ("
+				+ "SELECT MIN(date_debut_affectation), id_usager FROM affectation"
+				+ "	GROUP BY id_usager HAVING MIN(date_debut_affectation) BETWEEN :start AND :end)AS visitCount");
+
+		executedQuery.setParameter("start", start);
+		executedQuery.setParameter("end", end);
+		
+		BigInteger count =  (BigInteger) executedQuery.getSingleResult();
+		
+		return count;
+		
+	}
+	
+	public Long getDistinctAffectedUsers(SiteEntity site){
+		Query query = entityManager.createNamedQuery("affectationEntity.findDistinctUsers");
+		query.setParameter("id_site", site.getId_site());
+	
+		
+		Long count =  (Long) query.getSingleResult();
+		
+		return count;
+		
+	}
+	
+	
+	
+	
 	
 }

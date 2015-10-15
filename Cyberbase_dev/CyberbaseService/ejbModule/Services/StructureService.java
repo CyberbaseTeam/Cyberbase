@@ -29,5 +29,10 @@ public class StructureService {
 		StructureEntity structureEntity = (StructureEntity) query.getSingleResult();
 		return structureEntity;
 	}
+	
+	public void add(StructureEntity structure) {
+		entityManager.persist(structure);
+		
+	}
 }
 

@@ -21,5 +21,10 @@ public class QuartierService {
 		return listing;
 	}
 	
+	public void add(QuartierEntity quartier) {
+		entityManager.persist(quartier);
+		
+	}
+	
 	
 }
