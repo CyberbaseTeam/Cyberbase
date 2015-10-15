@@ -53,8 +53,8 @@
 																	<td>${aff.poste.nom_poste}</td>
 																	<c:choose>
 																		<c:when test="${caseList == 1}">
-																			<td><input type="submit" name="edit" value="Modifier"/></td>
-																			<td><input type="submit" name="delete" value="Supprimer"/></td>
+																			<td><button type="submit" name="edit" class="btn btn-primary">Modifier</button></td>
+																			<td><button type="submit" name="delete" class="btn btn-danger">Supprimer</button></td>
 																		</c:when>
 																	</c:choose>
 																</tr>

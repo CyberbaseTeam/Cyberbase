@@ -6,57 +6,57 @@
 
 <t:main>
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
-	<section>
-		<div id="conteneur-formulaires">
-			<form class="affecter-form" method="post">
+	<div id="container-salle_form">
+	<section class ="colonne-salle">
+			<form method="post">
 				<fieldset>
-					<legend class="legende-form">
-						<h2>Informations salle</h2>
+					<legend >
+						Informations salle
 					</legend>
-					<div class="ligne-formulaire">
-						<div class="label-form">
 							<label for="selection-site">Nom de la salle :</label>
-						</div>
-						<div class="champs-form">
 							<input type="text" name="nomSalle" value="${salle.nom_salle}"
-								size="20" maxlength="80" /> <input type="hidden"
+								size="20" maxlength="80" class="form-control" /> <input type="hidden"
 								value="${sitePro.id_site}" name="idSite">
-						</div>
-					</div>
+							<c:choose>
+								<c:when test="${empty salle}">
+									<br>
+									<input type="submit" name="createSalle" value="Créer" />
+								</c:when>
+								<c:otherwise>
+									<br>
+									<input type="hidden" value="${salle.id_salle}" name="idSalle">
+									<button type="submit" name="confirmEditSalle" class="btn btn-primary">Valider</button>
+								</c:otherwise>
+							</c:choose>
 				</fieldset>
-		</div>
+			</form>
 	</section>
-	<section>
-		<c:choose>
-			<c:when test="${empty salle}">
-				<input type="submit" name="createSalle" value="Créer" />
-			</c:when>
-			<c:otherwise>
-				<input type="hidden" value="${salle.id_salle}" name="idSalle">
-				<input type="submit" name="confirmEditSalle" value="Valider" />
-			</c:otherwise>
-		</c:choose>
-		<input type="reset" name="effacer" value="Retour" />
-	  </form>
-	</section>
+
 	<c:if test="${not empty salle}">
-		<section>
+		<section class="colonne-salle-postes">
 				<fieldset>
 					<legend class="legende-form">
-						<h2>Postes rattachés à ${salle.nom_salle}</h2>
+						Postes rattachés à ${salle.nom_salle}
 					</legend>
-					<ul>
-						<c:forEach items="${salle.postes}" var="poste">
+					<table class="table table-striped">
+						<tbody>
+							<c:forEach items="${salle.postes}" var="poste">
 							<form method="post">
 								<input type="hidden" value="${salle.id_salle}" name="idSalle">
-								<li>${poste.nom_poste} : <input type="submit"
-									name="editPoste" value="Modifier poste" /><input type="submit"
-									name="deletePoste" value="Supprimer poste" /><input
-									type="hidden" value="${poste.id_poste}" name="idPoste">
-								</li>
+								<tr>
+								<td>${poste.nom_poste} :</td> 
+								<td>
+									<button type="submit" name="editPoste" class="btn btn-primary">Modifier</button>
+								</td>
+								<td>
+									<button type="submit" name="deletePoste" class="btn btn-danger">Supprimer</button>
+									<input type="hidden" value="${poste.id_poste}" name="idPoste">
+								</td>
+								</tr>
 							</form>
 						</c:forEach>
-					</ul>
+						</tbody>
+					</table>
 				</fieldset>
 		</section>
 	</c:if>

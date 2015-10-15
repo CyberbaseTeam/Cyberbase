@@ -8,30 +8,35 @@
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
 	<div>
 		<c:forEach items="${sites}" var="site">
-			<span>${site.nom_site}</span>
+			<fieldset>
+					<legend >
+						${site.nom_site}
+					</legend>
 				<c:forEach items="${site.salles}" var="salle">
-					<article class="colonne">
-						<div>
-							<h2 class="title-colonne">${salle.nom_salle}</h2>
-							<div class="conteneur-list">
-								<ul class="list-postes">
+					<article class="colonne-postes-all">
+						<table class="table table-striped">
+						<thead>
+							<th>${salle.nom_salle}</th>
+						</thead>
+						<tbody>
 									<c:forEach items="${salle.postes}" var="poste">
-										<li>- ${poste.nom_poste} : 
+									<tr>
+										<td>${poste.nom_poste}</td>
 										  <c:choose>
 											<c:when test="${poste.disponibilite}">
-													<span>Poste disponible</span>
+													<td>Poste disponible</td>
 											</c:when>
 											<c:otherwise>
-													<span>Poste indisponible</span>
+													<td>Poste indisponible</td>
 											</c:otherwise>
 										  </c:choose>
-										</li>
+									</tr>
 									</c:forEach>
-								</ul>
-							</div>
-						</div>
+						</tbody>
+						</table>
 					</article>
 				</c:forEach>
+				</fieldset>
 				<hr>
 		</c:forEach>
 	</div>

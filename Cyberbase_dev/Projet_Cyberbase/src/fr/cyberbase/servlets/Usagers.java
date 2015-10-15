@@ -75,8 +75,7 @@ public class Usagers extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("actionSupprimer") != null)
-		{
+		if (request.getParameter("deleteUsager") != null){
 			String idParameter = request.getParameter("inputId");
 			Integer id = Integer.valueOf(idParameter);
 			UsagerEntity usagerEntity = new UsagerEntity();
@@ -84,6 +83,10 @@ public class Usagers extends HttpServlet {
 			usagerService.delete(usagerEntity);
 			request.setAttribute("usagers", usagerService.findAll());
 			request.getRequestDispatcher("/WEB-INF/usager.jsp").forward(request, response);
+		} else if (request.getParameter("editUsager") != null){
+			String idParameter = request.getParameter("inputId");
+			Integer id = Integer.valueOf(idParameter);
+			response.sendRedirect("usager_form?id="+id);
 		}
 	}
 	

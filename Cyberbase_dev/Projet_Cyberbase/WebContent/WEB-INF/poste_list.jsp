@@ -6,68 +6,69 @@
 
 <t:main>
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
-	<div>
-			<section id="conteneur-colonnes">
-			${id}
+			<span id="titre-console">Console ${sitePro.nom_site}</span>
+			<section >
 				<c:forEach items="${sitePro.salles}" var="salle">
-					<article class="colonne">
-						<div>
-							<h2 class="title-colonne">${salle.nom_salle}</h2>
-							<div class="conteneur-list">
-								<ul class="list-postes">
-									<c:forEach items="${salle.postes}" var="poste">
-										<li>- ${poste.nom_poste} : 
-										<form method="post">
-											<c:choose>
-												<c:when test="${poste.disponibilite}">
-													<span>Poste disponible</span>
-													<a href="affecter_poste?id=${poste.id_poste}">Affecter
-														poste</a>
-												</c:when>
-												<c:otherwise>
-													<span>Poste indisponible</span>
-													<input type="hidden" value="${poste.id_poste}"
-														name="inputIdPoste" />
-													<input type="submit" value="Libérer poste"
-														name="libererPoste" />
+					<article class="colonne-postes">
+					<table class="table table-striped">
+						<thead>
+							<th>${salle.nom_salle}</th>
+						</thead>
+						<tbody>
+							<c:forEach items="${salle.postes}" var="poste">
+										<tr>
+											<td>${poste.nom_poste}</td> 
+											<form method="post">
+												<c:choose>
+													<c:when test="${poste.disponibilite}">
+														<td>Poste disponible</td>
+														<td><a href="affecter_poste_form?id=${poste.id_poste}">Affecter
+														poste</a></td>
+													</c:when>
+													<c:otherwise>
+														<td>Poste indisponible</td>
+														<td><input type="hidden" value="${poste.id_poste}"
+														name="inputIdPoste" /></td>
+														<td><button type="submit" name="libererPoste" class="btn btn-warning">Libérer poste</button></td>
 												</c:otherwise>
 											  </c:choose>
 										    </form>
-										</li>
+										</tr>
 									</c:forEach>
-								</ul>
-							</div>
-							<div>
-							  <form method="post">
-								<input type="hidden" value="${salle.id_salle}"
-									name="inputIdSalle" /> <input type="submit"
-									value="Libérer tous les postes de la ${salle.nom_salle}"
-									name="libererPostesSalle" />
-								</form>
-							</div>
-							<div class="buttons-bas">
-								<form method="post">
-									<input type="hidden" value="${salle.id_salle}" name="inputIdSalle" />
-									<input type="submit"
-										name="editSalle" value="Modifier salle" /><input
-										type="submit" name="deleteSalle" value="Supprimer salle" />
-								</form>
-							</div>
-						</div>
+									<tr>
+										<td colspan="3">
+											<form method="post">
+												<input type="hidden" value="${salle.id_salle}" name="inputIdSalle" />
+												<button type="submit" name="editSalle" class="btn btn-primary">Modifier salle</button>
+												<button type="submit" name="deleteSalle" class="btn btn-primary">Supprimer salle</button>
+											</form>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<form method="post">
+												<input type="hidden" value="${salle.id_salle}" name="inputIdSalle" /> 
+												<button type="submit" class="btn btn-danger" name="libererPostesSalle">Libérer tous les postes de la ${salle.nom_salle}</button>
+											</form>
+										</td>
+									</tr>
+						</tbody>
+					</table>
+						
+							
+							
+						
 					</article>
 				</c:forEach>
 			</section>
-			<section id="liberer-postes-salle">
+			<section class ="liberer-site">
 				<article>
 					<div>
 					  <form method="post">
 						<input type="hidden" value="${sitePro.id_site}" name="inputIdSite" />
-						<input type="submit"
-							value="Libérer tous les postes du site ${sitePro.nom_site}"
-							name="libererPostesSite" />
+						<button type="submit" name="libererPostesSite" class="btn btn-danger">Libérer tous les postes du site ${sitePro.nom_site}</button>
 					  </form>
 					</div>
 				</article>
 			</section>
-	</div>
 </t:main>

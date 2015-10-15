@@ -23,7 +23,7 @@
 				<th>Niveau de formation</th>
 				<th>CSP</th>
 				<th>Quartier</th>
-				<th>action</th>
+				<th colspan="3">action</th>
 			</tr>
 
 			<c:forEach items="${usagers}" var="usager" varStatus="loop">
@@ -53,14 +53,18 @@
 				<td>${usager.niveau_formation.nom_formation}</td>
 				<td>${usager.csp.libelle_csp}</td>
 				<td>${usager.quartier.nom_quartier}</td>
-				<td>
 					<form method="post">
 						<input type="hidden" value="${usager.id_usager}" name="inputId" />
-						<input type="submit" value="Modifier" name="editUsager" />
-						<input type="submit" value="Supprimer" name="deleteUsager" />
-						<input type="submit" value="Voir historique" name="viewHistory" />
+						<td>
+							<button type="submit" name="editUsager" class="btn btn-primary">Modifier</button>
+						</td>
+						<td>
+							<button type="submit" name="deleteUsager" class="btn btn-danger">Supprimer</button>
+						</td>
+						<td>
+							<button type="submit" name="viewHistory" class="btn btn-info">Voir historique</button>
+						</td>
 					</form>
-				</td>
 				</tr>
 			</c:forEach>
 

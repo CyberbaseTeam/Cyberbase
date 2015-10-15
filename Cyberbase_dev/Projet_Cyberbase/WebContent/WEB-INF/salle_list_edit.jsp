@@ -6,25 +6,19 @@
 
 <t:main>
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
-	<div>
-		<div>${sitePro.nom_site}</div>
-		<section id="conteneur-colonnes">
+	<div id="container-salle_list">
 			<c:forEach items="${sitePro.salles}" var="salle">
 				<form method="post">
-					<article class="colonne">
-						<div >
-							<h2 class="title-colonne">${salle.nom_salle}</h2>
-							<div>
+					<article class="colonne-salles-edit">
+						<fieldset>
+							<legend >
+								${salle.nom_salle}
+							</legend>
 								<input type="hidden" value="${salle.id_salle}" name="inputIdSalle"/>
-							</div>
-							<div class="buttons-bas">
-								<input type="submit" name="editSalle" value="Modifier"/>
-								<input type="submit" name="deleteSalle" value="Supprimer"/>
-							</div>
-						</div>
+								<button type="submit" name="editSalle" class="btn btn-primary">Modifier</button>
+								<button type="submit" name="deleteSalle" class="btn btn-danger">Supprimer</button>
 					</article>
-				   </form>
-				 </c:forEach>	
-				</section>
+				</form>
+			</c:forEach>	
 	</div>
 </t:main>

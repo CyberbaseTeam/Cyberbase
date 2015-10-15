@@ -162,7 +162,7 @@ public class Affecter_poste_form extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getParameter("submit") != null) {
+		if (request.getParameter("create") != null) {
 			String[] inputIdUserTable = request.getParameterValues("user");
 			Integer idUser = null;
 			for(int ii=0;ii<inputIdUserTable.length;ii++)
@@ -198,6 +198,8 @@ public class Affecter_poste_form extends HttpServlet {
 			DemarcheEntity demarche = demarcheService.findById(idDemarche);
 			affectation.setDemarche(demarche);
 			PosteEntity poste = posteService.findById(idPoste);
+			poste.setDisponibilite(false);
+			posteService.updatePoste(poste);
 			affectation.setPoste(poste);
 			ProfessionnelEntity professionnel = proService.findById(idPro);
 			affectation.setProfessionnel(professionnel);

@@ -6,16 +6,16 @@
 
 <t:main>
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
+	<div id="container-affecter_form">
 	<section>
 		 		<article class="colonne-affecter">
 		 			<form method="post">
 						<fieldset>
-							<legend class="legende-form">
-								<h2>Choix usager</h2>
+							<legend>
+								Choix usager
 							</legend>
-							<div class="conteneur-form">
 									<label for="selection-site">Site:</label>
-     								<select name="site" id="site">
+     								<select name="site" id="site" class="form-control">
      								<c:choose>
      									<c:when test="${empty affectation}">
      										<option value="" disabled selected>Choix du site</option>
@@ -32,10 +32,9 @@
 	     											</c:choose>
 	     									</c:forEach> 
     				 				</select>
-							</div>
-							<div class="conteneur-form">
+    				 				<br>
 									<label for="selection-site">Usager :</label>
-     								<select name="user" id="user">
+     								<select name="user" id="user" class="form-control">
      								<c:choose>
      									<c:when test="${empty affectation}">
      										<option value="" disabled selected>Choix de l'usager</option>
@@ -54,16 +53,15 @@
      											</c:forEach>
      										</c:forEach>
     				 				</select>
-							</div>   								    													
+    				 				<br><br>								    													
 		 		</article>
 		 		<article class="colonne-affecter">
 						<fieldset>
-							<legend class="legende-form">
-								<h2>Choix poste à affecter</h2>
+							<legend >
+								Choix poste à affecter
 							</legend>
-							<div class="conteneur-form">
 									<label for="selection-site">Salle:</label>
-     								<select name="salle" id="salle">
+     								<select name="salle" id="salle" class="form-control">
      										<c:choose>
 												<c:when test="${empty inputPoste}">
 													<c:choose>
@@ -87,10 +85,9 @@
 												</c:otherwise>
 											</c:choose>
     				 				</select>
-							</div>
-							<div class="conteneur-form">
+    				 				<br>
 									<label for="selection-site">Poste :</label>
-     								<select name="poste" id="poste">
+     								<select name="poste" id="poste" class="form-control">
      									<c:choose>
 												<c:when test="${empty inputPoste}">
 													<c:choose>
@@ -115,18 +112,17 @@
 													<option value="${inputPoste.id_poste}" selected>${inputPoste.nom_poste}</option>
 												</c:otherwise>										
 										</c:choose>
-    				 				</select>
-							</div>   						
+    				 				</select> 						
 						</fieldset>
 		 		</article>
+		 		<br><br>
 		 		<article class="colonne-affecter">
 						<fieldset>
-							<legend class="legende-form">
-								<h2>Infos affectations</h2>
+							<legend>
+								Infos affectations
 							</legend>
-							<div class="conteneur-form">
 									<label for="selection-site">Démarche :</label>
-     								<select name="demarche" id="demarche">
+     								<select name="demarche" id="demarche" class="form-control">
      									<c:choose>
 											<c:when test="${empty affectation}">
      											<option value="" disabled selected>Choix de la démarche</option>
@@ -143,21 +139,20 @@
 											</c:choose>	
      									</c:forEach>
     				 				</select>
-							</div>
 		 		</article>
+		 		<br><br>
 		 		<article class="colonne-affecter">
 						<fieldset>
-							<legend class="legende-form">
-								<h2>Durée affectation</h2>
+							<legend>
+								Durée affectation
 							</legend>
-							<div class="conteneur-form">
 									<label for="selection-site">Durée :</label>
 									<c:choose>
 											<c:when test="${not empty affectation}">
      											<span>Fin de l'affectation : <fmt:formatDate value="${affectation.date_fin_affectation}" pattern="HH:mm MM/dd/yyyy"/></span>
      										</c:when>
      								</c:choose>
-     								<select name="time" id="time">
+     								<select name="time" id="time" class="form-control">
      									<c:choose>
 											<c:when test="${not empty affectation}">
      											<option value="0" selected>Ne pas prolonger</option>
@@ -175,24 +170,24 @@
       									<option value="105">1 heure 45 min</option>
       									<option value="120">2 heures</option>
     				 				</select>
-							</div>
 		 		</article>
 		 	</section>
+		 	<br>
 		 	<section>
 		 		<article>
 		 				<input type="hidden" value="${idPro}" name="inputIdPro"/>
 		 				<c:choose>
 							<c:when test="${not empty affectation}">
-								<input type="submit" name="edit" value="Mettre à jour"/>
+								<button type="submit" name="edit" class="btn btn-primary">Mettre à jour</button>
 								<input type="hidden" value="${affectation.date_debut_affectation}" name="inputDateDebut"/>
 								<input type="hidden" value="${affectation.id_affectation}" name="inputIdAffectation"/>
 							</c:when>
 							<c:otherwise>
-								<input type="submit" name="submit" value="Créer"/>
+								<button type="submit" name="create" class="btn btn-primary">Créer</button>
 							</c:otherwise>
 						</c:choose>
-		 				<input type="reset" name="reset" value="Retour"/>
 		 		</article>
 		 	</section>
 		 </form>
+		 </div>
 </t:main>

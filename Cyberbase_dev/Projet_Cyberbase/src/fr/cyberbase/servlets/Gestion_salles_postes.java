@@ -85,7 +85,7 @@ public class Gestion_salles_postes extends HttpServlet {
 		List<SiteEntity> siteEntities = siteService.findAll();
 		request.setAttribute("sitePro", siteProfessionnel);
 		request.setAttribute("sites", siteEntities);
-		this.getServletContext().getRequestDispatcher("/WEB-INF/gestion_salles_postes.jsp").forward(request, response);
+		response.sendRedirect("poste_list");
 		
 	}
 
