@@ -19,6 +19,11 @@ import javax.persistence.Table;
 	@NamedQuery(name = "affectationEntity.findByUsager", query = "SELECT a FROM AffectationEntity a WHERE a.usager = :usager"),
 	@NamedQuery(name = "affectationEntity.findAllOnGoing", query = "SELECT a FROM AffectationEntity a WHERE a.date_fin_affectation > :date_fin_affectation"),
 	@NamedQuery(name = "affectationEntity.findAllPast", query = "SELECT a FROM AffectationEntity a WHERE a.date_fin_affectation < :date_fin_affectation"),
+	@NamedQuery(name = "affectationEntity.findOurVisitsInCertainPeriod", query = "SELECT COUNT(a) FROM AffectationEntity a "
+			+ "WHERE a.professionnel.site_reference.id_site = :id_site AND a.date_debut_affectation BETWEEN :start AND :end" ),
+	@NamedQuery(name = "affectationEntity.findDistinctUsers", query = "SELECT COUNT(DISTINCT a.usager) FROM AffectationEntity a WHERE a.professionnel.site_reference.id_site = :id_site  "),				
+	
+			
 })
 public class AffectationEntity {
 

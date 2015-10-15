@@ -14,6 +14,7 @@
 				<li><a href="add_or_update_pro?action=creerPro">Créer professionnel</a></li>
 				<li><a href="administration">Liste des professionnels</a></li>
 				
+				
 				<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Professionnels par site <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<c:forEach items="${siteList}" var="site" begin="0" varStatus='i'>
@@ -21,6 +22,7 @@
 						</c:forEach>
 					</ul>
 				</li>
+				<li><a href="administration?action=siteAdministration">Administration du site</a></li>
 			</ul>
 		</div>
 	</div>

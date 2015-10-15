@@ -36,6 +36,10 @@ public class SiteService {
 		List<SiteEntity> sites = query.getResultList();
 		return sites;
 	}	
+	public void add(SiteEntity site) {
+		entityManager.persist(site);
+		
+	}
 	
 
 }

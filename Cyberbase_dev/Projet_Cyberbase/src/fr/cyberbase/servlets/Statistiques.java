@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.joda.time.DateTime;
 
+import Services.AffectationService;
 import Services.CspService;
 import Services.DemarcheService;
 import Services.FormationService;
@@ -79,6 +82,8 @@ public class Statistiques extends HttpServlet {
 	private static final String FIELD_SAVE_QUERY 	= "saveQuery";
 	private static final String FIELD_QUERY_NAME 	= "queryName";
 	
+	private static final String CSV_SEPARATOR	 	= ",";
+	
 	
 	List<SiteEntity> siteList;
 	List<UsagerEntity> usagerList;
@@ -92,6 +97,8 @@ public class Statistiques extends HttpServlet {
 	
 	List<String> querySelectObjects = new ArrayList<String>();
 	List<String> columnNames = new ArrayList<String>();
+	
+	Map<String, Object> currentStats;
 	
 	@EJB
 	StatistiqueService statistiqueService;
@@ -113,6 +120,9 @@ public class Statistiques extends HttpServlet {
 	
 	@EJB
 	ProfessionnelService  professionnelService;
+	
+	@EJB	
+	AffectationService affectationService;
 	
 	
 	
@@ -142,6 +152,8 @@ public class Statistiques extends HttpServlet {
 		ProfessionnelEntity logged = professionnelService.findByTechId(login.getLoginTechId());
 		initializeData(request, logged);
 		
+		
+		
 		if(request.getParameter("action") != null && request.getParameter("action").equals("personalQuery"))
 		{
 			RequeteEntity query = new RequeteEntity();
@@ -167,6 +179,7 @@ public class Statistiques extends HttpServlet {
 			request.setAttribute("columnNames", columnNames);
 			request.setAttribute("htmlResult", htmlResult);
 			initializeData(request, logged);
+			
 			
 				
 		}
@@ -294,6 +307,7 @@ public class Statistiques extends HttpServlet {
 	}
 
 	private void initializeData(HttpServletRequest request, ProfessionnelEntity pro){
+		currentStats = getCurrentStats(request, pro.getSite_reference());
 		siteList = siteService.findAll();
 		quartierList = quartierService.findAll();
 		cspList = cspService.findAll();
@@ -307,6 +321,10 @@ public class Statistiques extends HttpServlet {
 		request.setAttribute(ATTR_FORMATION, formationList);
 		request.setAttribute(ATTR_DEMARCHE, demarcheList);
 		request.setAttribute(ATTR_REQUETES, requeteList);
+		request.setAttribute("currentStats", currentStats);
+		request.setAttribute("sectionName", "STATISTIQUES");
+		
+		
 	}
 
 	private void prepareSelectObjectsAndColums(String[] displayData){
@@ -417,7 +435,7 @@ public class Statistiques extends HttpServlet {
 		}
 		else
 		{
-			htmlResult = "<table class=\"queryResult\"><tr>";
+			htmlResult = "<table class=\"table queryResult\"><tr>";
 			for(String name : columnNames)
 			{
 				htmlResult = htmlResult.concat("<th>");
@@ -455,7 +473,7 @@ public class Statistiques extends HttpServlet {
 		{
 			csvContent = csvContent.concat("'" + columnNames.get(i) + "'");
 			if(i != columnNames.size() - 1)
-				csvContent = csvContent.concat(";");
+				csvContent = csvContent.concat(CSV_SEPARATOR);
 			
 		}
 		csvContent = csvContent.concat("\n");
@@ -467,9 +485,9 @@ public class Statistiques extends HttpServlet {
 		   for(int i = 0; i < maxIndex; i++)
 		   {
 			   
-			   csvContent = csvContent.concat("'" + String.valueOf(obj[i]) + "'");
+			   csvContent = csvContent.concat(String.valueOf(obj[i]));
 			   if(i != maxIndex -1)
-					csvContent = csvContent.concat(";");
+					csvContent = csvContent.concat(CSV_SEPARATOR);
 			   
 		   }
 		   csvContent = csvContent.concat("\n");
@@ -481,24 +499,85 @@ public class Statistiques extends HttpServlet {
 	
 	
 	
-	private Map<String, String> getCurrentStats(HttpServletRequest request){
-		Map<String, String> currentStats = new HashMap<String, String>();
-		DateTime currentDay = new DateTime();
-		
-		Timestamp currentDayInMillis = new Timestamp(currentDay.getMillis());
-		SimpleDateFormat monthDayYearformatter = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat dayFormatter = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat monthFormatter = new SimpleDateFormat("yyyy-MM");
-		SimpleDateFormat yearFormatter = new SimpleDateFormat("yyyy");
-		
-		String currentYear = yearFormatter.format(currentDayInMillis);
-		String currentMonth = monthFormatter.format(currentDayInMillis);
-		String currentDate = dayFormatter.format(currentDayInMillis);
+	private Map<String, Object> getCurrentStats(HttpServletRequest request, SiteEntity site){
+		Map<String, Object> currentStats = new HashMap<String, Object>();
 		
 		
+		Calendar todayStart = Calendar.getInstance();
+		Calendar todayEnd = Calendar.getInstance();
+		todayStart.set(Calendar.HOUR_OF_DAY, 0);
+		todayStart.set(Calendar.MINUTE, 0);
+		todayStart.set(Calendar.SECOND, 0);
+		todayStart.set(Calendar.MILLISECOND, 0);
 		
+		todayEnd.set(Calendar.HOUR_OF_DAY, 23);
+		todayEnd.set(Calendar.MINUTE, 59);
+		todayEnd.set(Calendar.SECOND, 59);
+		todayEnd.set(Calendar.MILLISECOND, 999);
+		
+		Timestamp currentDayStart = new Timestamp(todayStart.getTimeInMillis());
+		Timestamp currentDayEnd = new Timestamp(todayEnd.getTimeInMillis());
+		
+		Calendar thisMonthStart = Calendar.getInstance();
+		Calendar thisMonthEnd = Calendar.getInstance();
+		
+		thisMonthStart.set(Calendar.DAY_OF_MONTH, 1);
+		thisMonthStart.set(Calendar.HOUR_OF_DAY, 0);
+		thisMonthStart.set(Calendar.MINUTE, 0);
+		thisMonthStart.set(Calendar.SECOND, 0);
+		thisMonthStart.set(Calendar.MILLISECOND, 0);
+		
+		thisMonthEnd.set(Calendar.DAY_OF_MONTH, Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH));
+		thisMonthEnd.set(Calendar.HOUR_OF_DAY, 23);
+		thisMonthEnd.set(Calendar.MINUTE, 59);
+		thisMonthEnd.set(Calendar.SECOND, 59);
+		thisMonthEnd.set(Calendar.MILLISECOND, 999);
 				
-		return currentStats;
+		Timestamp currentMonthStart = new Timestamp(thisMonthStart.getTimeInMillis());
+		Timestamp currentMonthEnd = new Timestamp(thisMonthEnd.getTimeInMillis());
 		
+		Calendar thisYearStart = Calendar.getInstance();
+		Calendar thisYearEnd = Calendar.getInstance();
+		
+		thisYearStart.set(Calendar.MONTH, Calendar.JANUARY);
+		thisYearStart.set(Calendar.DAY_OF_MONTH, 1);
+		thisYearStart.set(Calendar.HOUR_OF_DAY, 0);
+		thisYearStart.set(Calendar.MINUTE, 0);
+		thisYearStart.set(Calendar.SECOND, 0);
+		thisYearStart.set(Calendar.MILLISECOND, 0);
+		
+		thisYearEnd.set(Calendar.MONTH, Calendar.DECEMBER);
+		thisYearEnd.set(Calendar.DAY_OF_MONTH, 31);
+		thisYearEnd.set(Calendar.HOUR_OF_DAY, 23);
+		thisYearEnd.set(Calendar.MINUTE, 59);
+		thisYearEnd.set(Calendar.SECOND, 59);
+		thisYearEnd.set(Calendar.MILLISECOND, 999);
+		
+		Timestamp currentYearStart = new Timestamp(thisYearStart.getTimeInMillis());
+		Timestamp currentYearEnd = new Timestamp(thisYearEnd.getTimeInMillis());
+		
+		Long todaysVisits = affectationService.findVisitCountByPeriodAndSite(site, currentDayStart, currentDayEnd);	
+		Long thisMonthsVisits = affectationService.findVisitCountByPeriodAndSite(site, currentMonthStart, currentMonthEnd);
+		Long thisYearsVisits = affectationService.findVisitCountByPeriodAndSite(site, currentYearStart, currentYearEnd);
+		
+		BigInteger todaysNewCommers = affectationService.findNewCommersByPeriodAndSite(site, currentDayStart, currentDayEnd);	
+		BigInteger thisMonthsNewCommers = affectationService.findNewCommersByPeriodAndSite(site, currentMonthStart, currentMonthEnd);
+		BigInteger thisYearsNewCommers = affectationService.findNewCommersByPeriodAndSite(site, currentYearStart, currentYearEnd);
+		
+		Long mySiteUsers = affectationService.getDistinctAffectedUsers(site);
+		System.out.println(mySiteUsers);
+		
+		currentStats.put("todaysVisits", todaysVisits);
+		currentStats.put("thisMonthsVisits", thisMonthsVisits);
+		currentStats.put("thisYearsVisits", thisYearsVisits);
+		currentStats.put("todaysNewCommers", todaysNewCommers);
+		currentStats.put("thisMonthsNewCommers", thisMonthsNewCommers);
+		currentStats.put("thisYearsNewCommers", thisYearsNewCommers);
+		currentStats.put("mySiteUsers", mySiteUsers);
+		
+		return currentStats;
 	}
+	
+	
+	
 }

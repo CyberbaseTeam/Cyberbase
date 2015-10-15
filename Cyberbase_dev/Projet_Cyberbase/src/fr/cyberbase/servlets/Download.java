@@ -23,7 +23,7 @@ import Services.DownloadService;
 public class Download extends HttpServlet {
 	private static final long serialVersionUID = 1L;
       
-	
+	private static final String CSVFILE_PATH = "/home/imie/stats Ref_" + (new DateTime()).getMillis() + ".csv";
 	
 	DownloadService ds = new DownloadService();
     /**
@@ -48,45 +48,44 @@ public class Download extends HttpServlet {
 		if(request.getParameter("export") != null)
 		{
 			String fileContent = request.getParameter("exportValue");	
-			DateTime currentDate = new DateTime();
 			
 			
-			Timestamp currentDayInMillis = new Timestamp(currentDate.getMillis());
-			String fileName = "stats du " + currentDate.getMillis() + ".csv";
+			String fileName = CSVFILE_PATH;
 			
 			ds.writeCsv(fileContent, fileName);
 			System.out.println(request.getParameter("exportValue"));
 			
-				 try{
-				    File file = new File(fileName);
-				    if(!file.exists())
-				    {
-				        throw new ServletException("File doesn't exists on server.");
-				    }
-				    String encoding = request.getCharacterEncoding();
-		            if ((encoding != null) && (encoding.equalsIgnoreCase("utf-8")))
-		            {
-		                response.setContentType("text/csv; charset=utf-8");
-		            }
-				    
-				    
-		            response.setHeader("content-type:application/csv","charset=UTF-8");
-				    response.setHeader("Content-Disposition","attachment; filename=\"" + fileName + "\""); 
+			try{
+			    File file = new File(fileName);
+			    if(!file.exists())
+			    {
+			        throw new ServletException("File doesn't exists on server.");
+			    }
+			    String encoding = request.getCharacterEncoding();
+	            if ((encoding != null) && (encoding.equalsIgnoreCase("utf-8")))
+	            {
+	                response.setContentType("text/csv; charset=utf-8");
+	            }
+			    
+			    
+	            response.setHeader("content-type:application/csv","charset=UTF-8");
+			    response.setHeader("Content-Disposition","attachment; filename=\"" + fileName + "\""); 
 
-				    java.io.FileInputStream fileInputStream = new java.io.FileInputStream(fileName);
-				    InputStreamReader isr = new InputStreamReader(fileInputStream, "UTF8");
+			    java.io.FileInputStream fileInputStream = new java.io.FileInputStream(fileName);
+			    InputStreamReader isr = new InputStreamReader(fileInputStream, "UTF8");
 
-				    int i; 
-				    while ((i=isr.read()) != -1) 
-				    {
-				         response.getWriter().write(i); 
-				    } 
-				    fileInputStream.close();
-				}
-				catch(Exception e)
-				{
-				    System.err.println("Error while downloading file["+fileName+"]"+e);
-				}
+			    int i; 
+			    while ((i=isr.read()) != -1) 
+			    {
+			         response.getWriter().write(i); 
+			         file.delete();
+			    } 
+			    fileInputStream.close();
+			}
+			catch(Exception e)
+			{
+			    System.err.println("Error while downloading file["+fileName+"]"+e);
+			}
 			
 			
 		}

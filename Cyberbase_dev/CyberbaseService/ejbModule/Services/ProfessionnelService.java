@@ -83,5 +83,13 @@ public class ProfessionnelService {
 		List<ProfessionnelEntity> professionnelEntity = query.getResultList();
 		return professionnelEntity;
 	}
+	
+	public List<ProfessionnelEntity> findByName(String professionnel) {
+		Query query = entityManager.createNamedQuery("professionnelEntity.findByName");
+		query.setParameter("nom_professionnel","%"+professionnel+"%");
+		@SuppressWarnings("unchecked")
+		List<ProfessionnelEntity> professionnelEntity = query.getResultList();
+		return professionnelEntity;
+	}
 
 }

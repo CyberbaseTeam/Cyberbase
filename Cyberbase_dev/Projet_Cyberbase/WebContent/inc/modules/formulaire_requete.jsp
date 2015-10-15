@@ -10,7 +10,7 @@
 		<form method="POST">
 			<div class="row">
 				<div class="col-md-1"></div>
-				<label for="searchPanel">Chercher parmi:</label>
+				<label class="col-md-2" for="searchPanel">Chercher parmi:</label>
 				 <select name="searchPanel">
 					<option selected value="all">Tous les inscrits</option>
 					<c:forEach items="${siteList}" var="site">
@@ -21,17 +21,14 @@
 			
 			<div class="row">
 				<div class="col-md-1"></div>
-				<label for="displayData[]">Données à afficher: </label>
-			</div>
-			<div class="row">
-				<div class="col-md-2"></div>
+				<label class="col-md-2" for="displayData[]">Données à afficher: </label>
+				
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]" value="displayGender">
 						Civilité
 					</p>
 				</div>
-			
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]" value="displaySurname">
@@ -44,15 +41,18 @@
 						Nom
 					</p>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-2"></div>
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]" value="displayDOB">
 						Date de naissance
 					</p>
 				</div>
+				
+							
+			</div>
+			<div class="row">
+				<div class="col-md-3"></div>
+				
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]" value="displayAddress">Adresse
@@ -64,31 +64,31 @@
 						Ville
 					</p>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-2"></div>
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]" value="displayZipCode">Code
 						postal
 					</p>
 				</div>
-
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]" value="displayEmail">
 						Email
 					</p>
 				</div>
+							
+			</div>
+			<div class="row">
+				<div class="col-md-3"></div>
+				
+
+				
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]"
 							value="displayPatronage">Accompagnement
 					</p>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-2"></div>
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]" value="displaySite">
@@ -106,9 +106,11 @@
 						<input type="checkbox" name="displayData[]" value="displayCsp">CSP
 					</p>
 				</div>
+				
+				
 			</div>
 			<div class="row">
-				<div class="col-md-2"></div>
+				<div class="col-md-3"></div>
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]"
@@ -121,12 +123,20 @@
 							value="displayVisitCount" /> Nombre de visite
 					</p>
 				</div>
+				
+				
+				
+		
+		
+				
+				
 			</div>
-			<h3>Critères de recherche</h3>
+			
 			<div class="row">
-
+				<div class="col-md-1"></div>
+				<label id="criteriaLabel" class="col-md-2 ">Critères de recherche:</label>
 				<div id="gender">
-					<div class="col-md-1"></div>
+					
 					<div class="col-md-1">
 						<label for="gender">Sexe: </label>
 					</div>
@@ -145,17 +155,14 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-2">
+				<div class="col-md-3"></div>
+				<div class="col-md-1">
 					<label for="city">Ville: </label>
 				</div>
 				<div class="col-md-2">
 					<input type="text" name="city" />
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<label for="district">Quartier:</label>
 				</div>
 				<div class="col-md-2">
@@ -166,10 +173,11 @@
 						</c:forEach>
 					</select>
 				</div>
+				
 			</div>
 			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-2">
+				<div class="col-md-3"></div>
+				<div class="col-md-1">
 					<label for="csp">CSP:</label>
 				</div>
 				<div class="col-md-2">
@@ -180,10 +188,7 @@
 						</c:forEach>
 					</select>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<label for="formation">Niveau de formation: </label>
 				</div>
 
@@ -195,10 +200,7 @@
 						</c:forEach>
 					</select>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<label for="objective">Objet de la visite: </label>
 				</div>
 				<div class="col-md-2">
@@ -209,10 +211,12 @@
 						</c:forEach>
 					</select>
 				</div>
+				
+				
 			</div>
 			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-2">
+				<div class="col-md-3"></div>
+				<div class="col-md-1">
 					<label for="visitMin">Nombre de venues entre </label>
 				</div>
 				<div class="col-md-2">
@@ -224,11 +228,13 @@
 				<div class="col-md-2">
 					<input type="text" name="visitMax">
 				</div>
+							
+				
 			</div>
 			<div class="row">
-				<div class="col-md-1"></div>
-				<div class="col-md-2">
-					<label for="dateStart">Venues entre </label>
+				<div class="col-md-3"></div>
+				<div class="col-md-1">
+					<label for="dateStart">Personnes venues entre </label>
 				</div>
 				<div class="col-md-2">
 					<input type="date" name="dateStart">
@@ -241,16 +247,14 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-1"></div>
+				<div class="col-md-3"></div>
 				<div class="col-md-3">
-					<label>Enregistrer cette requête dans vos requêtes
-						favorites: </label>
+					<label>Enregistrer cette requête dans vos requêtes	favorites: </label>
+					<input id="saveQueryCheck" type="checkbox" name="saveQuery" />
 				</div>
-				<div class="col-md-1">
-					<input type="checkbox" name="saveQuery" />
-				</div>
-				<div class="col-md-1">
-					<label>Sous quel nom: </label>
+				
+				<div id="saveQueryNameForm" class="col-md-1">
+					<label>Sous ce nom: </label>
 				</div>
 				<div class="col-md-2">
 					<input type="text" name="queryName" />
@@ -259,7 +263,7 @@
 			<br>
 			<div class="row">
 				<div class="col-md-4"></div>
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<input class="btn btn-primary btn-lg btn-block" type="submit"
 						value="Lancer la requête" />
 				</div>

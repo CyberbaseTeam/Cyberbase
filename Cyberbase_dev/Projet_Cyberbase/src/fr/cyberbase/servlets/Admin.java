@@ -17,12 +17,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.cyberbase.entities.CspEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
+import fr.cyberbase.entities.QuartierEntity;
 import fr.cyberbase.entities.SiteEntity;
 import fr.cyberbase.entities.StructureEntity;
 import fr.cyberbase.util.CookieTools;
 import fr.cyberbase.util.Login;
+import Services.CspService;
 import Services.ProfessionnelService;
+import Services.QuartierService;
 import Services.SiteService;
 import Services.StructureService;
 
@@ -48,6 +52,10 @@ public class Admin extends HttpServlet {
 	SiteService siteService;
 	@EJB
 	StructureService structureService;
+	@EJB
+	QuartierService quartierService;
+	@EJB
+	CspService cspService;
 
 	public Admin() {
 		super();
@@ -70,19 +78,33 @@ public class Admin extends HttpServlet {
 			request.setAttribute(ATTR_PRO, professionnelService.findBySite(siteEntity));	
 			request.setAttribute(ATTR_SITES, siteService.findAll());
 			this.getServletContext().getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);
-		}	
+		}			
 		
-		
-		
-		
-		
-		if (request.getParameter("action") != null && request.getParameter("action").equals("creerPro"))
+		else if (request.getParameter("action") != null && request.getParameter("action").equals("creerPro"))
 		{		
 			request.setAttribute("sites", siteService.findAll());
 			request.setAttribute("structures", structureService.findAll());
 			
 			request.getRequestDispatcher("/WEB-INF/ajout_professionnel.jsp").forward(request, response);
 		}
+		
+		else if (request.getParameter("action") != null && request.getParameter("action").equals("siteAdministration"))
+		{	
+			request.setAttribute(ATTR_SITES, siteService.findAll());
+			
+			this.getServletContext().getRequestDispatcher("/WEB-INF/administration_site.jsp").forward(request, response);
+		}
+		
+		
+		else if (request.getParameter("RechercheParNom") != null)
+		{
+			
+			String nom = request.getParameter("inputRecherche");
+			request.setAttribute(ATTR_PRO, professionnelService.findByName(nom));	
+			request.setAttribute(ATTR_SITES, siteService.findAll());
+			this.getServletContext().getRequestDispatcher("/WEB-INF/administration.jsp").forward(request, response);
+		}
+		
 		else{	
 			request.setAttribute(ATTR_PRO, professionnelService.findAll());
 			request.setAttribute(ATTR_SITES, siteService.findAll());
@@ -158,6 +180,62 @@ public class Admin extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/administration.jsp")
 					.forward(request, response);
 		}
+		else if (request.getParameter("ajoutSite") != null) {
+			SiteEntity siteEntity = new SiteEntity();
+			siteEntity.setNom_site(request.getParameter("inputSite"));
+			siteEntity.setAdresse_site(request.getParameter("inputAdresse"));
+			siteEntity.setVille_site(request.getParameter("inputVille"));
+			siteEntity.setCode_postal_site(Integer.valueOf(request.getParameter("inputCP")));
+			try{
+				siteService.add(siteEntity);
+				request.setAttribute("professionnels",
+						professionnelService.findAll());
+				request.setAttribute("sites", siteService.findAll());
+				
+			}
+			catch(Exception e){
+				
+			}	
+			
+			this.getServletContext().getRequestDispatcher("/WEB-INF/administration_site.jsp").forward(request, response);		
+		}
+		
+		else if (request.getParameter("ajoutQuartier") != null) {
+			QuartierEntity quartierEntity = new QuartierEntity();
+			quartierEntity.setNom_quartier(request.getParameter("inputQuartier"));
+			try{
+
+				quartierService.add(quartierEntity);
+				request.setAttribute("professionnels",
+						professionnelService.findAll());
+				request.setAttribute("sites", siteService.findAll());
+				
+			}
+			catch(Exception e){
+				
+			}
+			this.getServletContext().getRequestDispatcher("/WEB-INF/administration_site.jsp").forward(request, response);
+		}
+	
+		else if (request.getParameter("ajoutCSP") != null) {
+			CspEntity cspEntity = new CspEntity();
+			cspEntity.setLibelle_csp(request.getParameter("inputCSP"));
+			try{
+
+				cspService.add(cspEntity);
+				
+				
+			}
+			catch(Exception e){
+				
+			}
+			request.setAttribute("sites", siteService.findAll());
+			request.setAttribute("professionnels", professionnelService.findAll());
+			this.getServletContext().getRequestDispatcher("/WEB-INF/administration_site.jsp").forward(request, response);
+		}
+		
+		
+		
 	}
 	
 	private Login getLoginFromCookie(Cookie[] cookies) throws UnsupportedEncodingException {
