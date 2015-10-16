@@ -65,6 +65,11 @@ public class Statistiques extends HttpServlet {
 	private static final String ATTR_FORMATION	 	= "formationList";
 	private static final String ATTR_DEMARCHE	 	= "demarcheList";
 	private static final String ATTR_REQUETES	 	= "requeteList";
+	private static final String ATTR_CURRENTSTATS	= "currentStats";
+	private static final String ATTR_SECTION		= "sectionName";
+	private static final String ATTR_LOGIN			= "login";
+	
+	
 	
 	
 	private static final String FIELD_DISPLAY_DATA 	= "displayData[]";
@@ -83,8 +88,7 @@ public class Statistiques extends HttpServlet {
 	private static final String FIELD_QUERY_NAME 	= "queryName";
 	
 	private static final String CSV_SEPARATOR	 	= ",";
-	
-	
+		
 	List<SiteEntity> siteList;
 	List<UsagerEntity> usagerList;
 	List<CspEntity> cspList;
@@ -142,18 +146,14 @@ public class Statistiques extends HttpServlet {
 		
 		querySelectObjects = new ArrayList<String>();
 		columnNames = new ArrayList<String>();
-		
-		
-		
+				
 		Login login = new Login();	
 		Cookie cookies [] = request.getCookies();
 		login = getLoginFromCookie(cookies);
-		
+		request.setAttribute(ATTR_LOGIN, login);
 		ProfessionnelEntity logged = professionnelService.findByTechId(login.getLoginTechId());
 		initializeData(request, logged);
-		
-		
-		
+				
 		if(request.getParameter("action") != null && request.getParameter("action").equals("personalQuery"))
 		{
 			RequeteEntity query = new RequeteEntity();
@@ -164,24 +164,14 @@ public class Statistiques extends HttpServlet {
 			String[] displayData = statistiqueService.getDisplayData(queryInfo.getContenu_requete());
 			prepareSelectObjectsAndColums(displayData);
 			queryObjects = statistiqueService.getQueryParameter(queryInfo.getContenu_requete());
-			
-			Set listKeys=queryObjects.keySet();  
-			Iterator iterateur=listKeys.iterator();
-			while(iterateur.hasNext())
-			{
-				Object key= iterateur.next();
-				System.out.println (key+" ???? =>"+queryObjects.get(key));		
-			}	
-			
+					
 			List<Object> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
 			String htmlResult = queryResultToHtml(queryResult, querySelectObjects.size(), columnNames  );
 					
 			request.setAttribute("columnNames", columnNames);
 			request.setAttribute("htmlResult", htmlResult);
 			initializeData(request, logged);
-			
-			
-				
+							
 		}
 		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);
@@ -191,9 +181,7 @@ public class Statistiques extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
+				
 		queryObjects = new HashMap<String, String>();
 		
 		querySelectObjects = new ArrayList<String>();
@@ -201,90 +189,76 @@ public class Statistiques extends HttpServlet {
 		Login login = new Login();	
 		Cookie cookies [] = request.getCookies();
 		login = getLoginFromCookie(cookies);
-		
+		request.setAttribute(ATTR_LOGIN, login);
 		ProfessionnelEntity logged = professionnelService.findByTechId(login.getLoginTechId());
-		System.out.println(login.getLoginTechId());
-		
-		prepareSelectObjectsAndColums(request.getParameterValues(FIELD_DISPLAY_DATA));
-					
-		for(int i = 0; i < querySelectObjects.size(); i++){
-			System.out.println(querySelectObjects.get(i));
-		}
-		
-		for(int i = 0; i < columnNames.size(); i++){
-			System.out.println(columnNames.get(i));
-		}
 				
+		prepareSelectObjectsAndColums(request.getParameterValues(FIELD_DISPLAY_DATA));
+						
 		String searchPanel = request.getParameter(FIELD_SEARCH_PANEL);
 		queryObjects.put(FIELD_SEARCH_PANEL, request.getParameter(FIELD_SEARCH_PANEL).toString());
 		String gender = request.getParameter(FIELD_GENDER);
 		if(gender != null)
 			queryObjects.put(FIELD_GENDER, gender);
-		System.out.println(gender);
+		
 		String city = request.getParameter(FIELD_CITY);
 		if(!city.equals(""))
 			queryObjects.put(FIELD_CITY, city);
-		System.out.println(city.equals(""));
+		
 		String district = request.getParameter(FIELD_DISTRICT);
 		if(!district.equals(""))
 			queryObjects.put(FIELD_DISTRICT, district);		
-		System.out.println(district.equals(""));
+		
 		String csp = request.getParameter(FIELD_CSP);
 		if(!csp.equals(""))
 			queryObjects.put(FIELD_CSP, csp);		
-		System.out.println(csp.equals(""));		
+		
 		String formation = request.getParameter(FIELD_FORMATION);
 		if(!formation.equals(""))
 			queryObjects.put(FIELD_FORMATION, formation);	
-		System.out.println(formation.equals(""));
+		
 		String objective = request.getParameter(FIELD_OBJECTIVE);
 		if(!objective.equals(""))
 			queryObjects.put(FIELD_OBJECTIVE, objective);	
-		System.out.println(objective.equals(""));
+		
 		String visitMin = request.getParameter(FIELD_VISIT_MIN);
 		if(!visitMin.equals(""))
 			queryObjects.put(FIELD_VISIT_MIN, visitMin);	
-		System.out.println(visitMin.equals(""));
+		
 		String visitMax = request.getParameter(FIELD_VISIT_MAX);
 		if(!visitMax.equals(""))
 			queryObjects.put(FIELD_VISIT_MAX, visitMax);	
-		System.out.println(visitMax.equals(""));
+		
 		String dateStart = request.getParameter(FIELD_DATE_START);
 		if(!dateStart.equals(""))
 			queryObjects.put(FIELD_DATE_START, dateStart);	
-		System.out.println(dateStart.equals(""));
+		
 		String dateEnd = request.getParameter(FIELD_DATE_END);
 		if(!dateEnd.equals(""))
 			queryObjects.put(FIELD_DATE_END, dateEnd);	
-		System.out.println(dateEnd.equals(""));
+		
 		String saveQuery = request.getParameter(FIELD_SAVE_QUERY);
 		if(saveQuery != null)
 			queryObjects.put(FIELD_SAVE_QUERY, saveQuery);	
-		System.out.println(saveQuery==null);
+		
 		String queryName = request.getParameter(FIELD_QUERY_NAME);
 		if(!queryName.equals(""))
 			queryObjects.put(FIELD_QUERY_NAME, queryName);	
-		System.out.println(queryName.equals(""));
-			
-		Set listKeys=queryObjects.keySet();  
-		Iterator iterateur=listKeys.iterator();
-		while(iterateur.hasNext())
-		{
-			Object key= iterateur.next();
-			System.out.println (key+"=>"+queryObjects.get(key));		
-		}	
-		
+				
 		List<Object> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
 		String htmlResult = queryResultToHtml(queryResult, querySelectObjects.size(), columnNames  );
-		
-		
-		
+				
 		request.setAttribute("columnNames", columnNames);
 		request.setAttribute("htmlResult", htmlResult);
 		initializeData(request, logged);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);		
 	}
 	
+	/**
+	 * Fonction de création de la session à partir du cookie 
+	 * @param cookies ensembles des cookies récupérés du navigateur
+	 * @return Login	infos utilisateur connecté
+	 * @throws UnsupportedEncodingException
+	 */
 	private Login getLoginFromCookie(Cookie[] cookies) throws UnsupportedEncodingException {
 		Login login = new Login();
 		CookieTools cookieTools = new CookieTools();
@@ -306,6 +280,11 @@ public class Statistiques extends HttpServlet {
 		return null;
 	}
 
+	/**
+	 * Fonction qui initialise les infos envoyées systématiquement dans la requête
+	 * @param request HttpServletRequest
+	 * @param pro ProfessionnelEntity utilisateur actuel loggué sur l'application
+	 */
 	private void initializeData(HttpServletRequest request, ProfessionnelEntity pro){
 		currentStats = getCurrentStats(request, pro.getSite_reference());
 		siteList = siteService.findAll();
@@ -321,12 +300,14 @@ public class Statistiques extends HttpServlet {
 		request.setAttribute(ATTR_FORMATION, formationList);
 		request.setAttribute(ATTR_DEMARCHE, demarcheList);
 		request.setAttribute(ATTR_REQUETES, requeteList);
-		request.setAttribute("currentStats", currentStats);
-		request.setAttribute("sectionName", "STATISTIQUES");
-		
-		
+		request.setAttribute(ATTR_CURRENTSTATS, currentStats);
+		request.setAttribute(ATTR_SECTION, "STATISTIQUES");	
 	}
 
+	/**
+	 * Fonction d'initialisation des élémnets demandés à l'affichage ,et des noms de colonnes à afficher 
+	 * @param displayData les éléments que l'utilisateur souhaite voir s'afficher
+	 */
 	private void prepareSelectObjectsAndColums(String[] displayData){
 		if(displayData == null)
 		{
@@ -423,15 +404,20 @@ public class Statistiques extends HttpServlet {
 		}
 	}
 	
+	/**
+	 * Fonction de transformation d'un resultat de requête SQL en HTML
+	 * @param queryResult	résultat d'une requête SQL
+	 * @param maxIndex		le nombre de colonnes à afficher
+	 * @param columnNames	le nom des colonnes à afficher
+	 * @return				le texte HTML affichant le résultat
+	 */
 	private String queryResultToHtml (List<Object> queryResult, Integer maxIndex, List<String> columnNames)
 	{
-		String htmlResult = "";
-		System.out.println("taille du résultat: " + queryResult.size());
-		String prepareCsv = prepareCsv(columnNames, maxIndex, queryResult);
-		System.out.println("csv " + prepareCsv);
+		String htmlResult = "";		
+		String prepareCsv = prepareCsv(columnNames, maxIndex, queryResult);		
 		if(queryResult.size() == 0)
 		{
-			htmlResult = "<strong>Cette requète ne retourne aucune valeur.</strong>";
+			htmlResult = "<p class=\"noResultQuery\">Cette requète ne retourne aucune valeur.</p>";
 		}
 		else
 		{
@@ -466,6 +452,13 @@ public class Statistiques extends HttpServlet {
 		return htmlResult;
 	}
 	
+	/**
+	 * Fonction de préparation des données de résultat SQL pour être transformée en fichier tableur .csv
+	 * @param columnNames	nom des colonnes
+	 * @param maxIndex		nombre de colonnes
+	 * @param queryResult	résultat de requête SQL
+	 * @return				les données au format .csv
+	 */
 	private String prepareCsv(List<String> columnNames, Integer maxIndex, List<Object> queryResult)
 	{
 		String csvContent = "";
@@ -495,14 +488,16 @@ public class Statistiques extends HttpServlet {
 		return csvContent;
 	}
 	
-	
-	
-	
-	
+
+	/**
+	 * Fonction de récupération des statistiques actuelles
+	 * @param request	la requête entrante
+	 * @param site		le site de la personne connectée
+	 * @return			l'ensemble des statistiques actuelles
+	 */
 	private Map<String, Object> getCurrentStats(HttpServletRequest request, SiteEntity site){
 		Map<String, Object> currentStats = new HashMap<String, Object>();
-		
-		
+			
 		Calendar todayStart = Calendar.getInstance();
 		Calendar todayEnd = Calendar.getInstance();
 		todayStart.set(Calendar.HOUR_OF_DAY, 0);
@@ -565,7 +560,6 @@ public class Statistiques extends HttpServlet {
 		BigInteger thisYearsNewCommers = affectationService.findNewCommersByPeriodAndSite(site, currentYearStart, currentYearEnd);
 		
 		Long mySiteUsers = affectationService.getDistinctAffectedUsers(site);
-		System.out.println(mySiteUsers);
 		
 		currentStats.put("todaysVisits", todaysVisits);
 		currentStats.put("thisMonthsVisits", thisMonthsVisits);
@@ -577,7 +571,6 @@ public class Statistiques extends HttpServlet {
 		
 		return currentStats;
 	}
-	
-	
+		
 	
 }

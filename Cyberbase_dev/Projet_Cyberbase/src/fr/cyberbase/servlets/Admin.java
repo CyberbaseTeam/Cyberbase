@@ -38,7 +38,7 @@ public class Admin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ATTR_SITES 	= "siteList";
 	private static final String ATTR_PRO 	= "professionnelList";
-	
+	private static final String ATTR_LOGIN	= "login";
 
 	List<SiteEntity> siteList;
 	
@@ -67,7 +67,10 @@ public class Admin extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		Login login = new Login();	
+		Cookie cookies [] = request.getCookies();
+		login = getLoginFromCookie(cookies);
+		request.setAttribute(ATTR_LOGIN, login);
 		
 		String action = request.getParameter("action");
 			
@@ -121,6 +124,11 @@ public class Admin extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		Login login = new Login();	
+		Cookie cookies [] = request.getCookies();
+		login = getLoginFromCookie(cookies);
+		request.setAttribute(ATTR_LOGIN, login);
+		
 		if (request.getParameter("actionSupprimer") != null) {
 			String techid = request.getParameter("inputId");
 			ProfessionnelEntity professionnelEntity = professionnelService.findByTechId(techid);
@@ -185,16 +193,17 @@ public class Admin extends HttpServlet {
 			siteEntity.setNom_site(request.getParameter("inputSite"));
 			siteEntity.setAdresse_site(request.getParameter("inputAdresse"));
 			siteEntity.setVille_site(request.getParameter("inputVille"));
-			siteEntity.setCode_postal_site(Integer.valueOf(request.getParameter("inputCP")));
+			siteEntity.setCode_postal_site(Integer.valueOf(request.getParameter("inputCp")));
 			try{
 				siteService.add(siteEntity);
 				request.setAttribute("professionnels",
 						professionnelService.findAll());
 				request.setAttribute("sites", siteService.findAll());
+				request.setAttribute("addMessage","l'ajout a bien été effectué");
 				
 			}
 			catch(Exception e){
-				
+				request.setAttribute("addMessage","l'ajout n'a pu être effectué. Veuillez réessayer");
 			}	
 			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/administration_site.jsp").forward(request, response);		
@@ -209,33 +218,32 @@ public class Admin extends HttpServlet {
 				request.setAttribute("professionnels",
 						professionnelService.findAll());
 				request.setAttribute("sites", siteService.findAll());
+				request.setAttribute("addMessage","l'ajout a bien été effectué");
 				
 			}
 			catch(Exception e){
-				
+				request.setAttribute("addMessage","l'ajout n'a pu être effectué. Veuillez réessayer");
 			}
 			this.getServletContext().getRequestDispatcher("/WEB-INF/administration_site.jsp").forward(request, response);
 		}
 	
-		else if (request.getParameter("ajoutCSP") != null) {
+		else if (request.getParameter("ajoutCsp") != null) {
 			CspEntity cspEntity = new CspEntity();
-			cspEntity.setLibelle_csp(request.getParameter("inputCSP"));
+			cspEntity.setLibelle_csp(request.getParameter("inputCsp"));
 			try{
 
 				cspService.add(cspEntity);
-				
+				request.setAttribute("addMessage","l'ajout a bien été effectué");
+				request.setAttribute("sites", siteService.findAll());
+				request.setAttribute("professionnels", professionnelService.findAll());
 				
 			}
 			catch(Exception e){
-				
+				request.setAttribute("addMessage","l'ajout n'a pu être effectué. Veuillez réessayer");
 			}
-			request.setAttribute("sites", siteService.findAll());
-			request.setAttribute("professionnels", professionnelService.findAll());
+			
 			this.getServletContext().getRequestDispatcher("/WEB-INF/administration_site.jsp").forward(request, response);
-		}
-		
-		
-		
+		}	
 	}
 	
 	private Login getLoginFromCookie(Cookie[] cookies) throws UnsupportedEncodingException {

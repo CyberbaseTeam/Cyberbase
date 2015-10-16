@@ -120,7 +120,7 @@
 				<div class="col-md-2">
 					<p>
 						<input type="checkbox" name="displayData[]"
-							value="displayVisitCount" /> Nombre de visite
+							value="displayVisitCount" /> Nombre de visites
 					</p>
 				</div>
 				
@@ -252,12 +252,13 @@
 					<label>Enregistrer cette requête dans vos requêtes	favorites: </label>
 					<input id="saveQueryCheck" type="checkbox" name="saveQuery" />
 				</div>
-				
-				<div id="saveQueryNameForm" class="col-md-1">
-					<label>Sous ce nom: </label>
-				</div>
-				<div class="col-md-2">
-					<input type="text" name="queryName" />
+				<div id="saveQueryNameForm">
+					<div class="col-md-1">
+						<label>Sous ce nom: </label>
+					</div>
+					<div class="col-md-2">
+						<input type="text" name="queryName" />
+					</div>
 				</div>
 			</div>
 			<br>

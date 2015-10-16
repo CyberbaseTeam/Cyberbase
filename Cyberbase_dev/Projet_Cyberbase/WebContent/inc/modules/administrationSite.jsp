@@ -1,36 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-   <h3>Formaulaires d'ajouts d'éléments à choisir dans les listes déroulantes du site</h3> 
-    
-    
-    <form method="post">
+<h3>Formulaires d'ajouts d'éléments à choisir dans les listes
+	déroulantes du site</h3>
+
+<div id="addStatus">${ addMessage }</div>
+<div id="addSiteForm">
+	<form method="post">
+
 		<h4>Ajouter un site :</h4>
-		<label for="inputSite">Nom du site :</label>
-		<input type="text" name="inputSite" />
-		<label for="inputAdresse">Adresse du site :</label>
-		<input type="text" name="inputAdresse" />
-		<label for="inputVille">Ville du site :</label>
-		<input type="text" name="inputVille" />		
-		<label for="inputCP">Code postal :</label>
-		<input type="text" name="inputCP" />
-		<input type="submit" value="Ajouter" name="ajoutSite">				
+
+		<div>
+
+			<label for="inputSite"" >Nom du site :</label> <input type="text"
+				name="inputSite" />
+		</div>
+		<div>
+
+			<label for="inputAdresse">Adresse du site :</label> <input
+				type="text" name="inputAdresse" />
+		</div>
+		<div>
+
+			<label for="inputVille">Ville du site :</label> <input type="text"
+				name="inputVille" />
+		</div>
+		<div>
+
+			<label for="inputCp">Code postal :</label> <input type="text"
+				name="inputCp" />
+		</div>
+
+
+
+		<div>
+			<input class="btn btn-primary " type="submit" value="Ajouter site"
+				name="ajoutSite">
+		</div>
+
+
 	</form>
-	
+
+</div>
+
+<div id="addQuartierForm">
 	<form method="post">
-		<h4>Ajouter un Quartier :</h4>
-		<label for="inputQuartier">Nom du quartier :</label><input type="text" name="inputQuartier" />
-		<input type="submit" value="Ajouter" name="ajoutQuartier">
+		<div>
+
+			<h4>Ajouter un quartier :</h4>
+		</div>
+		<div>
+
+			<label for="inputQuartier">Nom du quartier :</label> <input
+				type="text" name="inputQuartier" />
+		</div>
+
+
+
+		<div>
+			<input type="submit" class="btn btn-primary "
+				value="Ajouter quartier" name="ajoutQuartier">
+		</div>
+
 	</form>
+
+
+</div>
+<div id="addCspForm">
 	<form method="post">
-		<h4>Ajouter un CSP :</h4>
-		<label for="inputCsp">Nom CSP :</label>
-		<input type="text" name="inputCSP" />
-		<input type="submit" value="Ajouter" name="ajoutCSP">
+		<div>
+
+			<h4>Ajouter un CSP :</h4>
+		</div>
+		<div>
+
+			<label for="inputCsp">Nom du Csp :</label> <input type="text"
+				name="inputCsp" />
+		</div>
+
+
+
+		<div>
+			<input type="submit" class="btn btn-primary  " value="Ajouter csp"
+				name="ajoutCsp">
+		</div>
+
 	</form>
-	
-	<div >
-		<form method="post">
-			<input type="submit" class="btn btn-primary btn-md btn-block" name="retour" value="Retour" />
-		</form>
-	</div>
+
+</div>
+<div id="adminSiteEnd">
+</div>
+
+
+
+
+

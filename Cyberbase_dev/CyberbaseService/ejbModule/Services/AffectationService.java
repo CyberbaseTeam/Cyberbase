@@ -80,10 +80,12 @@ public class AffectationService {
 	
 	
 	public BigInteger findNewCommersByPeriodAndSite(SiteEntity site, Timestamp start, Timestamp end){
-		Query executedQuery = entityManager.createNativeQuery("SELECT COUNT(*) FROM ("
-				+ "SELECT MIN(date_debut_affectation), id_usager FROM affectation"
-				+ "	GROUP BY id_usager HAVING MIN(date_debut_affectation) BETWEEN :start AND :end)AS visitCount");
-
+		Query executedQuery = entityManager.createNativeQuery(
+				"SELECT COUNT(*) FROM ( SELECT MIN(date_debut_affectation), affectation.id_professionnel FROM affectation, professionnel, site "
+				+ "WHERE professionnel.site_reference = site.id_site AND affectation.id_professionnel = professionnel.id_professionnel AND site_reference = :id_site "
+				+ "group by id_usager, affectation.id_professionnel HAVING MIN(date_debut_affectation) BETWEEN :start AND :end) AS visitCount");
+		
+		executedQuery.setParameter("id_site", site.getId_site());
 		executedQuery.setParameter("start", start);
 		executedQuery.setParameter("end", end);
 		
