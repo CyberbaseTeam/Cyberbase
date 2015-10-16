@@ -19,7 +19,7 @@ import fr.cyberbase.entities.UsagerEntity;
 public class Exclure_form extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ATTR_USAGER 			= "usager";
-	
+	private static final String ATTR_SECTION  = "section";
 	@EJB
 	UsagerService usagerService;
        
@@ -35,7 +35,7 @@ public class Exclure_form extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setAttribute(ATTR_SECTION, "USAGERS");	
 		//Récupération de l'id usager passé en paramètre d'URL dans le cas d'une modification 
 		String idUsagerParameter = request.getParameter("id");
 		if (idUsagerParameter != null) {
@@ -51,7 +51,7 @@ public class Exclure_form extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.setAttribute(ATTR_SECTION, "USAGERS");	
 	}
 
 }

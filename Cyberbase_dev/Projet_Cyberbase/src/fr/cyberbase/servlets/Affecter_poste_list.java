@@ -29,7 +29,7 @@ import fr.cyberbase.util.Login;
 @WebServlet("/affecter_poste_list")
 public class Affecter_poste_list extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	private static final String ATTR_SECTION= "section";
 	@EJB
 	AffectationService affectationService;
        
@@ -45,6 +45,7 @@ public class Affecter_poste_list extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute(ATTR_SECTION, "CONSOLE");	
 		CookieTools cookieTools = new CookieTools();
 		String techId = null;
 		Login login = new Login();
@@ -106,6 +107,7 @@ public class Affecter_poste_list extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute(ATTR_SECTION, "CONSOLE");	
 		if (request.getParameter("edit") != null){
 			String idAffectationParameter = request.getParameter("inputIdAffectation");
 			Integer idAffectation = Integer.valueOf(idAffectationParameter);

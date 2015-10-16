@@ -150,7 +150,7 @@ public class Statistiques extends HttpServlet {
 		Login login = new Login();	
 		Cookie cookies [] = request.getCookies();
 		login = getLoginFromCookie(cookies);
-		request.setAttribute(ATTR_LOGIN, login);
+		
 		ProfessionnelEntity logged = professionnelService.findByTechId(login.getLoginTechId());
 		initializeData(request, logged);
 				

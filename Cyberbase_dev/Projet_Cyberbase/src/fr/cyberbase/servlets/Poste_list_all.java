@@ -29,7 +29,7 @@ import fr.cyberbase.util.Login;
 @WebServlet("/poste_list_all")
 public class Poste_list_all extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	private static final String ATTR_SECTION= "section";
 	@EJB
 	SiteService siteService;
 	@EJB
@@ -47,6 +47,7 @@ public class Poste_list_all extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute(ATTR_SECTION, "CONSOLE");
 		CookieTools cookieTools = new CookieTools();
 		String techId = null;
 		Login login = new Login();
@@ -92,7 +93,7 @@ public class Poste_list_all extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		request.setAttribute(ATTR_SECTION, "CONSOLE");
 	}
 
 }

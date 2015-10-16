@@ -5,7 +5,7 @@
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container-fluid">
 		<div class="navbar-header">
-			<a class="navbar-brand" >Nom de section</a>
+			<a class="navbar-brand" >${section}</a>
 		</div>
 		<div>
 			<ul class="nav navbar-nav">

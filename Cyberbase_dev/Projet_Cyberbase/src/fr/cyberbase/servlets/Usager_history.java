@@ -23,6 +23,7 @@ public class Usager_history extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ATTR_USAGER 			= "usager";
 	private static final String ATTR_AFF 				= "affectations";
+	private static final String ATTR_SECTION= "section";
 	
 	@EJB
 	UsagerService usagerService;
@@ -41,6 +42,7 @@ public class Usager_history extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute(ATTR_SECTION, "USAGERS");	
 		//Récupération de l'id usager passé en paramètre d'URL dans le cas d'une modification 
 		String idUsagerParameter = request.getParameter("id");
 		if (idUsagerParameter != null) {

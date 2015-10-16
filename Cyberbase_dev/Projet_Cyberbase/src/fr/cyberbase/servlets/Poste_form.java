@@ -33,7 +33,7 @@ import Services.SiteService;
 @WebServlet("/poste_form")
 public class Poste_form extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+	private static final String ATTR_SECTION= "section";
 	@EJB
 	PosteService posteService;
 	@EJB
@@ -55,7 +55,7 @@ public class Poste_form extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setAttribute(ATTR_SECTION, "CONSOLE");
 		CookieTools cookieTools = new CookieTools();
 		String techId = null;
 		Login login = new Login();
@@ -109,7 +109,7 @@ public class Poste_form extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setAttribute(ATTR_SECTION, "CONSOLE");
 		if (request.getParameter("createPoste") != null) {
 			PosteEntity poste = new PosteEntity();
 			poste.setNom_poste(request.getParameter("nomPoste"));

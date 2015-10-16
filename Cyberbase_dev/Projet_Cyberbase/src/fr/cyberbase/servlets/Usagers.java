@@ -28,6 +28,7 @@ import fr.cyberbase.entities.UsagerEntity;
 public class Usagers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ATTR_SITES 			= "siteList";
+	private static final String ATTR_SECTION= "section";
 
 	List<SiteEntity> siteList;
 	List<UsagerEntity> usagerList;
@@ -100,7 +101,7 @@ public class Usagers extends HttpServlet {
 	
 	private void initializeData(HttpServletRequest request){
 		siteList = siteService.findAll();
-		
+		request.setAttribute(ATTR_SECTION, "USAGERS");	
 		
 		request.setAttribute(ATTR_SITES, siteList);
 		

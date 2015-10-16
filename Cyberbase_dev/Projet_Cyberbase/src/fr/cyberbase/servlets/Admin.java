@@ -39,6 +39,8 @@ public class Admin extends HttpServlet {
 	private static final String ATTR_SITES 	= "siteList";
 	private static final String ATTR_PRO 	= "professionnelList";
 	private static final String ATTR_LOGIN	= "login";
+	private static final String ATTR_SECTION= "section";
+	
 
 	List<SiteEntity> siteList;
 	
@@ -70,8 +72,8 @@ public class Admin extends HttpServlet {
 		Login login = new Login();	
 		Cookie cookies [] = request.getCookies();
 		login = getLoginFromCookie(cookies);
-		request.setAttribute(ATTR_LOGIN, login);
 		
+		request.setAttribute(ATTR_SECTION, "ADMINISTRATION");	
 		String action = request.getParameter("action");
 			
 		if(action != null && action.equals("listBySite"))
@@ -123,7 +125,7 @@ public class Admin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		request.setAttribute(ATTR_SECTION, "ADMINISTRATION");
 		Login login = new Login();	
 		Cookie cookies [] = request.getCookies();
 		login = getLoginFromCookie(cookies);

@@ -36,6 +36,7 @@ public class Usager_form extends HttpServlet {
 	private static final String ATTR_QUARTIERS 			= "quartiers";
 	private static final String ATTR_CSPS 				= "csps";
 	private static final String ATTR_FORMATIONS 		= "formations";
+	private static final String ATTR_SECTION= "section";
 	
 	@EJB
 	UsagerService usagerService;
@@ -60,7 +61,7 @@ public class Usager_form extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setAttribute(ATTR_SECTION, "USAGERS");	
 		//Récupération de l'id usager passé en paramètre d'URL dans le cas d'une modification 
 		String idUsagerParameter = request.getParameter("id");
 		if (idUsagerParameter != null) {
@@ -84,6 +85,7 @@ public class Usager_form extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute(ATTR_SECTION, "USAGERS");	
 		if(request.getParameter("edit") != null){
 			UsagerEntity usager = new UsagerEntity();
 			String inputAccompagnement = request.getParameter("accompagnement");

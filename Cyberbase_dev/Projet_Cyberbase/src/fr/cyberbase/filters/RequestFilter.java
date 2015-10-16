@@ -1,6 +1,7 @@
 package fr.cyberbase.filters;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
@@ -47,6 +48,8 @@ public class RequestFilter implements Filter {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        
+        
         String path = request.getRequestURI();
         Boolean securedResource = true;
         
@@ -81,8 +84,10 @@ public class RequestFilter implements Filter {
 	    	        	
 	    	        	if(maxAge.before(now))
 	    	        		response.sendRedirect(PATH_CONNEXION);
-	    	        	else
+	    	        	else{
+	    	        		request.setAttribute("login", login);
 	    	        		chain.doFilter(request, response);
+	    	        	}
 	    	        	return;
 	    	        }
 	    			
@@ -106,4 +111,26 @@ public class RequestFilter implements Filter {
     public void destroy() {
     	
     }
+    
+    
+	private Login getLoginFromCookie(Cookie[] cookies) throws UnsupportedEncodingException {
+		Login login = new Login();
+		CookieTools cookieTools = new CookieTools();
+		for(Cookie cookie: cookies)
+		{
+			if(cookie.getName().equals(CookieTools.COOKIE_KEY)) 
+	        {
+				String tokenCookie = cookie.getValue();
+				try {
+					login = cookieTools.getLogin(tokenCookie);
+					return login;
+				} catch (InvalidKeyException | NoSuchPaddingException
+						| NoSuchAlgorithmException | IllegalBlockSizeException
+						| BadPaddingException e) {
+					e.printStackTrace();
+				}
+	        }
+		}
+		return null;
+	}
 }

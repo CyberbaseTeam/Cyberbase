@@ -50,6 +50,7 @@ import Services.UsagerService;
 @WebServlet("/affecter_poste_form")
 public class Affecter_poste_form extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static final String ATTR_SECTION= "section";
     
 	@EJB
 	PosteService posteService;
@@ -81,7 +82,7 @@ public class Affecter_poste_form extends HttpServlet {
 		CookieTools cookieTools = new CookieTools();
 		String techId = null;
 		Login login = new Login();
-		
+		request.setAttribute(ATTR_SECTION, "CONSOLE");
 		//Récupéraction du cookie
 		//Décryptage du cookie
 		//Récupération du TechID du professionnel connecté
@@ -104,11 +105,10 @@ public class Affecter_poste_form extends HttpServlet {
 		
 		//Récupération du professionnel connecté
 		ProfessionnelEntity professionnel = proService.findByTechId(techId);
-		Integer idProfessionnel = professionnel.getId_professionnel();
 				
 		//Récupération de l'id du site du professionnel connecté
 		Integer idSiteProfessionnel = login.getSiteId();
-		request.setAttribute("idPro", idProfessionnel);
+		request.setAttribute("idPro", idSiteProfessionnel);
 				
 		//Récupération du site du professionnel connecté
 		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
@@ -163,6 +163,7 @@ public class Affecter_poste_form extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setAttribute(ATTR_SECTION, "CONSOLE");
 		if (request.getParameter("create") != null) {
 			String[] inputIdUserTable = request.getParameterValues("user");
 			Integer idUser = null;
