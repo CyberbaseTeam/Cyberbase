@@ -26,7 +26,7 @@ public class ExclusionEntity {
 	
 	private Date date_fin;
 	
-	@ManyToOne (cascade = CascadeType.ALL)
+	@OneToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name="id_usager")
 	private UsagerEntity usager;
 
