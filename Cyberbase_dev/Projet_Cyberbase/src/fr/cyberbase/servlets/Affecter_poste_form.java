@@ -104,10 +104,11 @@ public class Affecter_poste_form extends HttpServlet {
 		
 		//Récupération du professionnel connecté
 		ProfessionnelEntity professionnel = proService.findByTechId(techId);
+		Integer idProfessionnel = professionnel.getId_professionnel();
 				
 		//Récupération de l'id du site du professionnel connecté
 		Integer idSiteProfessionnel = login.getSiteId();
-		request.setAttribute("idPro", idSiteProfessionnel);
+		request.setAttribute("idPro", idProfessionnel);
 				
 		//Récupération du site du professionnel connecté
 		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);

@@ -343,6 +343,24 @@ checkbox {
 	margin-bottom: 30px;
 }
 
+#container-usager_history {
+	margin : 0 auto;
+	width : 40%;
+	margin-bottom: 30px;
+}
+
+#container-usagers {
+	margin : 0 auto;
+	width : 70%;
+	margin-bottom: 30px;
+}
+
+#container-exclure_form {
+	margin : 0 auto;
+	width : 50%;
+	margin-bottom: 30px;
+}
+
 #titre-console {
 	margin-left : 10px;
 	font-weight: bold;

@@ -105,6 +105,14 @@ public class AffectationService {
 		return count;
 		
 	}
+
+	public List<AffectationEntity> findByUserId(Integer id_usager) {
+		Query query = entityManager.createNamedQuery("affectationEntity.findByUserId");
+		query.setParameter("id_usager", id_usager);
+		@SuppressWarnings("unchecked")
+		List<AffectationEntity> affectations = query.getResultList();
+		return affectations;
+	}
 	
 	
 	

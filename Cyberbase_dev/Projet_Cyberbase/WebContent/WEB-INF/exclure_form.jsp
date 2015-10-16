@@ -6,21 +6,28 @@
 
 <t:main>
 	<c:import url="/inc/modules/menu_usager.jsp" />
-	<div id="container-poste_form">
+	<div id="container-exclure_form">
 		<section>
 				<form class="affecter-form" method="post">
 					<fieldset>
 						<legend class="legende-form">
-							Informations usager
+							Formulaire d'exclusion pour l'usager : ${usager.prenom_usager} ${usager.nom_usager}
 						</legend>
 						<section>
-							<label for="civilite">Civilité :</label> 
+							<label for="civilite">Statut :</label> 
 							<label class="radio-inline">
-  								<input type="radio" id="inlineCheckbox1" name="civilite" value="M." <c:if test="${usager.civilite_usager == 'M.'}"> checked="checked"</c:if> /> M.
+  								<input type="radio" id="statut" name="statut" value="définitive" /> Définitive
 							</label>
 							<label class="radio-inline">
-  								<input type="radio" id="inlineCheckbox2" name="civilite" value="Mme" <c:if test="${usager.civilite_usager == 'Mme'}"> checked="checked"</c:if> /> Mme
+  								<input type="radio" id="statut" name="statut" value="temporaire" /> Temporaire
 							</label>
+							<label for="choixNouveauClient">Nouveau client ? <span class="requis">*</span></label>
+                        <input type="radio" id="choixNouveauClient" name="choixNouveauClient" value="nouveauClient" /> Oui
+                        <input type="radio" id="choixNouveauClient" name="choixNouveauClient" value="ancienClient" /> Non
+
+                   		<div id="temporaire">
+	                       <input type="date" name="dateExclusion">
+                    	</div>
 							<br><br>
 							<label for="nomUsager">Nom :</label> 
 							<input type="text" name="nomUsager" value="${usager.nom_usager}" size="20" maxlength="50" class="form-control" /> 
@@ -116,4 +123,17 @@
 			</form>
 	</section>
 	</div>
+	<script>
+        	jQuery(document).ready(function(){
+        		/* 1 - Au lancement de la page, on cache le bloc d'éléments du formulaire correspondant aux clients existants */
+        		$("div#temporaire").hide();
+        		/* 2 - Au clic sur un des deux boutons radio "choixNouveauClient", on affiche le bloc d'éléments correspondant (nouveau ou ancien client) */
+                jQuery('input[name=statut]:radio').click(function(){
+                	$("div#temporaire").hide();
+                	$("div#définitive").hide();
+                    var divId = jQuery(this).val();
+                    $("div#"+divId).show();
+                });
+            });
+        </script>
 </t:main>

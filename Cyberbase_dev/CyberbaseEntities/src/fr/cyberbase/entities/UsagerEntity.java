@@ -39,21 +39,21 @@ public class UsagerEntity implements Serializable {
 	private String email_usager;
 	private Boolean accompagnement;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_site_inscription")
 	private SiteEntity site_inscription;
 	
 	private Date date_inscription;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_quartier")
 	private QuartierEntity quartier;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_csp")
 	private CspEntity csp;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name="id_formation")
 	private FormationEntity niveau_formation;
 	private static final long serialVersionUID = 1L;
