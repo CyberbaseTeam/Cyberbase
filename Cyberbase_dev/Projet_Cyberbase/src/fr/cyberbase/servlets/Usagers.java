@@ -82,11 +82,19 @@ public class Usagers extends HttpServlet {
 			usagerEntity.setId_usager(id);
 			usagerService.delete(usagerEntity);
 			request.setAttribute("usagers", usagerService.findAll());
-			request.getRequestDispatcher("/WEB-INF/usager.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/usagers.jsp").forward(request, response);
 		} else if (request.getParameter("editUsager") != null){
 			String idParameter = request.getParameter("inputId");
 			Integer id = Integer.valueOf(idParameter);
 			response.sendRedirect("usager_form?id="+id);
+		} else if (request.getParameter("viewHistory") != null){
+			String idParameter = request.getParameter("inputId");
+			Integer id = Integer.valueOf(idParameter);
+			response.sendRedirect("usager_history?id="+id);
+		} else if (request.getParameter("excludeUsager") != null){
+			String idParameter = request.getParameter("inputId");
+			Integer id = Integer.valueOf(idParameter);
+			response.sendRedirect("exclure_form?id="+id);
 		}
 	}
 	

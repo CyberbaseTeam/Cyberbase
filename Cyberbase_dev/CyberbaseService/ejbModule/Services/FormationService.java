@@ -22,6 +22,10 @@ public class FormationService {
 		List<FormationEntity> listing = entityManager.createNamedQuery("formationEntity.findAll", FormationEntity.class).getResultList();
 		return listing;
 	}
+
+	public FormationEntity findById(Integer id) {
+		return entityManager.find(FormationEntity.class, id);
+	}
 	
 	
 }

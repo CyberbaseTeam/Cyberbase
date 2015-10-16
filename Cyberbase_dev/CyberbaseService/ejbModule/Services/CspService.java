@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import fr.cyberbase.entities.CspEntity;
+import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.QuartierEntity;
 import fr.cyberbase.entities.UsagerEntity;
 
@@ -20,6 +21,10 @@ public class CspService {
 		@SuppressWarnings("unchecked")
 		List<CspEntity> listing = entityManager.createNamedQuery("cspEntity.findAll", CspEntity.class).getResultList();
 		return listing;
+	}
+	
+	public CspEntity findById(Integer id) {
+		return entityManager.find(CspEntity.class, id);
 	}
 	
 	public void add(CspEntity csp) {

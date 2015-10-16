@@ -2,7 +2,9 @@ package fr.cyberbase.entities;
 
 import java.sql.Timestamp;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +24,7 @@ import javax.persistence.Table;
 	@NamedQuery(name = "affectationEntity.findOurVisitsInCertainPeriod", query = "SELECT COUNT(a) FROM AffectationEntity a "
 			+ "WHERE a.professionnel.site_reference.id_site = :id_site AND a.date_debut_affectation BETWEEN :start AND :end" ),
 	@NamedQuery(name = "affectationEntity.findDistinctUsers", query = "SELECT COUNT(DISTINCT a.usager) FROM AffectationEntity a WHERE a.professionnel.site_reference.id_site = :id_site  "),				
-	
+	@NamedQuery(name = "affectationEntity.findByUserId", query = "SELECT a FROM AffectationEntity a WHERE a.usager.id_usager = :id_usager ORDER BY a.date_debut_affectation ASC"),
 			
 })
 public class AffectationEntity {
@@ -39,7 +41,7 @@ public class AffectationEntity {
 	@JoinColumn(name="id_professionnel")
 	private ProfessionnelEntity professionnel;
 	
-	@ManyToOne
+	@ManyToOne 
 	@JoinColumn(name="id_usager")
 	private UsagerEntity usager;
 	

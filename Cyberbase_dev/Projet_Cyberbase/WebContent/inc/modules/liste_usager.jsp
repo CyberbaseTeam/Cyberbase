@@ -23,7 +23,7 @@
 				<th>Niveau de formation</th>
 				<th>CSP</th>
 				<th>Quartier</th>
-				<th colspan="3">action</th>
+				<th colspan="4">action</th>
 			</tr>
 
 			<c:forEach items="${usagers}" var="usager" varStatus="loop">
@@ -43,12 +43,21 @@
 				<td>${usager.civilite_usager}</td>
 				<td>${usager.nom_usager}</td>
 				<td>${usager.prenom_usager}</td>
-				<td>${usager.date_naissance_usager}</td>
+				<td><fmt:formatDate value="${usager.date_naissance_usager}" pattern="dd/MM/yyyy"/></td>
 				<td>${usager.adresse_usager}</td>
 				<td>${usager.code_postal_usager}</td>
 				<td>${usager.ville_usager}</td>
 				<td>${usager.email_usager}</td>
-				<td>${usager.accompagnement}</td>
+				<td>
+					<c:choose>
+						<c:when test="${usager.accompagnement}">
+								OUI		
+						</c:when>
+						<c:otherwise>
+								NON			
+						</c:otherwise>
+					</c:choose>
+				</td>
 				<td>${usager.site_inscription.nom_site}</td>
 				<td>${usager.niveau_formation.nom_formation}</td>
 				<td>${usager.csp.libelle_csp}</td>
@@ -62,7 +71,10 @@
 							<button type="submit" name="deleteUsager" class="btn btn-danger">Supprimer</button>
 						</td>
 						<td>
-							<button type="submit" name="viewHistory" class="btn btn-info">Voir historique</button>
+							<button type="submit" name="viewHistory" class="btn btn-info">Historique</button>
+						</td>
+						<td>
+							<button type="submit" name="excludeUsager" class="btn btn-warning">Exclure</button>
 						</td>
 					</form>
 				</tr>

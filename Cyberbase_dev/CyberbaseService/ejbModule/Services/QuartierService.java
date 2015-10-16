@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import fr.cyberbase.entities.CspEntity;
 import fr.cyberbase.entities.QuartierEntity;
 import fr.cyberbase.entities.UsagerEntity;
 
@@ -24,6 +25,10 @@ public class QuartierService {
 	public void add(QuartierEntity quartier) {
 		entityManager.persist(quartier);
 		
+	}
+
+	public QuartierEntity findById(Integer id) {
+		return entityManager.find(QuartierEntity.class, id);
 	}
 	
 	
