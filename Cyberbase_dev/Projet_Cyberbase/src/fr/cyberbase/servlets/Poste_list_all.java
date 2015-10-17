@@ -71,7 +71,7 @@ public class Poste_list_all extends HttpServlet {
 	        	techId = login.getLoginTechId();
 	        }
 		}
-		request.setAttribute("login", techId);
+		request.setAttribute("loginId", techId);
 		
 		//Récupération du professionnel connecté
 		ProfessionnelEntity professionnel = proService.findByTechId(techId);

@@ -107,11 +107,11 @@ public class Affecter_poste_form extends HttpServlet {
 		ProfessionnelEntity professionnel = proService.findByTechId(techId);
 				
 		//Récupération de l'id du site du professionnel connecté
-		Integer idSiteProfessionnel = login.getSiteId();
-		request.setAttribute("idPro", idSiteProfessionnel);
+		Integer idProfessionnel = proService.findByTechId(login.getLoginTechId()).getId_professionnel();
+		request.setAttribute("idPro", idProfessionnel);
 				
 		//Récupération du site du professionnel connecté
-		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
+		SiteEntity siteProfessionnel = siteService.findById(login.getSiteId());
 			
 		//Récupération de l'id poste passé en paramètre d'URL pour une affectation d'un poste spécifique
 		String idPosteParameter = request.getParameter("id");
@@ -173,7 +173,9 @@ public class Affecter_poste_form extends HttpServlet {
 				idUser = Integer.valueOf(inputIdUser);
 		       }
 			String inputIdPro = request.getParameter("inputIdPro");
+			System.out.println(inputIdPro);
 			Integer idPro = Integer.valueOf(inputIdPro);
+			System.out.println(inputIdPro);
 			String[] inputIdPosteTable = request.getParameterValues("poste");
 			Integer idPoste = null;
 			for(int jj=0;jj<inputIdPosteTable.length;jj++)
@@ -194,6 +196,7 @@ public class Affecter_poste_form extends HttpServlet {
 			DateTime dateEnd = dateStart.plusMinutes(minutes);
 			Timestamp tsDateStart = new Timestamp(dateStart.getMillis());
 			Timestamp tsDateEnd = new Timestamp(dateEnd.getMillis());
+			
 			AffectationEntity affectation = new AffectationEntity();
 			affectation.setDate_debut_affectation(tsDateStart);
 			affectation.setDate_fin_affectation(tsDateEnd);
@@ -204,6 +207,7 @@ public class Affecter_poste_form extends HttpServlet {
 			posteService.updatePoste(poste);
 			affectation.setPoste(poste);
 			ProfessionnelEntity professionnel = proService.findById(idPro);
+			System.out.println(professionnel.getId_professionnel());
 			affectation.setProfessionnel(professionnel);
 			UsagerEntity usager = userService.findById(idUser);
 			affectation.setUsager(usager);

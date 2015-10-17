@@ -58,9 +58,9 @@ public class Exclure_form extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< HEAD
+
 		request.setAttribute(ATTR_SECTION, "USAGERS");	
-=======
+
 		if(request.getParameter("create") != null){
 			ExclusionEntity exclusion = new ExclusionEntity();
 			String inputStatut = request.getParameter("statut");
@@ -75,7 +75,7 @@ public class Exclure_form extends HttpServlet {
 			}
 			exclusionService.createExclusion(exclusion);
 		}
->>>>>>> 0e6b1d09676c01b9a75d2336bbd1a7b652939fb0
+
 	}
 
 }

@@ -80,7 +80,7 @@ public class Salle_form extends HttpServlet {
 	        	techId = login.getLoginTechId();
 	        }
 		}
-		request.setAttribute("login", techId);
+		request.setAttribute("loginId", techId);
 		
 		//Récupération du professionnel connecté
 		ProfessionnelEntity professionnel = proService.findByTechId(techId);
