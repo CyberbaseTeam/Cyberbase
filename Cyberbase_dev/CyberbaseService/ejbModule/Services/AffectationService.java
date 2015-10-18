@@ -26,7 +26,7 @@ public class AffectationService {
 	public List<AffectationEntity> findAll(){
 		@SuppressWarnings("unchecked")
 		List<AffectationEntity> affectations = entityManager.createNamedQuery(
-				"AffectationEntity.findAll").getResultList();
+				"affectationEntity.findAll").getResultList();
 		return affectations;
 	}
 	

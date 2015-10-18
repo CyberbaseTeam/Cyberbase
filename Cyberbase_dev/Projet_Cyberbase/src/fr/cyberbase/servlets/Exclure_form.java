@@ -2,7 +2,11 @@ package fr.cyberbase.servlets;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -24,7 +28,11 @@ import fr.cyberbase.entities.UsagerEntity;
 public class Exclure_form extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ATTR_USAGER 			= "usager";
-	private static final String ATTR_SECTION  = "section";
+	private static final String ATTR_USAGERS 			= "usagers";
+	private static final String ATTR_SECTION  			= "section";
+	private static final String ATTR_EXCLUS  			= "exclusions";
+	private static final String ATTR_MESSAGE 			= "message";
+	
 	@EJB
 	UsagerService usagerService;
 	@EJB
@@ -69,11 +77,33 @@ public class Exclure_form extends HttpServlet {
 			Integer idUsager = Integer.valueOf(inputIdUsager);
 			UsagerEntity usager = usagerService.findById(idUsager);
 			exclusion.setUsager(usager);
-			if (inputStatut == "temporaire"){
-				 Date aujourdhui = new Date();
-				 exclusion.setDate_debut((java.sql.Date) aujourdhui);
-			}
+				
+				Calendar calendar = Calendar.getInstance();
+				java.util.Date currentDate = calendar.getTime();
+				java.sql.Date dateDebut = new java.sql.Date(currentDate.getTime());
+				exclusion.setDate_debut(dateDebut);
+				
+				if ("temporaire".equals(inputStatut)){
+					String inputDateFin = request.getParameter("dateExclusion");
+				
+					SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			        Date parsed = null;
+					try {
+						parsed = format.parse(inputDateFin);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			        java.sql.Date sql = new java.sql.Date(parsed.getTime());
+					exclusion.setDate_fin(sql);
+				}
 			exclusionService.createExclusion(exclusion);
+			
+			String message = "Usager exclu avec succès";
+			request.setAttribute(ATTR_MESSAGE, message);
+			List<UsagerEntity> usagers = usagerService.findAll();
+			request.setAttribute(ATTR_USAGERS, usagers);
+			request.getRequestDispatcher("/WEB-INF/usagers.jsp").forward(request, response);
 		}
 
 	}

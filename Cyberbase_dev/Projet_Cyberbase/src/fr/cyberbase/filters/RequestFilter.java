@@ -4,11 +4,14 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,7 +25,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.validator.constraints.Length;
+import org.joda.time.DateTime;
 
+import Services.AffectationService;
+import Services.PosteService;
+import fr.cyberbase.entities.AffectationEntity;
+import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.util.CookieTools;
 import fr.cyberbase.util.Login;
 
@@ -33,6 +41,11 @@ import fr.cyberbase.util.Login;
 @WebFilter(urlPatterns = "/*")
 public class RequestFilter implements Filter {
   
+	@EJB
+	PosteService posteService;
+	@EJB
+	AffectationService affectationService;
+	
 	private final String PATH_CONNEXION = "connexion"; 
    
     CookieTools cookieTools = new CookieTools();
@@ -104,6 +117,7 @@ public class RequestFilter implements Filter {
         finally{
         	
         }
+        
         
         
     }      

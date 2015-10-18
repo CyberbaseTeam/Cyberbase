@@ -3,6 +3,7 @@ package fr.cyberbase.servlets;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
@@ -18,10 +19,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
+
+import Services.AffectationService;
 import Services.PosteService;
 import Services.ProfessionnelService;
 import Services.SalleService;
 import Services.SiteService;
+import fr.cyberbase.entities.AffectationEntity;
 import fr.cyberbase.entities.PosteEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
 import fr.cyberbase.entities.SalleEntity;
@@ -35,7 +40,10 @@ import fr.cyberbase.util.Login;
 @WebServlet("/poste_list")
 public class Poste_list extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String ATTR_SECTION= "section";
+	private static final String ATTR_SECTION	= "section";
+	private static final String ATTR_MESS	= "message";
+	
+	
 	
 	@EJB
 	SiteService siteService;
@@ -45,6 +53,8 @@ public class Poste_list extends HttpServlet {
 	PosteService posteService;
 	@EJB
 	SalleService salleService;
+	@EJB
+	AffectationService affectationService;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -91,9 +101,55 @@ public class Poste_list extends HttpServlet {
 				
 		//Récupération du site du professionnel connecté
 		SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
+		
+		List<PosteEntity> postes = posteService.findAll();
+	    List<AffectationEntity> affectations = affectationService.findAll();
+	      
+	      for(PosteEntity poste : postes){
+	    	  if(poste.getDisponibilite() == false){
+	    		  for (AffectationEntity affectation : affectations){
+	    			  if (poste.getId_poste() == affectation.getPoste().getId_poste()){
+	    				  DateTime dateActuelTest = new DateTime();
+	    				  Timestamp tsDateActuelTest = new Timestamp(dateActuelTest.getMillis());
+	    				  long tsNow = tsDateActuelTest.getTime();
+	    				  long tsAff = affectation.getDate_fin_affectation().getTime();
+	    				  if ( tsNow > tsAff ){
+	    					  poste.setDisponibilite(true);
+	  						  posteService.updatePoste(poste);
+	    				  }
+	    			  }
+	    		  }
+	    	  }
+	      }
 				
 		List<SiteEntity> siteEntities = siteService.findAll();
 		request.setAttribute("sitePro", siteProfessionnel);
+		
+		String statutParameter = request.getParameter("statut");
+		
+		if (statutParameter != null) {
+			
+			String message = "";
+			
+			switch (statutParameter){
+			
+				case "edit":
+					message = "Modification bien effectuée";
+					request.setAttribute(ATTR_MESS, message);
+					break;
+					
+				case "libererPoste":
+					message = "Poste libéré";
+					request.setAttribute(ATTR_MESS, message);
+					break;
+					
+				case "libererSalle":
+					message = "Tous les postes de la salle viennent d'être libérés";
+					request.setAttribute(ATTR_MESS, message);
+					break;
+			}
+			
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/poste_list.jsp").forward(request, response);
 	}
@@ -108,7 +164,7 @@ public class Poste_list extends HttpServlet {
 			Integer idPoste = Integer.valueOf(inputIdPoste);
 			PosteEntity poste = posteService.findById(idPoste);
 			posteService.changeDisponibility(poste);
-			response.sendRedirect("poste_list");
+			response.sendRedirect("poste_list?statut=libererPoste");
 		} else if (request.getParameter("libererPostesSalle") != null) {
 			String inputIdSalle = request.getParameter("inputIdSalle");
 			Integer idSalle = Integer.valueOf(inputIdSalle);
@@ -121,7 +177,7 @@ public class Poste_list extends HttpServlet {
 					posteService.updatePoste(poste2);
 				}
 			}
-				response.sendRedirect("poste_list");
+			response.sendRedirect("poste_list?statut=libererSalle");
 		} else if (request.getParameter("libererPostesSite") != null) {
 			String inputIdSite = request.getParameter("inputIdSite");
 			Integer idSite = Integer.valueOf(inputIdSite);
@@ -154,6 +210,8 @@ public class Poste_list extends HttpServlet {
 			salleService.deleteSalle(salle);
 			SiteEntity siteProfessionnel = siteService.findById(idSiteProfessionnel);
 			request.setAttribute("sitePro", siteProfessionnel);
+			String message = "Suppression bien effectuée";
+			request.setAttribute(ATTR_MESS, message);
 			request.getRequestDispatcher("/WEB-INF/poste_list.jsp").forward(request, response);
 		}
 	}

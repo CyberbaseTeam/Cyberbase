@@ -33,7 +33,7 @@ import fr.cyberbase.util.Login;
 @WebServlet("/salle_form")
 public class Salle_form extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String ATTR_SECTION= "section";
+	private static final String ATTR_SECTION	= "section";
 	
 	@EJB
 	SiteService siteService;
@@ -100,6 +100,7 @@ public class Salle_form extends HttpServlet {
 			Integer idSalle = Integer.valueOf(idSalleParameter);
 			request.setAttribute("salle", salleService.findById(idSalle));
 		}
+
 		
 		request.getRequestDispatcher("/WEB-INF/salle_form.jsp").forward(request, response);
 		
@@ -126,7 +127,7 @@ public class Salle_form extends HttpServlet {
 			SalleEntity salle = salleService.findById(idSalle);
 			salle.setNom_salle(nomSalle);
 			salleService.updateSalle(salle);
-			response.sendRedirect("poste_list");
+			response.sendRedirect("poste_list?statut=edit");
 		} else if (request.getParameter("editPoste") != null){
 			String idPosteParameter = request.getParameter("idPoste");
 			Integer idPoste = Integer.valueOf(idPosteParameter);
