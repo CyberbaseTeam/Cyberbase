@@ -12,14 +12,14 @@
 				<th>Civilité</th>
 				<th>Nom</th>
 				<th>Prenom</th>
-				<th>Date de naissance</th>
+				<th>Date naissance</th>
 				<th>Adresse</th>
 				<th>Code postal</th>
 				<th>Ville</th>
 				<th>Email</th>
-				<th>Accompagnement</th>
-				<th>Site d'inscription</th>
-				<th>Niveau de formation</th>
+				<th>Tuteur</th>
+				<th>Site inscription</th>
+				<th>Formation</th>
 				<th>CSP</th>
 				<th>Quartier</th>
 				<th colspan="4">action</th>
@@ -72,9 +72,36 @@
 						<td>
 							<button type="submit" name="viewHistory" class="btn btn-info">Historique</button>
 						</td>
-						<td>
-							<button type="submit" name="excludeUsager" class="btn btn-warning">Exclure</button>
-						</td>
+						<c:set var="count" value="0" scope="page" />
+						<c:forEach items="${exclusions}" var="exclusion">
+							<c:if test="${usager.id_usager == exclusion.usager.id_usager}">
+								<c:set var="count" value="${count + 1}" scope="page"/>
+								<c:set var="statut" value="${exclusion.statut_exclusion}" scope="page"/>
+								<c:set var="date" value="${exclusion.date_fin}" scope="page"/>
+							</c:if>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${count > 0}">
+								<c:choose>
+									<c:when test="${statut eq 'temporaire'}">
+										<td>
+											<div class="alert alert-warning" role="alert">Exclu jusqu'au <fmt:formatDate value="${date}" pattern="dd/MM/yyyy"/></div>
+										</td>
+									</c:when>
+									<c:otherwise>
+										<td>
+											<div class="alert alert-danger" role="alert">Exclu définitivement</div>
+										</td>
+									</c:otherwise>
+								</c:choose>
+							</c:when>
+							<c:otherwise>
+								<td>
+									<button type="submit" name="excludeUsager" class="btn btn-warning">Exclure</button>
+								</td>
+							</c:otherwise>
+						</c:choose>
+						
 					</form>
 				</tr>
 			</c:forEach>

@@ -8,15 +8,15 @@
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
 	<div id="container-salle_form">
 	<section class ="colonne-salle">
-			<form method="post">
+			<form method="post" id="myForm">
 				<fieldset>
 					<legend >
 						Informations salle
 					</legend>
 							<label for="selection-site">Nom de la salle :</label>
-							<input type="text" name="nomSalle" value="${salle.nom_salle}"
-								size="20" maxlength="80" class="form-control" /> <input type="hidden"
-								value="${sitePro.id_site}" name="idSite">
+							<input type="text" name="nomSalle" id="nomSalle" value="${salle.nom_salle}"
+								size="20" maxlength="80" class="form-control" /> 
+							<input type="hidden" value="${sitePro.id_site}" name="idSite">
 							<c:choose>
 								<c:when test="${empty salle}">
 									<br>

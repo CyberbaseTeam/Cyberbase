@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Services.ExclusionService;
 import Services.SiteService;
 import Services.UsagerService;
 import fr.cyberbase.entities.CspEntity;
 import fr.cyberbase.entities.DemarcheEntity;
+import fr.cyberbase.entities.ExclusionEntity;
 import fr.cyberbase.entities.FormationEntity;
 import fr.cyberbase.entities.ProfessionnelEntity;
 import fr.cyberbase.entities.QuartierEntity;
@@ -28,19 +30,19 @@ import fr.cyberbase.entities.UsagerEntity;
 public class Usagers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ATTR_SITES 			= "siteList";
-	private static final String ATTR_SECTION= "section";
+	private static final String ATTR_SECTION		= "section";
 
 	List<SiteEntity> siteList;
 	List<UsagerEntity> usagerList;
 	
 	
-	
-	
 	@EJB
 	UsagerService usagerService;
-	
 	@EJB
 	SiteService siteService;
+	@EJB
+	ExclusionService exclusionService;
+	
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -68,6 +70,9 @@ public class Usagers extends HttpServlet {
 			List<UsagerEntity> usagers = usagerService.findAll();
 			request.setAttribute("usagers", usagers);
 		}
+		List<ExclusionEntity> exclusions = exclusionService.findAll();
+		request.setAttribute("exclusions", exclusions);
+		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/usagers.jsp").forward(request, response);
 	}
 

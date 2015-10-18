@@ -15,11 +15,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Services.CspService;
+import Services.ExclusionService;
 import Services.FormationService;
 import Services.QuartierService;
 import Services.SiteService;
 import Services.UsagerService;
 import fr.cyberbase.entities.CspEntity;
+import fr.cyberbase.entities.ExclusionEntity;
 import fr.cyberbase.entities.FormationEntity;
 import fr.cyberbase.entities.QuartierEntity;
 import fr.cyberbase.entities.SiteEntity;
@@ -36,6 +38,8 @@ public class Usager_form extends HttpServlet {
 	private static final String ATTR_QUARTIERS 			= "quartiers";
 	private static final String ATTR_CSPS 				= "csps";
 	private static final String ATTR_FORMATIONS 		= "formations";
+	private static final String ATTR_EXCLUS				= "exclusions";
+	private static final String ATTR_MESS				= "message";
 	private static final String ATTR_SECTION= "section";
 	
 	@EJB
@@ -48,6 +52,8 @@ public class Usager_form extends HttpServlet {
 	CspService cspService;
 	@EJB
 	FormationService formationService;
+	@EJB
+	ExclusionService exclusionService;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -77,6 +83,8 @@ public class Usager_form extends HttpServlet {
 		request.setAttribute(ATTR_CSPS, csps);
 		List<FormationEntity> formations = formationService.findAll();
 		request.setAttribute(ATTR_FORMATIONS, formations);
+		List<ExclusionEntity> exclusions = exclusionService.findAll();
+		request.setAttribute(ATTR_EXCLUS, exclusions);
 		
 		request.getRequestDispatcher("/WEB-INF/usager_form.jsp").forward(request, response);
 	}
@@ -145,6 +153,12 @@ public class Usager_form extends HttpServlet {
 			String villeUsager = request.getParameter("villeUsager");
 			usager.setVille_usager(villeUsager);
 			usagerService.update(usager);
+			response.sendRedirect("usagers");
+		} else if(request.getParameter("deleteExclu") != null){
+			String inputIdExclu = request.getParameter("inputIdExclu");
+			Integer idExclu = Integer.valueOf(inputIdExclu);
+			ExclusionEntity exclusion = exclusionService.findById(idExclu);
+			exclusionService.deleteExclusion(exclusion);
 			response.sendRedirect("usagers");
 		}
 	}

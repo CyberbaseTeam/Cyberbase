@@ -103,6 +103,38 @@
 									</c:choose>
 								</c:forEach>
 							</select>
+							<br><br>
+							
+							<c:set var="count" value="0" scope="page" />
+						<c:forEach items="${exclusions}" var="exclusion">
+							<c:if test="${usager.id_usager == exclusion.usager.id_usager}">
+								<c:set var="count" value="${count + 1}" scope="page"/>
+								<c:set var="statut" value="${exclusion.statut_exclusion}" scope="page"/>
+								<c:set var="date" value="${exclusion.date_fin}" scope="page"/>
+								<input type="hidden" name="inputIdExclu" value="${exclusion.id_exclusion}" />
+							</c:if>
+						</c:forEach>
+						<c:choose>
+							<c:when test="${count > 0}">
+								<label for="siteUsager">Exclusion :</label>
+								<c:choose>
+									<c:when test="${statut eq 'temporaire'}">
+										
+											<div class="alert alert-warning" role="alert">Exclu jusqu'au <fmt:formatDate value="${date}" pattern="dd/MM/yyyy"/></div>
+										
+									</c:when>
+									<c:otherwise>
+										
+											<div class="alert alert-danger" role="alert">Exclu définitivement</div>
+										
+									</c:otherwise>
+									
+								</c:choose>
+								<button type="submit" name="deleteExclu"  class="btn btn-danger">Supprimer exclusion</button>
+							</c:when>
+								
+							</c:choose>
+							
 						</section>
 						<section>
 							<br>
@@ -110,7 +142,7 @@
 							<input type="hidden" name="idUsager" value="${usager.id_usager}" />
 							<input type="hidden" name="dateInscriptionUsager" value="${usager.date_inscription}" />
 							<input type="hidden" name="dateUsager" value="${usager.date_naissance_usager}" />
-							<button type="submit" name="edit"  class="btn btn-primary">Valider</button>
+							<button type="submit" name="edit"  class="btn btn-primary">Valider modifications</button>
 						</section>
 			</fieldset>
 			</form>
