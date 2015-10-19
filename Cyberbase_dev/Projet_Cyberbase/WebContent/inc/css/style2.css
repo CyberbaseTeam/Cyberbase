@@ -277,6 +277,11 @@ checkbox {
 
 /***************POSTES ET SALLES***************/
 
+#postes .navbar-default a{
+	background-color:#FFE6B2;
+	color: #050055;
+}
+
 .colonne-postes {
 	width : 40%;
 	display : inline-block;
