@@ -6,6 +6,7 @@ html, body {
 	height: 100%;
 }
 
+
 h1 {
 	font-family: Arial;
 	text-align: center;
@@ -226,6 +227,10 @@ checkbox {
 	color: #050055;
 }
 
+#usagers{
+	min-height: 550px;
+}
+
 /***************ADMIN***************/
 
 #admin_list .navbar-default a{
@@ -385,4 +390,5 @@ checkbox {
 	text-align: center;
 	box-shadow: 0px -3px 6px 2px rgba(0, 0, 0, 0.2);
 	position: absolute;
+	
 }
