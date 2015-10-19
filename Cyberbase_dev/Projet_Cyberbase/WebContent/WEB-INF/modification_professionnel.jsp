@@ -6,7 +6,7 @@
 
 <t:main>
 
-	<div id="update_pro">
+	<div id="admin_list">
 		<c:import url="/inc/modules/menu_admin.jsp" />
 
 		<div id="stat_data">
