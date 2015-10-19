@@ -154,7 +154,11 @@ th{
 	position: absolute relative;
 }
 
-
+.formError{
+	text-align: center;
+	font-weight: bold;
+	color: #FF5C33;
+}
 
 
 #query-result {

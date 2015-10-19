@@ -75,6 +75,8 @@ public class CookieTools {
 		return login;
     
     }
+	
+	
 
 	
 	/**
@@ -157,5 +159,26 @@ public class CookieTools {
         return key;	    	
     }
     
-    
+    public String generateWrongToken(ProfessionnelEntity pro) throws InvalidKeyException, NoSuchAlgorithmException, NoSuchPaddingException, IllegalBlockSizeException, BadPaddingException{
+    	Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.HOUR, -8);
+        Long expireTimeInMillis = calendar.getTimeInMillis();
+        
+        StringBuilder token = new StringBuilder();
+        token.append(expireTimeInMillis);
+        token.append(SEPARATOR);
+        token.append(CHECK_MSG_PRO_USER);
+        token.append(SEPARATOR);
+        token.append(pro.getTech_id());
+        token.append(SEPARATOR);
+        token.append(pro.getNom_professionnel());
+        token.append(SEPARATOR);
+        token.append(pro.getPrenom_professionnel());
+        token.append(SEPARATOR);
+        token.append(pro.getSite_reference().getId_site());
+        return encrypt(token.toString());
+       
+        
+        
+    }
 }

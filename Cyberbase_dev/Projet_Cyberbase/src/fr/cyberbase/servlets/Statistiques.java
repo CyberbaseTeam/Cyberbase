@@ -68,9 +68,7 @@ public class Statistiques extends HttpServlet {
 	private static final String ATTR_CURRENTSTATS	= "currentStats";
 	private static final String ATTR_SECTION		= "sectionName";
 	private static final String ATTR_LOGIN			= "login";
-	
-	
-	
+	private static final String ATTR_ERRORS			= "errorMessages";
 	
 	private static final String FIELD_DISPLAY_DATA 	= "displayData[]";
 	private static final String FIELD_SEARCH_PANEL 	= "searchPanel";
@@ -103,6 +101,8 @@ public class Statistiques extends HttpServlet {
 	List<String> columnNames = new ArrayList<String>();
 	
 	Map<String, Object> currentStats;
+	
+	Map<String, String> errorMessages = new HashMap<String,String>();
 	
 	@EJB
 	StatistiqueService statistiqueService;
@@ -181,7 +181,7 @@ public class Statistiques extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		errorMessages.clear();	
 		queryObjects = new HashMap<String, String>();
 		
 		querySelectObjects = new ArrayList<String>();
@@ -243,12 +243,17 @@ public class Statistiques extends HttpServlet {
 		String queryName = request.getParameter(FIELD_QUERY_NAME);
 		if(!queryName.equals(""))
 			queryObjects.put(FIELD_QUERY_NAME, queryName);	
+		
+		Boolean formCheck = checkFormInput(queryObjects);
+		if(formCheck){
+			
 				
-		List<Object> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
-		String htmlResult = queryResultToHtml(queryResult, querySelectObjects.size(), columnNames  );
+			List<Object> queryResult = statistiqueService.createPersonalQuery(queryObjects, querySelectObjects, logged);
+			String htmlResult = queryResultToHtml(queryResult, querySelectObjects.size(), columnNames  );
 				
-		request.setAttribute("columnNames", columnNames);
-		request.setAttribute("htmlResult", htmlResult);
+			request.setAttribute("columnNames", columnNames);
+			request.setAttribute("htmlResult", htmlResult);
+		}
 		initializeData(request, logged);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/statistiques.jsp").forward(request, response);		
 	}
@@ -301,6 +306,7 @@ public class Statistiques extends HttpServlet {
 		request.setAttribute(ATTR_DEMARCHE, demarcheList);
 		request.setAttribute(ATTR_REQUETES, requeteList);
 		request.setAttribute(ATTR_CURRENTSTATS, currentStats);
+		request.setAttribute(ATTR_ERRORS, errorMessages);
 		request.setAttribute(ATTR_SECTION, "STATISTIQUES");	
 	}
 
@@ -444,7 +450,7 @@ public class Statistiques extends HttpServlet {
 			}
 			htmlResult = htmlResult.concat("</tr></table>");
 			
-			htmlResult = htmlResult.concat("<form method=\"post\" action=\"download\"\"><input type=\"submit\" name=\"export\" id=\"export\" value=\"export\"/></input>");
+			htmlResult = htmlResult.concat("<form method=\"post\" action=\"download\"\"><input class=\"btn btn-success\" type=\"submit\" name=\"export\" id=\"export\" value=\"export\"/></input>");
 			htmlResult = htmlResult.concat("<input type=\"hidden\" value=\"");
 			htmlResult = htmlResult.concat(prepareCsv);
 			htmlResult = htmlResult.concat("\" name=\"exportValue\" id=\"exportValue\"/></input></form>");
@@ -572,5 +578,66 @@ public class Statistiques extends HttpServlet {
 		return currentStats;
 	}
 		
-	
+	private boolean checkFormInput(Map<String, String> queryObjects){
+		
+		if(queryObjects.containsKey(FIELD_CITY)){
+			if(!queryObjects.get(FIELD_CITY).matches("^[a-zA-Z]+$"))
+			{
+				errorMessages.put(FIELD_CITY, "les chiffres ne sont pas acceptés pour la ville.");
+				return false;
+			}			
+		}
+		
+		if(queryObjects.containsKey(FIELD_VISIT_MIN)){
+			if(!queryObjects.containsKey(FIELD_VISIT_MAX)){
+				errorMessages.put(FIELD_VISIT_MIN, "les 2 champs du nombre de visites doivent être remplis.");
+				return false;
+			}
+			if(!queryObjects.get(FIELD_VISIT_MIN).matches("^[0-9]+$") ){
+				errorMessages.put(FIELD_VISIT_MIN, "le nombre de visites doit être un nombre");
+				return false;
+			}	
+		}
+		
+		if(queryObjects.containsKey(FIELD_VISIT_MAX)){
+			if(!queryObjects.containsKey(FIELD_VISIT_MIN)){
+				errorMessages.put(FIELD_VISIT_MIN, "les 2 champs du nombre de visites doivent être remplis.");
+				return false;
+			}
+			if(!queryObjects.get(FIELD_VISIT_MAX).matches("^[0-9]+$") ){
+				errorMessages.put(FIELD_VISIT_MIN, "le nombre de visites doit être un nombre");
+				return false;
+			}
+		}
+		
+		
+		if(queryObjects.containsKey(FIELD_DATE_START)){
+			System.out.println("dates");
+			if(!queryObjects.containsKey(FIELD_DATE_END)){
+				errorMessages.put(FIELD_DATE_START, "les deux champs dates doivent être remplis");
+				return false;
+			}
+			
+			if(!queryObjects.get(FIELD_DATE_START).matches("^\\d{4}-\\d{2}-\\d{2}$")){
+				errorMessages.put(FIELD_DATE_START, "Le format doit être YYYY-MM-dd");
+				return false;
+			}				
+		}
+		
+		if(queryObjects.containsKey(FIELD_DATE_END)){
+			System.out.println("dates");
+			if(!queryObjects.containsKey(FIELD_DATE_START)){
+				errorMessages.put(FIELD_DATE_START, "les deux champs dates doivent être remplis");
+				return false;
+			}
+			
+			if(!queryObjects.get(FIELD_DATE_END).matches("^\\d{4}-\\d{2}-\\d{2}$")){
+				errorMessages.put(FIELD_DATE_START, "Le format de date doit être YYYY-MM-dd");
+				return false;
+			}				
+		}
+				
+		return true;
+			
+	}
 }

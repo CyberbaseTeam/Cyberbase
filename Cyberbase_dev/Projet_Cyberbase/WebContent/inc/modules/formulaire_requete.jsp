@@ -6,7 +6,7 @@
 	<div id="query">
 
 		<h3>Requête personnalisée</h3>
-		<span class="error"></span>
+		<p class="formError">${errorMessages.city }</p><p class="formError">${errorMessages.visitMin }</p><p class="formError">${errorMessages.dateStart }</p>
 		<form method="POST">
 			<div class="row">
 				<div class="col-md-1"></div>
@@ -228,7 +228,7 @@
 				<div class="col-md-2">
 					<input type="text" name="visitMax">
 				</div>
-							
+						
 				
 			</div>
 			<div class="row">

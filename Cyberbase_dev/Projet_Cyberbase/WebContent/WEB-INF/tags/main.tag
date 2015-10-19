@@ -29,9 +29,9 @@
 		<div class="col-md-4"></div>
 		<div class="col-md-4">
 			<div id="info_session" class="col-md-6">
-				<p>Nom: ${login.nom }</p>
-				<p>Prénom: ${login.prenom }</p>
-				<p>Identifiant:${login.loginTechId }</p>
+				<p><strong>Nom: </strong>${login.nom }</p>
+				<p><strong>Prénom: </strong>${login.prenom }</p>
+				<p><strong>Identifiant: </strong>${login.loginTechId }</p>
 			</div>
 		</div>
 	</div>

@@ -108,7 +108,7 @@ public class RequestFilter implements Filter {
 	    		
 	    		response.sendRedirect(PATH_CONNEXION);
 	    	}
-	        }
+	    }
         
         } catch (InvalidKeyException | NoSuchPaddingException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException e) {
 			// TODO Auto-generated catch block
@@ -126,25 +126,5 @@ public class RequestFilter implements Filter {
     	
     }
     
-    
-	private Login getLoginFromCookie(Cookie[] cookies) throws UnsupportedEncodingException {
-		Login login = new Login();
-		CookieTools cookieTools = new CookieTools();
-		for(Cookie cookie: cookies)
-		{
-			if(cookie.getName().equals(CookieTools.COOKIE_KEY)) 
-	        {
-				String tokenCookie = cookie.getValue();
-				try {
-					login = cookieTools.getLogin(tokenCookie);
-					return login;
-				} catch (InvalidKeyException | NoSuchPaddingException
-						| NoSuchAlgorithmException | IllegalBlockSizeException
-						| BadPaddingException e) {
-					e.printStackTrace();
-				}
-	        }
-		}
-		return null;
-	}
+
 }

@@ -16,7 +16,7 @@
 			<li><a href="gestion_salles_postes">Salles et postes</a></li>
 			<li><a href="statistiques">Statistiques</a></li>
 			<li><a href="administration">Administration</a></li>
-			<li class="active"><a href="">Déconnexion</a></li>
+			<li class="active"><a href="deconnexion">Déconnexion</a></li>
 		</ul>
 	</div>
 </nav>
