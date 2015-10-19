@@ -34,6 +34,7 @@ import fr.cyberbase.util.Login;
 public class Salle_list_edit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String ATTR_SECTION= "section";
+	private static final String ATTR_MESS	= "message";
 	
 	@EJB
 	SiteService siteService;
@@ -93,6 +94,23 @@ public class Salle_list_edit extends HttpServlet {
 				
 		List<SiteEntity> siteEntities = siteService.findAll();
 		request.setAttribute("sitePro", siteProfessionnel);
+		
+		String statutParameter = request.getParameter("statut");
+		
+		if (statutParameter != null) {
+			
+			String message = "";
+			
+			switch (statutParameter){
+			
+				case "createSalle":
+					message = "Salle bien créée";
+					request.setAttribute(ATTR_MESS, message);
+					break;
+					
+			}
+			
+		}
 		
 		request.getRequestDispatcher("/WEB-INF/salle_list_edit.jsp").forward(request, response);
 	}

@@ -5,6 +5,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:main>
+<div id="usagers">
 	<c:import url="/inc/modules/menu_usager.jsp" />
 	<div id="container-exclure_form">
 		<section>
@@ -49,4 +50,5 @@
                 });
             });
         </script>
+ </div>
 </t:main>

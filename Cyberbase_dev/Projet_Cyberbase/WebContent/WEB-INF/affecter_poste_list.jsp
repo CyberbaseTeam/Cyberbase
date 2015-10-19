@@ -10,8 +10,10 @@
 						<article>
 							<div>
 								<form method="post">
-									<a href="affecter_poste_list?page=1">Voir les affectations en cours</a> // 
-									<a href="affecter_poste_list?page=2">Voir les affectations passées</a>
+									<ul class="nav nav-pills">
+									  <li role="presentation" <c:if test="${caseList == 2}">class=""</c:if> class="active"><a href="affecter_poste_list?page=1">Voir les affectations en cours</a></li>
+									  <li role="presentation" <c:if test="${caseList == 2}">class="active"</c:if>><a href="affecter_poste_list?page=2">Voir les affectations passées</a></li>
+									</ul>
 								</form>
 							</div>
 						</article>

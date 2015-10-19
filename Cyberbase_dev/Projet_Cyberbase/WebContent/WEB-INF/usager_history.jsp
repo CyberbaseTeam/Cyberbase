@@ -5,6 +5,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:main>
+<div id="usagers">
 	<c:import url="/inc/modules/menu_usager.jsp" />
 		<div id="container-usager_history">
 		<fieldset>
@@ -57,5 +58,6 @@
 							</c:otherwise>
 						</c:choose> 	
 					</fieldset>
-				</div>	
+				</div>
+			</div>	
 </t:main>

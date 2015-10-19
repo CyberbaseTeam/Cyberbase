@@ -46,6 +46,7 @@ public class Professionnel_form extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute(ATTR_SECTION, "ADMINISTRATION");	
+		request.setAttribute(ATTR_SITES, siteService.findAll());
 		request.setAttribute("sites", siteService.findAll());
 		request.setAttribute("structures", structureService.findAll());
 		request.getRequestDispatcher("/WEB-INF/ajout_professionnel.jsp").forward(request, response);

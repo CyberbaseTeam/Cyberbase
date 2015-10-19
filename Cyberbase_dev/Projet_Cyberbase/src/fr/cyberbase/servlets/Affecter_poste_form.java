@@ -212,7 +212,7 @@ public class Affecter_poste_form extends HttpServlet {
 			UsagerEntity usager = userService.findById(idUser);
 			affectation.setUsager(usager);
 			affectationService.createAffectation(affectation);
-			response.sendRedirect("salle_list");
+			response.sendRedirect("poste_list?statut=createAff");
 		} else if (request.getParameter("edit") != null) {
 			String inputIdAffectation = request.getParameter("inputIdAffectation");
 			Integer idAffectation = Integer.valueOf(inputIdAffectation);
@@ -256,7 +256,7 @@ public class Affecter_poste_form extends HttpServlet {
 			UsagerEntity usager = userService.findById(idUser);
 			affectation.setUsager(usager);
 			affectationService.updateAffectation(affectation);
-			response.sendRedirect("salle_list");
+			response.sendRedirect("poste_list?statut=editAff");
 		}
 	}
 

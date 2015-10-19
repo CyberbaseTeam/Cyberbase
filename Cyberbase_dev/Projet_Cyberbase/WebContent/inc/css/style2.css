@@ -275,10 +275,6 @@ checkbox {
 }
 
 
-
-
-
-
 /***************POSTES ET SALLES***************/
 
 .colonne-postes {
@@ -318,7 +314,7 @@ checkbox {
 }
 
 .liberer-site{
-	text-align: center;
+	margin-left : 10px;
 	margin-bottom: 30px;
 }
 
@@ -369,6 +365,11 @@ checkbox {
 	margin-left : 10px;
 	font-weight: bold;
 	font-size: 25px;
+}
+
+.error{
+	font-style: italic;
+	color: red;
 }
 
 /***************FOOTER***************/

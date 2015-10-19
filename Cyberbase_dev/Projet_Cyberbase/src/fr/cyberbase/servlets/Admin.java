@@ -145,7 +145,7 @@ public class Admin extends HttpServlet {
 			String techid = request.getParameter("inputId");
 			ProfessionnelEntity searchedEntity = professionnelService.findByTechId(techid);
 			request.setAttribute("modifiedProfessional", searchedEntity);
-			
+			request.setAttribute(ATTR_SITES, siteService.findAll());
 			request.setAttribute("sites", siteService.findAll());
 			request.setAttribute("structures", structureService.findAll());
 			
