@@ -6,6 +6,9 @@
 
 <t:main>
 	<c:import url="/inc/modules/menu_gestion_salles_postes.jsp" />
+	<c:if test="${not empty message}">
+		<div class="alert alert-success" role="alert">${message}</div>
+	</c:if>
 	<div id="container-salle_list">
 			<c:forEach items="${sitePro.salles}" var="salle">
 				<form method="post">

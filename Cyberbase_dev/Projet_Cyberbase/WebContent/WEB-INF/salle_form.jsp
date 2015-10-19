@@ -17,10 +17,13 @@
 							<input type="text" name="nomSalle" id="nomSalle" value="${salle.nom_salle}"
 								size="20" maxlength="80" class="form-control" /> 
 							<input type="hidden" value="${sitePro.id_site}" name="idSite">
+							<c:if test="${not empty erreur}">
+								<span class="error">${erreur}</span>
+							</c:if>
 							<c:choose>
 								<c:when test="${empty salle}">
 									<br>
-									<input type="submit" name="createSalle" value="Créer" />
+									<button type="submit" name="createSalle" class="btn btn-primary">Créer</button>
 								</c:when>
 								<c:otherwise>
 									<br>

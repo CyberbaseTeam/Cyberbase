@@ -69,7 +69,7 @@
 					<div>
 					  <form method="post">
 						<input type="hidden" value="${sitePro.id_site}" name="inputIdSite" />
-						<button type="submit" name="libererPostesSite" class="btn btn-danger">Libérer tous les postes du site ${sitePro.nom_site}</button>
+						<button type="submit" name="libererPostesSite" class="btn btn-warning">Libérer tous les postes du site ${sitePro.nom_site}</button>
 					  </form>
 					</div>
 				</article>

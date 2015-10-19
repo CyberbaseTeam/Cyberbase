@@ -106,20 +106,22 @@ public class Poste_list extends HttpServlet {
 	    List<AffectationEntity> affectations = affectationService.findAll();
 	      
 	      for(PosteEntity poste : postes){
-	    	  if(poste.getDisponibilite() == false){
-	    		  for (AffectationEntity affectation : affectations){
-	    			  if (poste.getId_poste() == affectation.getPoste().getId_poste()){
-	    				  DateTime dateActuelTest = new DateTime();
-	    				  Timestamp tsDateActuelTest = new Timestamp(dateActuelTest.getMillis());
-	    				  long tsNow = tsDateActuelTest.getTime();
-	    				  long tsAff = affectation.getDate_fin_affectation().getTime();
-	    				  if ( tsNow > tsAff ){
-	    					  poste.setDisponibilite(true);
-	  						  posteService.updatePoste(poste);
-	    				  }
-	    			  }
-	    		  }
-	    	  }
+	    	  Boolean disponibility = poste.getDisponibilite();
+	    	  	if (disponibility != null)
+		    	  if(poste.getDisponibilite() == false){
+		    		  for (AffectationEntity affectation : affectations){
+		    			  if (poste.getId_poste() == affectation.getPoste().getId_poste()){
+		    				  DateTime dateActuelTest = new DateTime();
+		    				  Timestamp tsDateActuelTest = new Timestamp(dateActuelTest.getMillis());
+		    				  long tsNow = tsDateActuelTest.getTime();
+		    				  long tsAff = affectation.getDate_fin_affectation().getTime();
+		    				  if ( tsNow > tsAff ){
+		    					  poste.setDisponibilite(true);
+		  						  posteService.updatePoste(poste);
+		    				  }
+		    			  }
+		    		  }
+		    	  }
 	      }
 				
 		List<SiteEntity> siteEntities = siteService.findAll();
@@ -145,6 +147,16 @@ public class Poste_list extends HttpServlet {
 					
 				case "libererSalle":
 					message = "Tous les postes de la salle viennent d'être libérés";
+					request.setAttribute(ATTR_MESS, message);
+					break;
+					
+				case "createAff":
+					message = "Affectation créée avec succès";
+					request.setAttribute(ATTR_MESS, message);
+					break;
+					
+				case "editAff":
+					message = "Affectation modifiée avec succès";
 					request.setAttribute(ATTR_MESS, message);
 					break;
 			}

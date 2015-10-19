@@ -5,6 +5,7 @@
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:main>
+<div id="usagers">
 	<c:import url="/inc/modules/menu_usager.jsp" />
 	<div id="container-poste_form">
 		<section>
@@ -148,4 +149,5 @@
 			</form>
 	</section>
 	</div>
+</div>
 </t:main>

@@ -3,8 +3,11 @@ package fr.cyberbase.servlets;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
@@ -43,6 +46,8 @@ public class Salle_form extends HttpServlet {
 	PosteService posteService;
 	@EJB
 	SalleService salleService;
+	
+	private Map<String, String> erreurs = new HashMap<String, String>();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -102,6 +107,7 @@ public class Salle_form extends HttpServlet {
 		}
 
 		
+		
 		request.getRequestDispatcher("/WEB-INF/salle_form.jsp").forward(request, response);
 		
 	}
@@ -113,13 +119,24 @@ public class Salle_form extends HttpServlet {
 		request.setAttribute(ATTR_SECTION, "CONSOLE");	
 		if (request.getParameter("createSalle") != null) {
 			SalleEntity salle = new SalleEntity();
-			salle.setNom_salle(request.getParameter("nomSalle"));
-			String idSiteParameter = request.getParameter("idSite");
-			Integer idSite = Integer.valueOf(idSiteParameter);
-			SiteEntity site = siteService.findById(idSite);
-			salle.setSite(site);
-			salleService.createSalle(salle);
-			response.sendRedirect("salle_list");
+			String nomSalle = request.getParameter("nomSalle");
+			String nomSalleTest = "";
+			if (nomSalleTest.equals(nomSalle) ) {
+				request.setAttribute("erreur", "Le champ de nom de salle ne peut pas être vide");
+				String idSiteParameter = request.getParameter("idSite");
+				Integer idSite = Integer.valueOf(idSiteParameter);
+				SiteEntity siteProfessionnel = siteService.findById(idSite);
+				request.setAttribute("sitePro", siteProfessionnel);
+				getServletContext().getRequestDispatcher("/WEB-INF/salle_form.jsp").forward(request, response);
+			} else{
+				salle.setNom_salle(nomSalle);
+				String idSiteParameter = request.getParameter("idSite");
+				Integer idSite = Integer.valueOf(idSiteParameter);
+				SiteEntity site = siteService.findById(idSite);
+				salle.setSite(site);
+				salleService.createSalle(salle);
+				response.sendRedirect("salle_list?statut=createSalle");
+			}
 		} else if(request.getParameter("confirmEditSalle") != null){
 			String idSalleParameter = request.getParameter("idSalle");
 			Integer idSalle = Integer.valueOf(idSalleParameter);
@@ -144,5 +161,6 @@ public class Salle_form extends HttpServlet {
 		} 
 		
 	}
+
 
 }
